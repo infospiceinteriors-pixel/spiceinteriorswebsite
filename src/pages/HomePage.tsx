@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Grid, Card, CardContent, CardMedia, Container, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, Button, Container, useTheme, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -73,20 +73,9 @@ const ServiceSection = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CategoryCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  transition: 'transform 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
-}));
-
 const HomePage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   
   return (
     <Box>

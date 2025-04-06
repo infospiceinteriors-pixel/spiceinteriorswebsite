@@ -74,7 +74,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const FaqContainer = styled(Box)(({ theme }) => ({
+const FaqContainer = styled(Box)(() => ({
   maxWidth: 1000,
   margin: '0 auto',
   position: 'relative',
@@ -154,7 +154,7 @@ const FaqSection = () => {
     },
   };
 
-  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 

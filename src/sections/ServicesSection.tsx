@@ -209,7 +209,6 @@ const CheckListItem = styled(ListItem)(({ theme }) => ({
 const ServicesSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);

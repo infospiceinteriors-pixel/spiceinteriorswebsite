@@ -27,7 +27,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
   width: '100%',
   position: 'fixed',
-  zIndex: 1100,
+  zIndex: theme.zIndex.appBar,
   transition: 'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
   '&.scrolled': {
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
