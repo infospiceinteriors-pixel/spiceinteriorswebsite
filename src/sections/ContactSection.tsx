@@ -64,23 +64,6 @@ const FormContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(5, 5.5),
   maxWidth: 1000,
   margin: '0 auto',
-  borderLeft: `1px solid rgba(197, 153, 123, 0.2)`,
-  borderRight: `1px solid rgba(197, 153, 123, 0.2)`,
-  position: 'relative',
-  '&::before, &::after': {
-    content: '""',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    height: '1px',
-    background: 'linear-gradient(to right, transparent, rgba(197, 153, 123, 0.2), transparent)',
-  },
-  '&::before': {
-    top: 0,
-  },
-  '&::after': {
-    bottom: 0,
-  },
   '& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & textarea:-webkit-autofill, & textarea:-webkit-autofill:hover, & textarea:-webkit-autofill:focus, & select:-webkit-autofill, & select:-webkit-autofill:hover, & select:-webkit-autofill:focus': {
     '-webkit-text-fill-color': theme.palette.text.primary,
     '-webkit-box-shadow': `0 0 0px 1000px ${theme.palette.background.default} inset`,
@@ -97,8 +80,6 @@ const FormContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(3.5, 1.5),
     backgroundColor: 'transparent',
-    borderLeft: 'none',
-    borderRight: 'none',
   },
 }));
 
