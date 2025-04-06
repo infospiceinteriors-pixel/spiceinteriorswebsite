@@ -28,10 +28,13 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
   width: '100%',
   position: 'fixed',
   zIndex: 1100,
-  transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+  transition: 'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
   '&.scrolled': {
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
     backgroundColor: 'rgba(18, 18, 18, 0.95)',
+  },
+  '&.hidden': {
+    transform: 'translateY(-100%)',
   }
 }));
 
@@ -60,10 +63,13 @@ const DrawerHeader = styled(Box)(({ theme }) => ({
 const MainLayout = ({ children }: MainLayoutProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
@@ -72,6 +78,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       } else {
         setScrolled(false);
       }
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      
+      lastScrollY = currentScrollY;
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -122,7 +136,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       overflow: 'hidden',
       boxSizing: 'border-box' 
     }}>
-      <StyledAppBar className={scrolled ? 'scrolled' : ''}>
+      <StyledAppBar className={`${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}>
         <Container 
           maxWidth="xl" 
           disableGutters

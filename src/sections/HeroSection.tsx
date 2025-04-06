@@ -2,8 +2,8 @@ import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/material/styles';
 
 const HeroSectionWrapper = styled(Box)(({ theme }) => ({
-  minHeight: 'calc(100vh - 0px)',
-  height: 'calc(100vh - 0px)',
+  minHeight: '100vh',
+  height: '100vh',
   width: '100vw',
   maxWidth: '100%',
   position: 'relative',
@@ -18,13 +18,11 @@ const HeroSectionWrapper = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   boxSizing: 'border-box',
   margin: 0,
-  marginTop: '56px',
   padding: 0,
-  [theme.breakpoints.up('sm')]: {
-    marginTop: '64px',
-  },
+  paddingTop: '64px',
   [theme.breakpoints.down('sm')]: {
     backgroundAttachment: 'scroll',
+    paddingTop: '56px',
   },
 }));
 
@@ -34,6 +32,10 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   padding: theme.spacing(0, 4),
   boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: 'calc(100vh - 64px)',
   [theme.breakpoints.up('xl')]: {
     maxWidth: '1800px',
     padding: theme.spacing(0, 6),
@@ -49,6 +51,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(0, 2.5),
+    minHeight: 'calc(100vh - 56px)',
   },
 }));
 
@@ -102,7 +105,18 @@ const HeroSection = () => {
   return (
     <HeroSectionWrapper id="home">
       <ContentWrapper>
-        <Box sx={{ maxWidth: '1200px', mx: 'auto', position: 'relative', zIndex: 2 }}>
+        <Box sx={{ 
+          maxWidth: '1200px', 
+          mx: 'auto', 
+          position: 'relative', 
+          zIndex: 2,
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: 'translateY(-32px)'
+        }}>
           <Typography 
             variant={isMobile ? "h3" : "h1"} 
             component="h1" 
