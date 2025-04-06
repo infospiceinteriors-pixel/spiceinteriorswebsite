@@ -1,4 +1,4 @@
-import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material';
+import { Box, useTheme, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const HeroSectionWrapper = styled(Box)(({ theme }) => ({
@@ -19,10 +19,10 @@ const HeroSectionWrapper = styled(Box)(({ theme }) => ({
   boxSizing: 'border-box',
   margin: 0,
   padding: 0,
-  paddingTop: '64px',
+  paddingTop: 0,
   [theme.breakpoints.down('sm')]: {
     backgroundAttachment: 'scroll',
-    paddingTop: '56px',
+    paddingTop: 0,
   },
 }));
 
@@ -35,7 +35,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minHeight: 'calc(100vh - 64px)',
+  minHeight: '100vh',
   [theme.breakpoints.up('xl')]: {
     maxWidth: '1800px',
     padding: theme.spacing(0, 6),
@@ -51,13 +51,13 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(0, 2.5),
-    minHeight: 'calc(100vh - 56px)',
+    minHeight: '100vh',
   },
 }));
 
 const ScrollIndicator = styled(Box)(({ theme }) => ({
   position: 'absolute',
-  bottom: 40,
+  bottom: 120,
   left: '50%',
   transform: 'translateX(-50%)',
   width: 30,
@@ -87,7 +87,7 @@ const ScrollIndicator = styled(Box)(({ theme }) => ({
     },
   },
   [theme.breakpoints.down('sm')]: {
-    bottom: 20,
+    bottom: 100,
   },
 }));
 
@@ -105,74 +105,7 @@ const HeroSection = () => {
   return (
     <HeroSectionWrapper id="home">
       <ContentWrapper>
-        <Box sx={{ 
-          maxWidth: '1200px', 
-          mx: 'auto', 
-          position: 'relative', 
-          zIndex: 2,
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: 'translateY(-32px)'
-        }}>
-          <Typography 
-            variant={isMobile ? "h3" : "h1"} 
-            component="h1" 
-            sx={{ 
-              mb: { xs: 2, md: 3 },
-              fontWeight: 300,
-              textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-              fontSize: {
-                xs: '2.5rem',
-                sm: '3.5rem',
-                md: '4.5rem',
-                lg: '5.5rem'
-              }
-            }}
-          >
-            Elevate Your Style
-          </Typography>
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
-              mb: { xs: 4, md: 6 }, 
-              maxWidth: 800, 
-              mx: 'auto',
-              color: 'rgba(255,255,255,0.9)',
-              textShadow: '0 1px 2px rgba(0,0,0,0.2)',
-              fontSize: {
-                xs: '1rem',
-                md: '1.125rem',
-                lg: '1.25rem'
-              },
-              px: { xs: 2, sm: 0 }
-            }}
-          >
-            Bespoke wardrobe solutions for Delhi's most discerning clientele
-          </Typography>
-          <Button 
-            variant="outlined" 
-            onClick={() => scrollToSection('contact')}
-            sx={{ 
-              color: '#FFFFFF', 
-              borderColor: '#FFFFFF',
-              borderWidth: '2px',
-              borderRadius: 0,
-              '&:hover': {
-                borderColor: 'rgba(255,255,255,0.8)',
-                backgroundColor: 'rgba(255,255,255,0.1)',
-                borderWidth: '2px',
-              },
-              px: { xs: 4, md: 6 },
-              py: { xs: 1, md: 1.5 },
-              fontSize: { xs: '0.875rem', md: '1rem', lg: '1.125rem' }
-            }}
-          >
-            Contact Us
-          </Button>
-        </Box>
+        {/* Empty content wrapper - no text or buttons */}
       </ContentWrapper>
       <ScrollIndicator />
     </HeroSectionWrapper>

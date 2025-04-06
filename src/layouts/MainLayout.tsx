@@ -334,8 +334,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Contact</Typography>
               <Typography variant="body2" sx={{ opacity: 0.7 }}>
                 Delhi NCR, India<br />
-                contact@wardrob.com<br />
-                +91 98XXXXXXXX
+                +31 683142404
               </Typography>
             </Box>
           </Box>
