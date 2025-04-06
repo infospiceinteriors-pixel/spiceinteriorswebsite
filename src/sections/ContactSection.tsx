@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Box, Typography, TextField, Button, MenuItem, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Typography, TextField, Button, MenuItem, useTheme, useMediaQuery, Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import emailjs from 'emailjs-com';
 
 const services = [
   'Wardrobe Decluttering',
@@ -88,9 +89,14 @@ const ContactSection = () => {
     lastName: '',
     email: '',
     phone: '',
-    area: '',
+    address: '',
     service: '',
     message: '',
+  });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success' as 'success' | 'error',
   });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -105,8 +111,55 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    
+    // EmailJS parameters
+    const templateParams = {
+      to_email: 'wardrob.in@gmail.com',
+      from_name: `${formData.firstName} ${formData.lastName}`,
+      from_email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      service: formData.service,
+      message: formData.message,
+    };
+    
+    // Using environment variables for EmailJS credentials
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+    
+    emailjs.send(serviceId, templateId, templateParams, userId)
+      .then((response) => {
+        console.log('Email sent successfully!', response);
+        setSnackbar({
+          open: true,
+          message: 'Your message has been sent! We will get back to you soon.',
+          severity: 'success',
+        });
+        
+        // Reset form after successful submission
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          address: '',
+          service: '',
+          message: '',
+        });
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+        setSnackbar({
+          open: true,
+          message: 'There was an error sending your message. Please try again later.',
+          severity: 'error',
+        });
+      });
+  };
+  
+  const handleCloseSnackbar = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
   };
 
   return (
@@ -324,9 +377,9 @@ const ContactSection = () => {
               <Box sx={{ flex: '1 1 calc(50% - 16px)', minWidth: { xs: '100%', sm: 'calc(50% - 16px)' } }}>
                 <TextField
                   fullWidth
-                  label="Area"
-                  name="area"
-                  value={formData.area}
+                  label="Address"
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
                   required
                   size={isMobile ? "small" : "medium"}
@@ -512,6 +565,24 @@ const ContactSection = () => {
           </form>
         </FormContainer>
       </ContentWrapper>
+      <Snackbar 
+        open={snackbar.open} 
+        autoHideDuration={6000} 
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbar.severity}
+          sx={{ 
+            width: '100%',
+            fontWeight: 400,
+            fontSize: { xs: '0.875rem', md: '1rem' }
+          }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </ContactSectionWrapper>
   );
 };
