@@ -1,4 +1,4 @@
-import { Box, useTheme, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const HeroSectionWrapper = styled(Box)(({ theme }) => ({
@@ -87,20 +87,21 @@ const ScrollIndicator = styled(Box)(({ theme }) => ({
     },
   },
   [theme.breakpoints.down('sm')]: {
-    bottom: 100,
+    bottom: 140,
   },
 }));
 
 const HeroSection = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // Unused variables commented out to fix build errors
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // const scrollToSection = (sectionId: string) => {
+  //   const section = document.getElementById(sectionId);
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  // };
 
   return (
     <HeroSectionWrapper id="home">
