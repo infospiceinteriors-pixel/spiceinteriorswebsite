@@ -17,6 +17,7 @@ import {
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -195,6 +196,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </Toolbar>
         </Container>
       </StyledAppBar>
+
+      {/* WhatsApp floating button */}
+      <WhatsAppButton />
 
       {/* Mobile Menu Drawer */}
       <Drawer

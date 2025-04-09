@@ -8,7 +8,7 @@ const services = [
     title: 'Wardrobe Decluttering',
     description: 'Transform your closet into a curated collection of pieces that truly reflect your lifestyle and personal style.',
     benefits: [
-      'Personalized assessment of your existing wardrobe',
+      'Assessment of your current wardrobe and lifestyle',
       'Organization by color, season, and occasion',
       'Recommendations for keeping, donating, or altering items'
     ],
@@ -17,17 +17,17 @@ const services = [
   {
     id: 2,
     title: 'Wardrobe Design Consultation',
-    description: 'Expert guidance in creating a bespoke wardrobe space that combines luxury, functionality, and aesthetic excellence.',
+    description: 'Expert guidance in creating a wardrobe that reflects your personality, functionality, and aesthetic excellence.',
     benefits: [
+      'Assessment of your current wardrobe and lifestyle',
       'Customized storage solutions for your specific needs',
-      'Material and finish recommendations for your space',
       'Detailed plans for optimal organization and accessibility'
     ],
     image: '/wardrobe_design.jpg'
   },
   {
     id: 3,
-    title: 'Shopping Companion',
+    title: 'Shopping assistance',
     description: 'Personal shopping experience with our style experts to curate the perfect additions to your wardrobe.',
     benefits: [
       'Personalized style profile creation',
