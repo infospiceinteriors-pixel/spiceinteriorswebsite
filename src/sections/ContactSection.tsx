@@ -6,7 +6,7 @@ import emailjs from 'emailjs-com';
 const services = [
   'Wardrobe Decluttering',
   'Wardrobe Design Consultation',
-  'Shopping Companion',
+  'Shopping Assistance',
 ];
 
 const ContactSectionWrapper = styled(Box)(({ theme }) => ({
