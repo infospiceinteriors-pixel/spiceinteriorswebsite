@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 // Replace with your actual WhatsApp number
-const WHATSAPP_NUMBER = '+919876543210';
+const WHATSAPP_NUMBER = '+31683142404';
 const WHATSAPP_MESSAGE = 'Hello! I\'m interested in your wardrobe styling services. Could you please provide me with more information?';
 
 const FloatingButton = styled(Fab)(({ theme }) => ({
