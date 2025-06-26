@@ -64,12 +64,12 @@ const ServiceSectionWrapper = styled(Box)(({ theme }) => ({
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: '1600px',
+  maxWidth: '1400px',
   margin: '0 auto',
   padding: theme.spacing(0, 4),
   boxSizing: 'border-box',
   [theme.breakpoints.up('xl')]: {
-    maxWidth: '1800px',
+    maxWidth: '1400px',
     padding: theme.spacing(0, 6),
   },
   [theme.breakpoints.between('lg', 'xl')]: {

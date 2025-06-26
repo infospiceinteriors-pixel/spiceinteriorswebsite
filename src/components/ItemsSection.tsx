@@ -23,11 +23,13 @@ const StyledCard = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   border: 'none',
   borderRadius: 0,
-  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   background: 'none',
   transition: 'none',
+  height: 'auto',
+  width: '100%',
+  maxWidth: '100%',
   '&:hover': {
     boxShadow: 'none',
     background: 'none',
@@ -37,7 +39,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 const ImageWrapper = styled('div')({
   position: 'relative',
   width: '100%',
-  aspectRatio: '1 / 1',
+  aspectRatio: '1 / 1', // This ensures square images
   overflow: 'hidden',
 });
 
@@ -60,6 +62,10 @@ const CardGrid = styled(Box)(({ theme }) => ({
   gridTemplateColumns: 'repeat(4, 1fr)',
   gap: 0,
   width: '100%',
+  '& > *': {
+    minWidth: 0, // Prevent grid items from expanding beyond their allocated space
+    maxWidth: '100%'
+  },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
@@ -87,7 +93,19 @@ const ItemCard = ({ item }: { item: Item }) => {
           />
         )}
       </ImageWrapper>
-      <CardContent sx={{ flexGrow: 1, p: 2, pb: 3, pt: 3, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', width: '100%' }}>
+      <CardContent sx={{ 
+        p: 2, 
+        pb: 3, 
+        pt: 3, 
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'flex-start', 
+        justifyContent: 'flex-start', 
+        width: '100%',
+        minHeight: '80px', // Ensure consistent text area height
+        flex: '0 0 auto', // Don't grow or shrink
+        overflow: 'hidden' // Prevent content from affecting layout
+      }}>
         <Typography 
           variant="h6" 
           sx={{ 
@@ -95,11 +113,14 @@ const ItemCard = ({ item }: { item: Item }) => {
             fontWeight: 600,
             fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
             textAlign: 'left',
-            flex: 1,
-            pr: 2,
+            width: '100%',
             textTransform: 'uppercase',
             letterSpacing: 0,
-            lineHeight: 1.2
+            lineHeight: 1.2,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            display: 'block'
           }}
         >
           {item.name}
@@ -109,10 +130,14 @@ const ItemCard = ({ item }: { item: Item }) => {
           sx={{ 
             fontWeight: 600,
             fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
-            textAlign: 'right',
+            textAlign: 'left',
             color: 'text.primary',
+            width: '100%',
+            mt: 0.5, // Add margin top for spacing
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            ml: 2
+            display: 'block'
           }}
         >
           {item.price}
@@ -134,7 +159,7 @@ const ItemsSection = ({
 
   return (
     <Box sx={{ py: 4, backgroundColor: 'background.default' }}>
-      <Container maxWidth="xl">
+      <Container maxWidth={false} sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 4 } }}>
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography 
             variant="h2" 

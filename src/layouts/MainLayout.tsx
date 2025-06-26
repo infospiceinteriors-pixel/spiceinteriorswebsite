@@ -18,6 +18,10 @@ import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import WhatsAppButton from '../components/WhatsAppButton';
 import { Link, useLocation } from 'react-router-dom';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Collapse from '@mui/material/Collapse';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -104,11 +108,27 @@ const menuItems = [
   { label: 'Contact', path: '/contact' },
 ];
 
+const shopCategories = [
+  { label: 'All', value: 'All' },
+  { label: 'Furniture', value: 'Furniture' },
+  { label: 'Lighting', value: 'Lighting' },
+  { label: 'Textiles', value: 'Textiles' },
+];
+
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [shopMenuAnchor, setShopMenuAnchor] = useState<null | HTMLElement>(null);
+  const shopMenuOpen = Boolean(shopMenuAnchor);
+  const handleShopMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setShopMenuAnchor(event.currentTarget);
+  };
+  const handleShopMenuClose = () => {
+    setShopMenuAnchor(null);
+  };
+  const [mobileShopOpen, setMobileShopOpen] = useState(false);
 
   return (
     <Box sx={{
@@ -151,18 +171,56 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   </LogoTypography>
                 </Link>
                 <NavBar>
-                  {menuItems.map((item) => (
-                    <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
-                      <NavLinkButton
-                        disableRipple
-                        active={location.pathname === item.path ? 1 : 0}
-                        sx={{ textTransform: 'none' }}
-                        onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
-                      >
-                        {item.label}
-                      </NavLinkButton>
-                    </Link>
-                  ))}
+                  {menuItems.map((item) => {
+                    if (item.label === 'Shop') {
+                      return (
+                        <React.Fragment key={item.path}>
+                          <NavLinkButton
+                            disableRipple
+                            active={location.pathname === item.path ? 1 : 0}
+                            sx={{ textTransform: 'none', display: 'flex', alignItems: 'center' }}
+                            onClick={handleShopMenuOpen}
+                            endIcon={<ArrowDropDownIcon sx={{ ml: 0.5, transition: 'transform 0.2s', transform: shopMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />}
+                          >
+                            {item.label}
+                          </NavLinkButton>
+                          <Menu
+                            anchorEl={shopMenuAnchor}
+                            open={shopMenuOpen}
+                            onClose={handleShopMenuClose}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            MenuListProps={{ sx: { minWidth: 160 } }}
+                            TransitionProps={{ timeout: 200 }}
+                          >
+                            {shopCategories.map((cat) => (
+                              <MenuItem
+                                key={cat.value}
+                                component={Link}
+                                to={cat.value === 'All' ? '/shop' : `/shop?category=${cat.value}`}
+                                onClick={handleShopMenuClose}
+                                selected={location.pathname === '/shop' && (location.search.includes(cat.value) || (cat.value === 'All' && !location.search))}
+                              >
+                                {cat.label}
+                              </MenuItem>
+                            ))}
+                          </Menu>
+                        </React.Fragment>
+                      );
+                    }
+                    return (
+                      <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
+                        <NavLinkButton
+                          disableRipple
+                          active={location.pathname === item.path ? 1 : 0}
+                          sx={{ textTransform: 'none' }}
+                          onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
+                        >
+                          {item.label}
+                        </NavLinkButton>
+                      </Link>
+                    );
+                  })}
                 </NavBar>
               </>
             )}
@@ -173,27 +231,69 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               PaperProps={{ sx: { width: 220 } }}
             >
               <List>
-                {menuItems.map((item) => (
-                  <ListItemButton
-                    key={item.path}
-                    component={Link}
-                    to={item.path}
-                    onClick={() => setDrawerOpen(false)}
-                    selected={location.pathname === item.path}
-                  >
-                    <ListItemText
-                      primary={item.label}
-                      primaryTypographyProps={{
-                        sx: {
-                          fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-                          fontWeight: location.pathname === item.path ? 600 : 400,
-                          fontSize: '1.1rem',
-                          color: location.pathname === item.path ? 'primary.main' : 'text.primary',
-                        },
-                      }}
-                    />
-                  </ListItemButton>
-                ))}
+                {menuItems.map((item) => {
+                  if (item.label === 'Shop') {
+                    return (
+                      <React.Fragment key={item.path}>
+                        <ListItemButton
+                          onClick={() => setMobileShopOpen((open) => !open)}
+                          selected={location.pathname === '/shop'}
+                          sx={{ display: 'flex', alignItems: 'center' }}
+                        >
+                          <ListItemText
+                            primary={item.label}
+                            primaryTypographyProps={{
+                              sx: {
+                                fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+                                fontWeight: location.pathname === item.path ? 600 : 400,
+                                fontSize: '1.1rem',
+                                color: location.pathname === item.path ? 'primary.main' : 'text.primary',
+                              },
+                            }}
+                          />
+                          <ArrowDropDownIcon sx={{ ml: 1, transition: 'transform 0.2s', transform: mobileShopOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+                        </ListItemButton>
+                        <Collapse in={mobileShopOpen} timeout="auto" unmountOnExit>
+                          <List component="div" disablePadding>
+                            {shopCategories.map((cat) => (
+                              <ListItemButton
+                                key={cat.value}
+                                component={Link}
+                                to={cat.value === 'All' ? '/shop' : `/shop?category=${cat.value}`}
+                                onClick={() => setDrawerOpen(false)}
+                                selected={location.pathname === '/shop' && (location.search.includes(cat.value) || (cat.value === 'All' && !location.search))}
+                                sx={{ pl: 4 }}
+                              >
+                                <ListItemText primary={cat.label} />
+                              </ListItemButton>
+                            ))}
+                          </List>
+                        </Collapse>
+                      </React.Fragment>
+                    );
+                  }
+                  return (
+                    <ListItemButton
+                      key={item.path}
+                      component={Link}
+                      to={item.path}
+                      onClick={() => setDrawerOpen(false)}
+                      selected={location.pathname === item.path}
+                    >
+                      <ListItemText
+                        primary={item.label}
+                        primaryTypographyProps={{
+                          sx: {
+                            fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+                            fontWeight: location.pathname === item.path ? 600 : 400,
+                            fontSize: '1.1rem',
+                            color: location.pathname === item.path ? 'primary.main' : 'text.primary',
+                          },
+                        }}
+                      />
+                    </ListItemButton>
+                  );
+                })}
               </List>
             </Drawer>
           </Box>

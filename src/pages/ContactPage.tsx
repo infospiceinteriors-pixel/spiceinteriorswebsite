@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Typography, Grid, TextField, Button } from '@mui/material';
+import { Box, Typography, TextField, Button } from '@mui/material';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -24,8 +24,29 @@ const ContactPage = () => {
   };
 
   return (
-    <Box sx={{ width: '100vw', maxWidth: '100vw', minHeight: '80vh', boxSizing: 'border-box', overflowX: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', left: 0 }}>
-      <Box sx={{ py: 4, backgroundColor: 'background.paper', width: '100%', maxWidth: 600, boxSizing: 'border-box', mx: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <Box sx={{ 
+      width: '100%', 
+      maxWidth: '100%', 
+      minHeight: '80vh', 
+      boxSizing: 'border-box', 
+      overflowX: 'hidden', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center'
+    }}>
+      <Box sx={{ 
+        py: 4, 
+        backgroundColor: 'background.paper', 
+        width: '100%', 
+        maxWidth: 600, 
+        boxSizing: 'border-box', 
+        mx: 'auto', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        justifyContent: 'center' 
+      }}>
         <Box sx={{ textAlign: 'center', mb: 4, width: '100%' }}>
           <Typography variant="h1" sx={{ mb: 1.5, color: 'primary.main', fontWeight: 400 }}>
             Get in Touch
@@ -35,68 +56,64 @@ const ContactPage = () => {
           </Typography>
         </Box>
         <Box component="form" onSubmit={handleSubmit} autoComplete="off" sx={{ width: '100%', maxWidth: 700, margin: '0 auto' }}>
-          <Grid container spacing={2}>
-            {/* Row 1: Name and Email side-by-side */}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                placeholder="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                placeholder="Email *"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-              />
-            </Grid>
-            {/* Row 2: Phone (full width) */}
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                placeholder="Phone number *"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-              />
-            </Grid>
-            {/* Row 3: Message (full width) */}
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                placeholder="Message *"
-                name="message"
-                multiline
-                rows={4}
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                variant="outlined"
-                InputLabelProps={{ shrink: false }}
-              />
-            </Grid>
-            {/* Row 4: Send button (full width) */}
-            <Grid item xs={12}>
-              <Button type="submit" variant="contained" fullWidth>
-                Send
-              </Button>
-            </Grid>
-          </Grid>
+          {/* Row 1: Name and Email side-by-side */}
+          <Box sx={{ display: 'flex', gap: 2, mb: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+            <TextField
+              fullWidth
+              placeholder="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              variant="outlined"
+              InputLabelProps={{ shrink: false }}
+            />
+            <TextField
+              fullWidth
+              placeholder="Email *"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              variant="outlined"
+              InputLabelProps={{ shrink: false }}
+            />
+          </Box>
+          {/* Row 2: Phone (full width) */}
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              placeholder="Phone number *"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              variant="outlined"
+              InputLabelProps={{ shrink: false }}
+            />
+          </Box>
+          {/* Row 3: Message (full width) */}
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              placeholder="Message *"
+              name="message"
+              multiline
+              rows={4}
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+              variant="outlined"
+              InputLabelProps={{ shrink: false }}
+            />
+          </Box>
+          {/* Row 4: Send button (full width) */}
+          <Box>
+            <Button type="submit" variant="contained" fullWidth>
+              Send
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Box, Container, Typography, Grid, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import ItemsSection from '../components/ItemsSection';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Extended dummy data for shop items
 export const allShopItems = [
@@ -70,7 +71,7 @@ export const allShopItems = [
   },
   {
     id: '9',
-    name: 'Linen Curtains',
+    name: 'Linen Curtain',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€120',
     category: 'Textiles',
@@ -94,7 +95,7 @@ export const allShopItems = [
   },
   {
     id: '12',
-    name: 'Throw Pillows',
+    name: 'Throw Pillow',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€45',
     category: 'Textiles',
@@ -104,6 +105,12 @@ export const allShopItems = [
 
 const categories = ['All', 'Furniture', 'Lighting', 'Textiles'];
 
+function getCategoryFromQuery(search: string): string {
+  const params = new URLSearchParams(search);
+  const cat = params.get('category');
+  return categories.includes(cat || '') ? cat! : 'All';
+}
+
 const categoryDescriptions: Record<string, string> = {
   All: 'Browse our entire curated collection of premium furniture, lighting, and textiles.',
   Furniture: 'Discover our curated selection of premium furniture for every room.',
@@ -112,54 +119,15 @@ const categoryDescriptions: Record<string, string> = {
 };
 
 const ShopPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const location = useLocation();
+  const selectedCategory = getCategoryFromQuery(location.search);
 
-  const handleCategoryChange = (event: SelectChangeEvent) => {
-    setSelectedCategory(event.target.value);
-  };
-
-  const filteredItems = selectedCategory === 'All' 
-    ? allShopItems 
+  const filteredItems = selectedCategory === 'All'
+    ? allShopItems
     : allShopItems.filter(item => item.category === selectedCategory);
 
   return (
     <Box>
-      <Box sx={{ py: 2, backgroundColor: 'background.paper', borderBottom: '1px solid rgba(212, 165, 116, 0.2)' }}>
-        <Container maxWidth="xl">
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-            <Select
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Category' }}
-              sx={{
-                minWidth: 220,
-                borderRadius: 0,
-                background: 'none',
-                border: '1px solid #d4a574',
-                fontSize: '1rem',
-                fontWeight: 400,
-                px: 2,
-                py: 1.5,
-                '& .MuiSelect-select': {
-                  padding: '10px 14px',
-                },
-                '& fieldset': { border: 'none' },
-                boxShadow: 'none',
-                outline: 'none',
-              }}
-              variant="outlined"
-            >
-              {categories.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
-        </Container>
-      </Box>
-
       <ItemsSection
         title={selectedCategory === 'All' ? 'All Items' : selectedCategory}
         description={categoryDescriptions[selectedCategory]}
