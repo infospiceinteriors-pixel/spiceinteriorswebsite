@@ -1,334 +1,249 @@
-import { ReactNode, useState, useEffect } from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Container, 
-  Box, 
-  Button, 
-  IconButton, 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  useMediaQuery, 
-  useTheme 
+import { ReactNode, useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Box,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItemText,
+  ListItemButton,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import WhatsAppButton from '../components/WhatsAppButton';
+import { Link, useLocation } from 'react-router-dom';
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: 'rgba(18, 18, 18, 0.98)',
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-  width: '100%',
-  position: 'fixed',
-  zIndex: theme.zIndex.appBar,
-  transition: 'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
-  '&.scrolled': {
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-    backgroundColor: 'rgba(18, 18, 18, 0.95)',
-  },
-  '&.hidden': {
-    transform: 'translateY(-100%)',
-  }
-}));
-
-const NavButton = styled(Button)(({ theme }) => ({
-  margin: theme.spacing(0, 1),
-  borderColor: theme.palette.secondary.main,
-  color: theme.palette.secondary.main,
-  borderWidth: '1px',
-  padding: '6px 20px',
-  '&:hover': {
-    borderColor: theme.palette.secondary.light,
-    color: theme.palette.secondary.light,
-    borderWidth: '1px',
-    backgroundColor: 'transparent',
+const LogoTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Playfair Display, serif',
+  fontWeight: 500,
+  fontSize: '2.5rem',
+  letterSpacing: '0.08em',
+  textAlign: 'center',
+  color: theme.palette.primary.main,
+  marginTop: theme.spacing(3),
+  marginBottom: theme.spacing(2),
+  userSelect: 'none',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.7rem',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1.5),
   },
 }));
 
-const DrawerHeader = styled(Box)(({ theme }) => ({
+const NavBar = styled(Box)(({ theme }) => ({
   display: 'flex',
+  justifyContent: 'center',
   alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: theme.spacing(2, 3),
-  borderBottom: '1px solid rgba(197, 153, 123, 0.2)',
+  gap: theme.spacing(4),
+  marginBottom: theme.spacing(2.5),
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
 }));
+
+const NavLinkButton = styled(Button)<{ active?: number }>(({ theme, active }) => ({
+  fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+  fontWeight: 400,
+  fontSize: '1.08rem',
+  color: theme.palette.text.primary,
+  background: 'none',
+  border: 'none',
+  borderRadius: 0,
+  boxShadow: 'none',
+  padding: '0 0 3px 0',
+  minWidth: 0,
+  borderBottom: active ? `2px solid ${theme.palette.text.primary}` : '2px solid transparent',
+  transition: 'border-color 0.2s',
+  '&:hover': {
+    background: 'none',
+    borderBottom: `2px solid ${theme.palette.text.primary}`,
+    color: theme.palette.text.primary,
+  },
+}));
+
+const MobileNavBar = styled(Box)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    padding: theme.spacing(2, 2, 1.5, 2),
+    boxSizing: 'border-box',
+  },
+}));
+
+const menuItems = [
+  { label: 'Home', path: '/' },
+  { label: 'Shop', path: '/shop' },
+  { label: 'Rent', path: '/rent' },
+  { label: 'Atelier', path: '/atelier' },
+  { label: 'Contact', path: '/contact' },
+];
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
-    
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 80) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 200) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      
-      lastScrollY = currentScrollY;
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-    setDrawerOpen(open);
-  };
-  
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      setDrawerOpen(false);
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    setDrawerOpen(false);
-  };
-
-  const menuItems = [
-    { label: 'OUR SERVICES', sectionId: 'services' },
-    { label: 'ABOUT', sectionId: 'about' },
-    { label: 'CONTACT', sectionId: 'contact' },
-    { label: 'FAQs', sectionId: 'faq' },
-  ];
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <Box sx={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
-      minHeight: '100vh', 
-      width: '100%', 
-      maxWidth: '100%', 
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+      width: '100%',
+      maxWidth: '100%',
       overflow: 'hidden',
-      boxSizing: 'border-box' 
+      boxSizing: 'border-box',
+      backgroundColor: 'background.default',
     }}>
-      <StyledAppBar className={`${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}>
-        <Container 
-          maxWidth="xl" 
-          disableGutters
-          sx={{
-            px: { xs: 3, sm: 4, md: 6, lg: 8 }
-          }}
-        >
-          <Toolbar sx={{ 
-            px: { xs: 2, sm: 4, md: 6 },
-            ...(isMobile ? { justifyContent: 'space-between' } : { justifyContent: 'center' })
-          }}>
-            <Typography
-              variant="h6"
-              component="div"
-              onClick={scrollToTop}
-              sx={{ 
-                color: 'secondary.main',
-                textDecoration: 'none',
-                fontFamily: 'Cormorant Garamond',
-                fontSize: '1.75rem',
-                letterSpacing: '0.1em',
-                cursor: 'pointer',
-                ...(isMobile ? {} : { position: 'absolute', left: { md: 24, lg: 48 } })
-              }}
-            >
-              WARDROB
-            </Typography>
-
+      <AppBar position="static" elevation={0} sx={{ background: 'transparent', boxShadow: 'none', p: 0 }}>
+        <Container maxWidth="lg" disableGutters>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
             {isMobile ? (
-              <IconButton 
-                edge="end" 
-                color="secondary" 
-                aria-label="menu"
-                onClick={toggleDrawer(true)}
-                sx={{ ml: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
+              <MobileNavBar>
+                <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                  <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
+                    <LogoTypography variant="h1" sx={{ marginTop: 0, marginBottom: 0 }}>
+                      SPICE
+                    </LogoTypography>
+                  </Link>
+                </Box>
+                <IconButton
+                  edge="end"
+                  color="default"
+                  aria-label="menu"
+                  onClick={() => setDrawerOpen(true)}
+                  sx={{ ml: 1 }}
+                >
+                  <MenuIcon sx={{ fontSize: 32, color: '#222' }} />
+                </IconButton>
+              </MobileNavBar>
             ) : (
-              <Box sx={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                {menuItems.map((item) => (
-                  <NavButton 
-                    key={item.sectionId} 
-                    variant="outlined"
-                    onClick={() => scrollToSection(item.sectionId)}
-                  >
-                    {item.label}
-                  </NavButton>
-                ))}
-              </Box>
+              <>
+                <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
+                  <LogoTypography variant="h1">
+                    SPICE
+                  </LogoTypography>
+                </Link>
+                <NavBar>
+                  {menuItems.map((item) => (
+                    <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
+                      <NavLinkButton
+                        disableRipple
+                        active={location.pathname === item.path ? 1 : 0}
+                        sx={{ textTransform: 'none' }}
+                      >
+                        {item.label}
+                      </NavLinkButton>
+                    </Link>
+                  ))}
+                </NavBar>
+              </>
             )}
-          </Toolbar>
-        </Container>
-      </StyledAppBar>
-
-      {/* WhatsApp floating button */}
-      <WhatsAppButton />
-
-      {/* Mobile Menu Drawer */}
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}
-        PaperProps={{
-          sx: {
-            width: '80%',
-            maxWidth: 300,
-            backgroundColor: 'primary.main',
-            color: 'secondary.main',
-          }
-        }}
-      >
-        <DrawerHeader>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontFamily: 'Cormorant Garamond',
-              cursor: 'pointer'
-            }}
-            onClick={scrollToTop}
-          >
-            WARDROB
-          </Typography>
-          <IconButton 
-            onClick={toggleDrawer(false)} 
-            sx={{ color: 'secondary.main' }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DrawerHeader>
-        <List sx={{ p: 2 }}>
-          {menuItems.map((item) => (
-            <ListItem 
-              key={item.sectionId} 
-              onClick={() => scrollToSection(item.sectionId)}
-              sx={{ 
-                my: 1.5, 
-                borderBottom: '1px solid rgba(197, 153, 123, 0.1)',
-                pb: 1,
-                color: 'secondary.main',
-                textDecoration: 'none',
-                cursor: 'pointer',
-                '&:hover': {
-                  color: 'secondary.light',
-                }
-              }}
+            <Drawer
+              anchor="right"
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              PaperProps={{ sx: { width: 220 } }}
             >
-              <ListItemText 
-                primary={item.label} 
-                primaryTypographyProps={{ 
-                  sx: { 
-                    fontFamily: 'Cormorant Garamond',
-                    fontSize: '1.25rem',
-                    letterSpacing: '0.05em'
-                  } 
-                }}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-
-      <Box component="main" sx={{ 
-        flex: 1, 
+              <List>
+                {menuItems.map((item) => (
+                  <ListItemButton
+                    key={item.path}
+                    component={Link}
+                    to={item.path}
+                    onClick={() => setDrawerOpen(false)}
+                    selected={location.pathname === item.path}
+                  >
+                    <ListItemText
+                      primary={item.label}
+                      primaryTypographyProps={{
+                        sx: {
+                          fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+                          fontWeight: location.pathname === item.path ? 600 : 400,
+                          fontSize: '1.1rem',
+                          color: location.pathname === item.path ? 'primary.main' : 'text.primary',
+                        },
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+              </List>
+            </Drawer>
+          </Box>
+        </Container>
+      </AppBar>
+      <WhatsAppButton />
+      <Box component="main" sx={{
+        flex: 1,
         width: '100%',
         maxWidth: '100%',
-        display: 'flex', 
+        display: 'flex',
         flexDirection: 'column',
         overflowX: 'hidden',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
       }}>
         {children}
       </Box>
-      
-      <Box 
-        component="footer" 
-        sx={{ 
-          py: 6, 
+      <Box
+        component="footer"
+        sx={{
+          py: 6,
           width: '100%',
-          backgroundColor: 'primary.main',
-          color: 'secondary.main',
-          borderTop: '1px solid rgba(197, 153, 123, 0.2)'
+          backgroundColor: 'background.paper',
+          color: 'primary.main',
+          borderTop: '1px solid rgba(212, 165, 116, 0.2)',
         }}
       >
-        <Container 
-          maxWidth="xl"
-          sx={{
-            px: { xs: 3, sm: 4, md: 6, lg: 8 }
-          }}
-        >
+        <Container maxWidth="xl" sx={{ px: { xs: 3, sm: 4, md: 6, lg: 8 } }}>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Cormorant Garamond' }}>
-                WARDROB
+              <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Playfair Display' }}>
+                SPICE
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.7, maxWidth: 300 }}>
-                Elevating personal style through bespoke wardrobe solutions for Delhi's most discerning clientele.
+              <Typography variant="body2" sx={{ color: 'text.secondary', maxWidth: 300 }}>
+                Premium interior design studio creating bespoke spaces that reflect your unique style and elevate your living experience.
               </Typography>
             </Box>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Legal</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Button 
-                  sx={{ 
-                    color: 'secondary.main', 
-                    textAlign: 'left', 
+                <Button
+                  sx={{
+                    color: 'text.secondary',
+                    textAlign: 'left',
                     justifyContent: 'flex-start',
                     p: 0,
                     fontSize: '0.875rem',
                     textTransform: 'none',
-                    '&:hover': { color: 'secondary.light', backgroundColor: 'transparent' }
+                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
                   }}
-                  onClick={() => scrollToSection('faq')}
                 >
                   Privacy Statement
                 </Button>
-                <Button 
-                  sx={{ 
-                    color: 'secondary.main', 
-                    textAlign: 'left', 
+                <Button
+                  sx={{
+                    color: 'text.secondary',
+                    textAlign: 'left',
                     justifyContent: 'flex-start',
                     p: 0,
                     fontSize: '0.875rem',
                     textTransform: 'none',
-                    '&:hover': { color: 'secondary.light', backgroundColor: 'transparent' }
+                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
                   }}
-                  onClick={() => scrollToSection('faq')}
                 >
                   Terms & Conditions
                 </Button>
@@ -336,15 +251,15 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </Box>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Contact</Typography>
-              <Typography variant="body2" sx={{ opacity: 0.7 }}>
-                Delhi NCR, India<br />
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                Amsterdam, Netherlands<br />
                 +31 683142404
               </Typography>
             </Box>
           </Box>
           <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Typography variant="body2" sx={{ opacity: 0.5 }}>
-              © {new Date().getFullYear()} Wardrob. All rights reserved.
+            <Typography variant="body2" sx={{ color: 'text.secondary', opacity: 0.7 }}>
+              © {new Date().getFullYear()} Spice Interior Design Studio. All rights reserved.
             </Typography>
           </Box>
         </Container>

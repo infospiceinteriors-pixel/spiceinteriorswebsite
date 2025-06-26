@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: 'How much does it cost?',
-    answer: 'Our pricing is tailored to each client\'s specific needs and the scope of the project. We offer bespoke solutions, and the cost varies depending on the service selected, the size of the wardrobe, and the complexity of the project. Please contact us for a detailed consultation and quote.',
+    answer: 'Our pricing is tailored to each client\'s specific needs and the scope of the project. We only offer premium solutions, and the cost of the decluttering service starts at INR 1,09,000 and varies based on the size of the wardrobe, and the complexity of the project. Please contact us for a non-binding consultation via contact form.',
   },
   {
     question: 'How can we connect?',

@@ -1,159 +1,112 @@
-import { Box, Typography, Button, Container, useTheme, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom';
+import { Box } from '@mui/material';
+import HeroSection from '../components/HeroSection';
+import ItemsSection from '../components/ItemsSection';
+import FaqSection from '../components/FaqSection';
 
-const HeroSection = styled(Box)({
-  height: '100vh',
-  width: '100%',
-  position: 'relative',
-  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/@hero_image.png")',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: '#FFFFFF',
-  textAlign: 'center',
-});
+// Dummy data for new items
+const newItems = [
+  {
+    id: '1',
+    name: 'Modern Dining Chair',
+    description: 'Elegant dining chair with clean lines and premium upholstery. Perfect for contemporary dining spaces.',
+    price: '€450',
+    image: '/placeholder.jpg',
+    category: 'Furniture'
+  },
+  {
+    id: '2',
+    name: 'Art Deco Side Table',
+    description: 'Vintage-inspired side table with brass accents and marble top. Adds sophistication to any room.',
+    price: '€320',
+    image: '/placeholder.jpg',
+    category: 'Furniture'
+  },
+  {
+    id: '3',
+    name: 'Scandinavian Sofa',
+    description: 'Minimalist sofa with premium fabric and comfortable seating. Ideal for modern living rooms.',
+    price: '€1,200',
+    image: '/placeholder.jpg',
+    category: 'Furniture'
+  },
+  {
+    id: '4',
+    name: 'Industrial Pendant Light',
+    description: 'Statement pendant light with exposed bulb design. Perfect for kitchen islands or dining areas.',
+    price: '€180',
+    image: '/placeholder.jpg',
+    category: 'Lighting'
+  },
+  {
+    id: '5',
+    name: 'Bohemian Rug',
+    description: 'Hand-woven rug with intricate patterns and natural fibers. Adds warmth and texture to any space.',
+    price: '€280',
+    image: '/placeholder.jpg',
+    category: 'Textiles'
+  },
+  {
+    id: '6',
+    name: 'Mid-Century Coffee Table',
+    description: 'Timeless coffee table with walnut wood and clean design. A perfect centerpiece for living rooms.',
+    price: '€390',
+    image: '/placeholder.jpg',
+    category: 'Furniture'
+  }
+];
 
-const ScrollIndicator = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  bottom: 40,
-  left: '50%',
-  transform: 'translateX(-50%)',
-  width: 30,
-  height: 50,
-  border: `1px solid ${theme.palette.secondary.main}`,
-  borderRadius: 15,
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 6,
-    left: '50%',
-    width: 4,
-    height: 4,
-    backgroundColor: theme.palette.secondary.main,
-    transform: 'translateX(-50%)',
-    borderRadius: '50%',
-    animation: 'scroll 2s infinite',
+// Dummy FAQ data
+const faqs = [
+  {
+    question: "What services does Spice Interior Design Studio offer?",
+    answer: "We offer comprehensive interior design services including space planning, furniture selection, color consultation, lighting design, and complete room transformations. We also provide rental services for events and temporary styling needs."
   },
-  '@keyframes scroll': {
-    '0%': {
-      opacity: 1,
-      top: 6,
-    },
-    '100%': {
-      opacity: 0,
-      top: 30,
-    },
+  {
+    question: "How do I schedule a consultation?",
+    answer: "You can schedule a consultation by contacting us through our website, calling us directly, or reaching out via WhatsApp. We offer both in-person and virtual consultations to accommodate your needs."
   },
-  [theme.breakpoints.down('sm')]: {
-    bottom: 20,
+  {
+    question: "What is your design process?",
+    answer: "Our design process begins with an initial consultation to understand your vision and requirements. We then create a detailed design concept, present it for your approval, and oversee the implementation from start to finish."
   },
-}));
-
-const ServiceSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(15, 0),
-  backgroundColor: theme.palette.background.default,
-  position: 'relative',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '1px',
-    background: 'linear-gradient(to right, transparent, rgba(197, 153, 123, 0.3), transparent)',
+  {
+    question: "Do you work with specific budgets?",
+    answer: "Yes, we work with various budgets and can tailor our services to meet your financial requirements. We'll discuss your budget during the initial consultation and provide options that align with your investment level."
   },
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(10, 0),
+  {
+    question: "Can you help with small spaces?",
+    answer: "Absolutely! We specialize in maximizing the potential of small spaces through smart design solutions, multifunctional furniture, and strategic layout planning. Every space has potential, regardless of size."
   },
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(8, 0),
-  },
-}));
+  {
+    question: "What areas do you serve?",
+    answer: "We primarily serve the Amsterdam metropolitan area and surrounding regions. For larger projects, we may consider locations throughout the Netherlands. Contact us to discuss your specific location."
+  }
+];
 
 const HomePage = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
   return (
     <Box>
-      <HeroSection>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 4 } }}>
-          <Typography 
-            variant={isMobile ? "h3" : "h1"} 
-            component="h1" 
-            sx={{ 
-              mb: { xs: 2, md: 3 },
-              fontWeight: 300,
-              textShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              fontSize: {
-                xs: '2.5rem',
-                sm: '3.5rem',
-                md: '4.5rem'
-              }
-            }}
-          >
-            Elevate Your Style
-          </Typography>
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
-              mb: { xs: 4, md: 6 }, 
-              maxWidth: 600, 
-              mx: 'auto',
-              color: 'rgba(255,255,255,0.9)',
-              textShadow: '0 1px 2px rgba(0,0,0,0.1)',
-              fontSize: {
-                xs: '1rem',
-                md: '1.125rem'
-              },
-              px: { xs: 2, sm: 0 }
-            }}
-          >
-            Bespoke wardrobe solutions for Delhi's most discerning clientele
-          </Typography>
-          <Button 
-            variant="outlined" 
-            component={RouterLink} 
-            to="/contact"
-            sx={{ 
-              color: '#FFFFFF', 
-              borderColor: '#FFFFFF',
-              '&:hover': {
-                borderColor: 'rgba(255,255,255,0.8)',
-                backgroundColor: 'rgba(255,255,255,0.1)',
-              },
-              px: { xs: 4, md: 6 },
-              py: { xs: 1, md: 1.5 }
-            }}
-          >
-            Contact Us
-          </Button>
-        </Container>
-        <ScrollIndicator />
-      </HeroSection>
-
-      <ServiceSection>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 4 } }}>
-          <Typography 
-            variant={isMobile ? "h3" : "h2"} 
-            align="center" 
-            sx={{ 
-              mb: { xs: 4, md: 8 },
-              fontSize: {
-                xs: '2rem',
-                sm: '2.75rem',
-                md: '3.5rem'
-              }
-            }}
-          >
-            Our Services
-          </Typography>
-          {/* Service carousel will be added here */}
-        </Container>
-      </ServiceSection>
+      <HeroSection
+        title="Spice Interior Design Studio"
+        subtitle="Creating bespoke spaces that reflect your unique style and elevate your living experience. Discover our curated collection of premium furniture and accessories."
+        backgroundImage="/placeholder.jpg"
+        ctaText="Explore Our Collection"
+        ctaLink="/shop"
+      />
+      
+      <ItemsSection
+        title="New In"
+        items={newItems}
+        showViewAll={true}
+        viewAllPath="/shop"
+        maxItems={6}
+      />
+      
+      <FaqSection
+        title="Frequently Asked Questions"
+        subtitle="Find answers to common questions about our services and process."
+        faqs={faqs}
+      />
     </Box>
   );
 };

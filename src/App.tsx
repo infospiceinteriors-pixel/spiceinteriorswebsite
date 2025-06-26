@@ -1,89 +1,131 @@
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
-import HeroSection from './sections/HeroSection';
-import ServicesSection from './sections/ServicesSection';
-import AboutSection from './sections/AboutSection';
-import ContactSection from './sections/ContactSection';
-import FaqSection from './sections/FaqSection';
+import HomePage from './pages/HomePage';
+import ShopPage from './pages/ShopPage';
+import RentPage from './pages/RentPage';
+import AtelierPage from './pages/AtelierPage';
+import ContactPage from './pages/ContactPage';
 
-// Create a theme instance
+// Create a theme instance for Spice Interior Design Studio
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1A1A1A', // Almost black for sophistication
-      light: '#2C2C2C',
-      dark: '#000000',
+      main: '#2C2C2C', // Deep charcoal for sophistication
+      light: '#4A4A4A',
+      dark: '#1A1A1A',
     },
     secondary: {
-      main: '#C5997B', // Warm copper/bronze
-      light: '#D4B08C',
-      dark: '#B6876C',
+      main: '#D4A574', // Warm beige/gold
+      light: '#E6C396',
+      dark: '#B8945A',
     },
     background: {
-      default: '#121212', // Dark background
-      paper: '#1E1E1E',  // Dark paper
+      default: '#FAFAFA', // Light cream background
+      paper: '#FFFFFF',  // Pure white paper
     },
     text: {
-      primary: '#FFFFFF', // White text for dark backgrounds
-      secondary: '#CCCCCC', // Light gray for secondary text
+      primary: '#2C2C2C', // Dark charcoal for readability
+      secondary: '#6B6B6B', // Medium gray for secondary text
     },
   },
   typography: {
-    fontFamily: '"Cormorant Garamond", "Times New Roman", serif',
+    fontFamily: '"Playfair Display", "Georgia", serif',
     h1: {
-      fontFamily: '"Cormorant Garamond", "Times New Roman", serif',
-      fontWeight: 300,
-      fontSize: '4.5rem',
-      letterSpacing: '0.02em',
+      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontWeight: 400,
+      fontSize: '2.2rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.2,
     },
     h2: {
-      fontFamily: '"Cormorant Garamond", "Times New Roman", serif',
-      fontWeight: 300,
-      fontSize: '3.5rem',
-      letterSpacing: '0.02em',
+      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontWeight: 400,
+      fontSize: '1.7rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.3,
     },
     h3: {
-      fontFamily: '"Cormorant Garamond", "Times New Roman", serif',
+      fontFamily: '"Playfair Display", "Georgia", serif',
       fontWeight: 400,
-      fontSize: '2.5rem',
+      fontSize: '1.3rem',
+      letterSpacing: '0.01em',
+    },
+    h4: {
+      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontWeight: 400,
+      fontSize: '1.1rem',
+      letterSpacing: '0.01em',
+    },
+    h5: {
+      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontWeight: 400,
+      fontSize: '1rem',
+      letterSpacing: '0.01em',
+    },
+    h6: {
+      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontWeight: 400,
+      fontSize: '0.95rem',
+      letterSpacing: '0.01em',
     },
     subtitle1: {
       fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      fontSize: '1.125rem',
-      letterSpacing: '0.02em',
+      fontSize: '0.98rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.5,
+    },
+    subtitle2: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: '0.92rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.4,
+    },
+    body1: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: '0.98rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.5,
+    },
+    body2: {
+      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+      fontSize: '0.89rem',
+      letterSpacing: '0.01em',
+      lineHeight: 1.4,
     },
     button: {
       fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
       textTransform: 'none',
-      letterSpacing: '0.05em',
-      fontWeight: 400,
+      letterSpacing: '0.04em',
+      fontWeight: 500,
+      fontSize: '0.98rem',
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 0, // Remove rounded corners for all buttons
-        },
-        outlined: {
-          borderColor: '#C5997B',
-          color: '#C5997B',
-          borderWidth: '2px',
-          padding: '12px 32px',
-          '&:hover': {
-            borderColor: '#D4B08C',
-            backgroundColor: 'transparent',
-            borderWidth: '2px',
-          },
+          borderRadius: 8,
+          fontWeight: 700,
+          fontSize: '1rem',
+          textTransform: 'none',
+          padding: '12px 0',
         },
         contained: {
-          backgroundColor: '#C5997B',
-          color: '#FFFFFF',
-          padding: '12px 32px',
+          backgroundColor: '#111',
+          color: '#fff',
           '&:hover': {
-            backgroundColor: '#D4B08C',
+            backgroundColor: '#222',
+          },
+        },
+        outlined: {
+          borderColor: '#222',
+          color: '#222',
+          background: '#fff',
+          '&:hover': {
+            borderColor: '#111',
+            background: '#fafafa',
           },
         },
       },
@@ -92,56 +134,45 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
+            borderRadius: 8,
+            background: '#fff',
+            fontSize: '1rem',
+            padding: 0,
             '& fieldset': {
-              borderColor: 'rgba(197, 153, 123, 0.3)',
+              borderColor: '#222',
+              borderWidth: 1,
             },
             '&:hover fieldset': {
-              borderColor: 'rgba(197, 153, 123, 0.5)',
+              borderColor: '#111',
             },
             '&.Mui-focused fieldset': {
-              borderColor: '#C5997B',
+              borderColor: '#111',
+            },
+            '& input, & textarea': {
+              fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+              fontSize: '1rem',
+              color: '#222',
+              padding: '14px 16px',
             },
           },
-          '& .MuiInput-underline:before': { 
-            borderBottomColor: 'rgba(197, 153, 123, 0.3)',
-            borderBottomWidth: '1px',
-            transition: 'border-bottom-color 0.2s ease-in-out'
+          '& .MuiInputBase-input::placeholder': {
+            color: '#888',
+            opacity: 1,
+            fontWeight: 400,
+            fontSize: '1rem',
           },
-          '& .MuiInput-underline:hover:not(.Mui-disabled):before': { 
-            borderBottomColor: 'rgba(197, 153, 123, 0.5)',
-            borderBottomWidth: '1px'
+          marginBottom: '16px',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+          '&:hover': {
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
           },
-          '& .MuiInput-underline:after': { 
-            borderBottomColor: '#C5997B',
-            borderBottomWidth: '2px'
-          },
-          '& .MuiInputLabel-root': {
-            color: '#C5997B',
-            fontSize: '0.95rem',
-            fontWeight: 300,
-            letterSpacing: '0.02em',
-            '&.Mui-focused': {
-              color: '#D4B08C'
-            }
-          },
-          '& .MuiInputLabel-shrink': {
-            transform: 'translate(0, -1.5px) scale(0.85)',
-            transformOrigin: 'top left'
-          },
-          '& .MuiSelect-icon': {
-            color: '#C5997B'
-          },
-          '& .MuiInput-input, & .MuiOutlinedInput-input, & .MuiFilledInput-input': {
-            color: '#FFFFFF',
-            fontSize: '1.05rem',
-            letterSpacing: '0.015em'
-          },
-          // Handle autofill styling
-          '& input:-webkit-autofill, & input:-webkit-autofill:hover, & input:-webkit-autofill:focus, & textarea:-webkit-autofill, & textarea:-webkit-autofill:hover, & textarea:-webkit-autofill:focus, & select:-webkit-autofill, & select:-webkit-autofill:hover, & select:-webkit-autofill:focus': {
-            '-webkit-text-fill-color': '#FFFFFF',
-            '-webkit-box-shadow': '0 0 0px 1000px #1E1E1E inset',
-            transition: 'background-color 5000s ease-in-out 0s'
-          }
         },
       },
     },
@@ -162,20 +193,19 @@ function App() {
         display: 'flex',
         flexDirection: 'column',
         boxSizing: 'border-box',
-        '& > *:first-of-type': {
-          paddingTop: { xs: '56px', sm: '64px' }, // Add padding equal to AppBar height
-        },
         '& *, & *::before, & *::after': {
           boxSizing: 'border-box'
         }
       }}>
         <BrowserRouter>
           <MainLayout>
-            <HeroSection />
-            <ServicesSection />
-            <AboutSection />
-            <ContactSection />
-            <FaqSection />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/rent" element={<RentPage />} />
+              <Route path="/atelier" element={<AtelierPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+            </Routes>
           </MainLayout>
         </BrowserRouter>
       </Box>

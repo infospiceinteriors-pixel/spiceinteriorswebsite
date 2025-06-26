@@ -4,7 +4,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 // Replace with your actual WhatsApp number
 const WHATSAPP_NUMBER = '+31683142404';
-const WHATSAPP_MESSAGE = 'Hello! I\'m interested in your wardrobe decluttering and organization services. Could you please provide me with more information about your process and pricing?';
+const WHATSAPP_MESSAGE = 'Hello! I\'m interested in your interior design services. Could you please provide me with more information about your process, pricing, and available services?';
 
 const FloatingButton = styled(Fab)(({ theme }) => ({
   position: 'fixed',
