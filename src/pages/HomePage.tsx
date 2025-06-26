@@ -8,49 +8,43 @@ const newItems = [
   {
     id: '1',
     name: 'Modern Dining Chair',
-    description: 'Elegant dining chair with clean lines and premium upholstery. Perfect for contemporary dining spaces.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€450',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   },
   {
     id: '2',
     name: 'Art Deco Side Table',
-    description: 'Vintage-inspired side table with brass accents and marble top. Adds sophistication to any room.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€320',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   },
   {
     id: '3',
     name: 'Scandinavian Sofa',
-    description: 'Minimalist sofa with premium fabric and comfortable seating. Ideal for modern living rooms.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€1,200',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   },
   {
     id: '4',
     name: 'Industrial Pendant Light',
-    description: 'Statement pendant light with exposed bulb design. Perfect for kitchen islands or dining areas.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€180',
-    image: '/placeholder.jpg',
     category: 'Lighting'
   },
   {
     id: '5',
     name: 'Bohemian Rug',
-    description: 'Hand-woven rug with intricate patterns and natural fibers. Adds warmth and texture to any space.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€280',
-    image: '/placeholder.jpg',
     category: 'Textiles'
   },
   {
     id: '6',
     name: 'Mid-Century Coffee Table',
-    description: 'Timeless coffee table with walnut wood and clean design. A perfect centerpiece for living rooms.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€390',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   }
 ];
