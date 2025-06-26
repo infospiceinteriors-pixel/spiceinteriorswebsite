@@ -6,49 +6,43 @@ const rentalItems = [
   {
     id: 'rent-1',
     name: 'Event Sofa Set',
-    description: 'Elegant 3-seater sofa with matching armchairs. Perfect for events, photoshoots, and temporary styling.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€150/day',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   },
   {
     id: 'rent-2',
     name: 'Dining Table & Chairs',
-    description: 'Complete dining set for 6-8 people. Includes table and matching chairs for special occasions.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€120/day',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   },
   {
     id: 'rent-3',
     name: 'Lighting Package',
-    description: 'Complete lighting setup including chandeliers, floor lamps, and table lamps for events.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€80/day',
-    image: '/placeholder.jpg',
     category: 'Lighting'
   },
   {
     id: 'rent-4',
     name: 'Decorative Accessories',
-    description: 'Curated collection of vases, artwork, and decorative items to enhance any space.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€60/day',
-    image: '/placeholder.jpg',
     category: 'Accessories'
   },
   {
     id: 'rent-5',
     name: 'Rug Collection',
-    description: 'Premium rugs in various sizes and styles. Perfect for adding warmth and texture to events.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€40/day',
-    image: '/placeholder.jpg',
     category: 'Textiles'
   },
   {
     id: 'rent-6',
     name: 'Bar Setup',
-    description: 'Complete bar furniture including bar stools, tables, and decorative elements.',
+    images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€100/day',
-    image: '/placeholder.jpg',
     category: 'Furniture'
   }
 ];

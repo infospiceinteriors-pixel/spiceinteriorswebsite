@@ -66,3 +66,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Remove focus outline from MUI AccordionSummary and ButtonBase in all browsers */
+.MuiAccordionSummary-root:focus,
+.MuiAccordionSummary-root:focus-visible,
+.MuiButtonBase-root:focus,
+.MuiButtonBase-root:focus-visible,
+.MuiAccordionSummary-root button:focus,
+.MuiAccordionSummary-root button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

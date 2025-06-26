@@ -12,7 +12,7 @@ interface Item {
 
 interface ItemsSectionProps {
   title: string;
-  subtitle?: string;
+  description?: string;
   items: Item[];
   showViewAll?: boolean;
   viewAllPath?: string;
@@ -55,12 +55,15 @@ const FadeImage = styled('img')<{
   pointerEvents: 'none',
 }));
 
-const CardGrid = styled(Box)({
+const CardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
   gap: 0,
   width: '100%',
-});
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+}));
 
 const ItemCard = ({ item }: { item: Item }) => {
   const [hovered, setHovered] = React.useState(false);
@@ -121,7 +124,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 
 const ItemsSection = ({ 
   title, 
-  subtitle, 
+  description, 
   items, 
   showViewAll = false, 
   viewAllPath = '/shop',
@@ -143,6 +146,11 @@ const ItemsSection = ({
           >
             {title}
           </Typography>
+          {description && (
+            <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 2, fontSize: '1.05rem', textAlign: 'center', maxWidth: 500, mx: 'auto' }}>
+              {description}
+            </Typography>
+          )}
         </Box>
 
         <CardGrid>

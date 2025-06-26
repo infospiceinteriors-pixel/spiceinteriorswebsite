@@ -93,15 +93,31 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   '&.Mui-expanded': {
     margin: theme.spacing(2.5, 0),
     backgroundColor: 'transparent',
+    '&:focus': {
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
   },
   '& .MuiAccordionSummary-root': {
     padding: 0,
     minHeight: 'auto',
     '&:focus': {
-      outline: 'none',
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
     },
     '&.Mui-focused': {
-      outline: 'none',
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
+    },
+    '&:active': {
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
       backgroundColor: 'transparent',
     },
   },
@@ -109,7 +125,19 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
     padding: theme.spacing(1, 0, 3),
   },
   '&.Mui-focused': {
-    outline: 'none',
+    outline: 'none !important',
+    boxShadow: 'none',
+    border: 'none',
+  },
+  '&:focus': {
+    outline: 'none !important',
+    boxShadow: 'none',
+    border: 'none',
+  },
+  '&:active': {
+    outline: 'none !important',
+    boxShadow: 'none',
+    border: 'none',
   },
   '& .MuiAccordionSummary-content.Mui-expanded': {
     margin: '16px 0',
@@ -118,8 +146,23 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
     border: 'none',
   },
   '& .MuiButtonBase-root': {
-    '&::after': {
-      display: 'none',
+    '&:focus': {
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
+    },
+    '&.Mui-focused': {
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
+    },
+    '&:active': {
+      outline: 'none !important',
+      boxShadow: 'none',
+      border: 'none',
+      backgroundColor: 'transparent',
     },
   },
   transition: 'all 0.3s ease',

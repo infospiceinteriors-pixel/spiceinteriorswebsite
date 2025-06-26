@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useRef } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -68,6 +68,18 @@ const NavLinkButton = styled(Button)<{ active?: number }>(({ theme, active }) =>
     background: 'none',
     borderBottom: `2px solid ${theme.palette.text.primary}`,
     color: theme.palette.text.primary,
+  },
+  '&:focus': {
+    outline: 'none !important',
+    boxShadow: 'none !important',
+    border: 'none',
+    background: 'none',
+  },
+  '&.Mui-focused': {
+    outline: 'none !important',
+    boxShadow: 'none !important',
+    border: 'none',
+    background: 'none',
   },
 }));
 
@@ -139,17 +151,24 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   </LogoTypography>
                 </Link>
                 <NavBar>
-                  {menuItems.map((item) => (
-                    <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
-                      <NavLinkButton
-                        disableRipple
-                        active={location.pathname === item.path ? 1 : 0}
-                        sx={{ textTransform: 'none' }}
-                      >
-                        {item.label}
-                      </NavLinkButton>
-                    </Link>
-                  ))}
+                  {menuItems.map((item) => {
+                    const btnRef = useRef<HTMLButtonElement>(null);
+                    return (
+                      <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
+                        <NavLinkButton
+                          disableRipple
+                          active={location.pathname === item.path ? 1 : 0}
+                          sx={{ textTransform: 'none' }}
+                          ref={btnRef}
+                          onClick={() => {
+                            btnRef.current && btnRef.current.blur();
+                          }}
+                        >
+                          {item.label}
+                        </NavLinkButton>
+                      </Link>
+                    );
+                  })}
                 </NavBar>
               </>
             )}
