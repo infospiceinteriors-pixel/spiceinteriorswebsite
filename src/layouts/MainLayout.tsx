@@ -151,24 +151,18 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   </LogoTypography>
                 </Link>
                 <NavBar>
-                  {menuItems.map((item) => {
-                    const btnRef = useRef<HTMLButtonElement>(null);
-                    return (
-                      <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
-                        <NavLinkButton
-                          disableRipple
-                          active={location.pathname === item.path ? 1 : 0}
-                          sx={{ textTransform: 'none' }}
-                          ref={btnRef}
-                          onClick={() => {
-                            btnRef.current && btnRef.current.blur();
-                          }}
-                        >
-                          {item.label}
-                        </NavLinkButton>
-                      </Link>
-                    );
-                  })}
+                  {menuItems.map((item) => (
+                    <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
+                      <NavLinkButton
+                        disableRipple
+                        active={location.pathname === item.path ? 1 : 0}
+                        sx={{ textTransform: 'none' }}
+                        onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
+                      >
+                        {item.label}
+                      </NavLinkButton>
+                    </Link>
+                  ))}
                 </NavBar>
               </>
             )}

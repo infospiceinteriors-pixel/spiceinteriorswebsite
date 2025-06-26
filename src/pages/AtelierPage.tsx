@@ -145,71 +145,8 @@ const AtelierPage = () => {
 
   return (
     <Box>
-      {/* Profile Section */}
-      <Box sx={{ 
-        py: 8, 
-        backgroundColor: 'background.paper',
-        borderBottom: '1px solid rgba(212, 165, 116, 0.2)'
-      }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              <Avatar
-                src="/placeholder.jpg"
-                alt="Designer Profile"
-                sx={{ 
-                  width: 200, 
-                  height: 200, 
-                  mx: { xs: 'auto', md: 0 },
-                  mb: 3,
-                  border: '4px solid',
-                  borderColor: 'secondary.main'
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Typography 
-                variant="h2" 
-                sx={{ 
-                  mb: 3,
-                  color: 'primary.main',
-                  fontWeight: 400,
-                }}
-              >
-                Meet Our Designer
-              </Typography>
-              <Typography 
-                variant="subtitle1" 
-                sx={{ 
-                  color: 'text.secondary',
-                  mb: 4,
-                  lineHeight: 1.8
-                }}
-              >
-                With over 10 years of experience in interior design, our founder has a passion for creating 
-                spaces that are both beautiful and functional. Specializing in modern, Scandinavian, and 
-                contemporary styles, we bring a unique perspective to every project.
-              </Typography>
-              <Button 
-                variant="contained" 
-                size="large"
-                href="/contact"
-                sx={{ 
-                  px: 4, 
-                  py: 1.5,
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                }}
-              >
-                Get in Touch
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
       {/* Projects Carousel */}
-      <Box sx={{ py: 8, backgroundColor: 'background.default' }}>
+      <Box sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography 

@@ -3,90 +3,102 @@ import { Box, Container, Typography, Grid, FormControl, InputLabel, Select, Menu
 import ItemsSection from '../components/ItemsSection';
 
 // Extended dummy data for shop items
-const allShopItems = [
+export const allShopItems = [
   {
     id: '1',
     name: 'Modern Dining Chair',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€450',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: true
   },
   {
     id: '2',
     name: 'Art Deco Side Table',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€320',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: false
   },
   {
     id: '3',
     name: 'Scandinavian Sofa',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€1,200',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: true
   },
   {
     id: '4',
     name: 'Industrial Pendant Light',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€180',
-    category: 'Lighting'
+    category: 'Lighting',
+    featured: false
   },
   {
     id: '5',
     name: 'Bohemian Rug',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€280',
-    category: 'Textiles'
+    category: 'Textiles',
+    featured: true
   },
   {
     id: '6',
     name: 'Mid-Century Coffee Table',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€390',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: false
   },
   {
     id: '7',
     name: 'Velvet Armchair',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€650',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: false
   },
   {
     id: '8',
     name: 'Crystal Chandelier',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€850',
-    category: 'Lighting'
+    category: 'Lighting',
+    featured: false
   },
   {
     id: '9',
     name: 'Linen Curtains',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€120',
-    category: 'Textiles'
+    category: 'Textiles',
+    featured: false
   },
   {
     id: '10',
     name: 'Console Table',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€420',
-    category: 'Furniture'
+    category: 'Furniture',
+    featured: false
   },
   {
     id: '11',
     name: 'Table Lamp',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€95',
-    category: 'Lighting'
+    category: 'Lighting',
+    featured: false
   },
   {
     id: '12',
     name: 'Throw Pillows',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€45',
-    category: 'Textiles'
+    category: 'Textiles',
+    featured: false
   }
 ];
 

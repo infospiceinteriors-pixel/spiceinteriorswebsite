@@ -60,7 +60,7 @@ const CardGrid = styled(Box)(({ theme }) => ({
   gridTemplateColumns: 'repeat(4, 1fr)',
   gap: 0,
   width: '100%',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
 }));
@@ -133,7 +133,7 @@ const ItemsSection = ({
   const displayedItems = items.slice(0, maxItems);
 
   return (
-    <Box sx={{ py: 8, backgroundColor: 'background.default' }}>
+    <Box sx={{ py: 4, backgroundColor: 'background.default' }}>
       <Container maxWidth="xl">
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography 
