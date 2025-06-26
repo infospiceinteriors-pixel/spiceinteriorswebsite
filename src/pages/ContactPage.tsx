@@ -108,9 +108,17 @@ const ContactPage = () => {
               InputLabelProps={{ shrink: false }}
             />
           </Box>
-          {/* Row 4: Send button (full width) */}
-          <Box>
-            <Button type="submit" variant="contained" fullWidth>
+          {/* Row 4: Send button (centered and smaller) */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Button 
+              type="submit" 
+              variant="contained" 
+              sx={{ 
+                minWidth: 120,
+                px: 4,
+                py: 1.5
+              }}
+            >
               Send
             </Button>
           </Box>

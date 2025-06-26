@@ -191,7 +191,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                             transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                             MenuListProps={{ sx: { minWidth: 160 } }}
-                            TransitionProps={{ timeout: 200 }}
                           >
                             {shopCategories.map((cat) => (
                               <MenuItem
@@ -253,7 +252,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                           />
                           <ArrowDropDownIcon sx={{ ml: 1, transition: 'transform 0.2s', transform: mobileShopOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
                         </ListItemButton>
-                        <Collapse in={mobileShopOpen} timeout="auto" unmountOnExit>
+                        <Collapse in={mobileShopOpen} unmountOnExit>
                           <List component="div" disablePadding>
                             {shopCategories.map((cat) => (
                               <ListItemButton
