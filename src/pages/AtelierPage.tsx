@@ -3,14 +3,10 @@ import {
   Box, 
   Container, 
   Typography, 
-  Grid, 
-  Button, 
   Card, 
-  CardMedia, 
   CardContent,
   Avatar,
   Paper,
-  useTheme,
   IconButton
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -120,17 +116,7 @@ const ProjectGrid = styled(Box)(({ theme }) => ({
 }));
 
 const AtelierPage = () => {
-  const [currentProject, setCurrentProject] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const theme = useTheme();
-
-  const nextProject = () => {
-    setCurrentProject((prev) => (prev + 1) % projects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
-  };
 
   return (
     <Box>

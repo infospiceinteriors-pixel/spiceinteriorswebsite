@@ -7,7 +7,7 @@ const HeroSectionWrapper = styled(Box)(({ theme }) => ({
   width: '100vw',
   maxWidth: '100%',
   position: 'relative',
-  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/hero_image.png")',
+  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/hero_image.jpg")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundAttachment: 'fixed',

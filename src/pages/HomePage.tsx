@@ -39,7 +39,7 @@ const HomePage = () => {
   return (
     <Box>
       <HeroSection
-        backgroundImage="/hero_image.png"
+        backgroundImage="/hero_image.jpg"
       />
       
       <ItemsSection

@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import { Box, Container, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import ItemsSection from '../components/ItemsSection';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getAllItems } from '../utils/data';
 
 const categories = ['All', 'Furniture', 'Lighting', 'Textiles', 'Decor'];
