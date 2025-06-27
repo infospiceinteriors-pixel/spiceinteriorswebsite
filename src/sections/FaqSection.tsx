@@ -27,7 +27,7 @@ const faqs = [
 ];
 
 const FaqSectionWrapper = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8, 0),
+  padding: theme.spacing(5, 0),
   backgroundColor: theme.palette.background.default,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
@@ -43,10 +43,10 @@ const FaqSectionWrapper = styled(Box)(({ theme }) => ({
     background: 'linear-gradient(to right, transparent, rgba(197, 153, 123, 0.3), transparent)',
   },
   [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(6, 0),
+    padding: theme.spacing(4, 0),
   },
   [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(5, 0),
+    padding: theme.spacing(3, 0),
   },
 }));
 
@@ -54,28 +54,28 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '1400px',
   margin: '0 auto',
-  padding: theme.spacing(0, 4),
+  padding: theme.spacing(0, 2),
   boxSizing: 'border-box',
   [theme.breakpoints.up('xl')]: {
     maxWidth: '1400px',
-    padding: theme.spacing(0, 6),
-  },
-  [theme.breakpoints.between('lg', 'xl')]: {
-    padding: theme.spacing(0, 5),
-  },
-  [theme.breakpoints.between('md', 'lg')]: {
-    padding: theme.spacing(0, 4),
-  },
-  [theme.breakpoints.down('md')]: {
     padding: theme.spacing(0, 3),
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.between('lg', 'xl')]: {
     padding: theme.spacing(0, 2.5),
+  },
+  [theme.breakpoints.between('md', 'lg')]: {
+    padding: theme.spacing(0, 2),
+  },
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(0, 1.5),
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(0, 1),
   },
 }));
 
 const FaqContainer = styled(Box)(() => ({
-  maxWidth: 1000,
+  maxWidth: 700,
   margin: '0 auto',
   position: 'relative',
 }));
@@ -123,7 +123,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
     },
   },
   '& .MuiAccordionDetails-root': {
-    padding: theme.spacing(1, 0, 3),
+    padding: theme.spacing(0.5, 0, 2),
   },
   '&.Mui-focused': {
     outline: 'none !important',
@@ -235,7 +235,7 @@ const FaqSection = () => {
                 disableRipple
                 sx={{
                   '& .MuiAccordionSummary-content': {
-                    margin: '16px 0',
+                    margin: '12px 0',
                   },
                   padding: '0',
                   minHeight: '48px',

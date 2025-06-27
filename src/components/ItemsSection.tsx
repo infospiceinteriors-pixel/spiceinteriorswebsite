@@ -1,14 +1,7 @@
 import { Box, Typography, Card, CardContent, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React from 'react';
-
-interface Item {
-  id: string;
-  name: string;
-  images: string[];
-  price: string;
-  category?: string;
-}
+import { Item } from '../utils/data';
 
 interface ItemsSectionProps {
   title: string;
@@ -197,7 +190,7 @@ const ItemsSection = ({
                 fontWeight: 500,
               }}
             >
-              View All Items
+              View All
             </Button>
           </Box>
         )}

@@ -1,9 +1,10 @@
 import { Box, Container, Typography, Link } from '@mui/material';
 import ItemsSection from '../components/ItemsSection';
-import { allShopItems } from './ShopPage';
+import { getFeaturedItems } from '../utils/data';
 
 const RentPage = () => {
-  const rentalItems = allShopItems.filter(item => item.featured);
+  const rentalItems = getFeaturedItems();
+  
   return (
     <Box>
       <Box sx={{ py: 3, backgroundColor: 'background.paper' }}>
@@ -50,6 +51,7 @@ const RentPage = () => {
       {/* Rental Items Section */}
       <ItemsSection
         title="Featured"
+        description="Discover our hand-picked collection of exceptional pieces available for rent"
         items={rentalItems}
         showViewAll={true}
         viewAllPath="/rent"

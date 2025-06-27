@@ -21,6 +21,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Collapse from '@mui/material/Collapse';
+// Official Social Media Icons from React Icons
+import { FaInstagram, FaTiktok } from 'react-icons/fa';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -49,6 +51,8 @@ const NavBar = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   gap: theme.spacing(4),
   marginBottom: theme.spacing(2.5),
+  width: '100%',
+  position: 'relative',
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
@@ -96,6 +100,26 @@ const MobileNavBar = styled(Box)(({ theme }) => ({
     width: '100%',
     padding: theme.spacing(2, 2, 1.5, 2),
     boxSizing: 'border-box',
+    position: 'relative',
+  },
+}));
+
+const SocialMediaContainer = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  right: 0,
+  top: '50%',
+  transform: 'translateY(-50%)',
+  display: 'flex',
+  gap: theme.spacing(1.5),
+  alignItems: 'center',
+}));
+
+const SocialIconButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  padding: theme.spacing(0.5),
+  '&:hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -142,22 +166,55 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     }}>
       <AppBar position="static" elevation={0} sx={{ background: 'transparent', boxShadow: 'none', p: 0 }}>
         <Container maxWidth="lg" disableGutters>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative' }}>
             {isMobile ? (
               <MobileNavBar>
-                <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                  <a
+                    href="https://www.instagram.com/spice_int/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow us on Instagram"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <SocialIconButton size="small">
+                      <FaInstagram size={18} />
+                    </SocialIconButton>
+                  </a>
+                  <a
+                    href="https://www.tiktok.com/@spice_interiors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Follow us on TikTok"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <SocialIconButton size="small">
+                      <FaTiktok size={18} />
+                    </SocialIconButton>
+                  </a>
+                </Box>
+                
+                {/* Absolutely positioned logo for true center alignment */}
+                <Box sx={{ 
+                  position: 'absolute', 
+                  left: '50%', 
+                  top: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  zIndex: 1
+                }}>
                   <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
                     <LogoTypography variant="h1" sx={{ marginTop: 0, marginBottom: 0 }}>
                       SPICE
                     </LogoTypography>
                   </Link>
                 </Box>
+                
                 <IconButton
                   edge="end"
                   color="default"
                   aria-label="menu"
                   onClick={() => setDrawerOpen(true)}
-                  sx={{ ml: 1 }}
+                  sx={{ ml: 'auto' }}
                 >
                   <MenuIcon sx={{ fontSize: 32, color: '#222' }} />
                 </IconButton>
@@ -219,6 +276,32 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                       </Link>
                     );
                   })}
+                  
+                  {/* Social Media Icons - Aligned with nav buttons */}
+                  <SocialMediaContainer>
+                    <a
+                      href="https://www.instagram.com/spice_int/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow us on Instagram"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <SocialIconButton>
+                        <FaInstagram size={20} />
+                      </SocialIconButton>
+                    </a>
+                    <a
+                      href="https://www.tiktok.com/@spice_interiors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Follow us on TikTok"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <SocialIconButton>
+                        <FaTiktok size={20} />
+                      </SocialIconButton>
+                    </a>
+                  </SocialMediaContainer>
                 </NavBar>
               </>
             )}

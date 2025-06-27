@@ -2,52 +2,7 @@ import { Box } from '@mui/material';
 import HeroSection from '../components/HeroSection';
 import ItemsSection from '../components/ItemsSection';
 import FaqSection from '../components/FaqSection';
-
-// Dummy data for new items
-const newItems = [
-  {
-    id: '1',
-    name: 'Modern Dining Chair',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€450',
-    category: 'Furniture'
-  },
-  {
-    id: '2',
-    name: 'Art Deco Side Table',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€320',
-    category: 'Furniture'
-  },
-  {
-    id: '3',
-    name: 'Scandinavian Sofa',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€1,200',
-    category: 'Furniture'
-  },
-  {
-    id: '4',
-    name: 'Industrial Pendant Light',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€180',
-    category: 'Lighting'
-  },
-  {
-    id: '5',
-    name: 'Bohemian Rug',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€280',
-    category: 'Textiles'
-  },
-  {
-    id: '6',
-    name: 'Mid-Century Coffee Table',
-    images: ['/placeholder.jpg', '/placeholder.jpg'],
-    price: '€390',
-    category: 'Furniture'
-  }
-];
+import { getNewItems } from '../utils/data';
 
 // Dummy FAQ data
 const faqs = [
@@ -78,14 +33,13 @@ const faqs = [
 ];
 
 const HomePage = () => {
+  // Get items from centralized data
+  const newItems = getNewItems();
+
   return (
     <Box>
       <HeroSection
-        title="Spice Interior Design Studio"
-        subtitle="Creating bespoke spaces that reflect your unique style and elevate your living experience. Discover our curated collection of premium furniture and accessories."
-        backgroundImage="/placeholder.jpg"
-        ctaText="Explore Our Collection"
-        ctaLink="/shop"
+        backgroundImage="/hero_image.png"
       />
       
       <ItemsSection
