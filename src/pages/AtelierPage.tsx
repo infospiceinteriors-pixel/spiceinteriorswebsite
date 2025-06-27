@@ -10,14 +10,13 @@ import {
   CardContent,
   Avatar,
   Paper,
-  IconButton,
   useTheme,
-  useMediaQuery
+  IconButton
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import StarIcon from '@mui/icons-material/Star';
 
 // Dummy data for projects
 const projects = [
@@ -51,49 +50,6 @@ const projects = [
   }
 ];
 
-// Process steps
-const processSteps = [
-  {
-    step: '01',
-    title: 'Initial Consultation',
-    description: 'We begin with a comprehensive consultation to understand your vision, lifestyle, and requirements.'
-  },
-  {
-    step: '02',
-    title: 'Concept Development',
-    description: 'Our team creates detailed design concepts, mood boards, and 3D visualizations for your approval.'
-  },
-  {
-    step: '03',
-    title: 'Design Refinement',
-    description: 'We refine the design based on your feedback, ensuring every detail meets your expectations.'
-  },
-  {
-    step: '04',
-    title: 'Implementation',
-    description: 'Our experienced team oversees the entire implementation process, from procurement to final styling.'
-  }
-];
-
-// Deliverable examples
-const deliverables = [
-  {
-    title: 'Complete Design Package',
-    description: 'Comprehensive design documentation including floor plans, furniture layouts, color schemes, and material specifications.',
-    price: '€2,500-€5,000'
-  },
-  {
-    title: 'Furniture Selection',
-    description: 'Curated furniture selection with detailed specifications, pricing, and procurement timeline.',
-    price: '€1,200-€3,000'
-  },
-  {
-    title: 'Lighting Design',
-    description: 'Complete lighting plan including fixture selection, placement, and control systems.',
-    price: '€800-€2,000'
-  }
-];
-
 // Testimonials
 const testimonials = [
   {
@@ -119,21 +75,54 @@ const testimonials = [
   }
 ];
 
-const ProjectCard = styled(Card)(({ theme }) => ({
-  height: '100%',
+const ProjectCard = styled(Card)(() => ({
+  boxShadow: 'none',
+  border: 'none',
+  borderRadius: 0,
   display: 'flex',
   flexDirection: 'column',
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  background: 'none',
+  transition: 'none',
+  height: 'auto',
+  width: '100%',
+  maxWidth: '100%',
   '&:hover': {
-    transform: 'translateY(-4px)',
-    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+    boxShadow: 'none',
+    background: 'none',
+  },
+}));
+
+const ImageWrapper = styled('div')({
+  position: 'relative',
+  width: '100%',
+  aspectRatio: '1 / 1', // This ensures square images
+  overflow: 'hidden',
+});
+
+const ProjectImage = styled('img')({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+});
+
+const ProjectGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: 0,
+  width: '100%',
+  '& > *': {
+    minWidth: 0, // Prevent grid items from expanding beyond their allocated space
+    maxWidth: '100%'
+  },
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: 'repeat(1, 1fr)',
   },
 }));
 
 const AtelierPage = () => {
   const [currentProject, setCurrentProject] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const nextProject = () => {
     setCurrentProject((prev) => (prev + 1) % projects.length);
@@ -157,7 +146,7 @@ const AtelierPage = () => {
                 fontWeight: 400,
               }}
             >
-              Featured Projects
+              Portfolio
             </Typography>
             <Typography 
               variant="subtitle1" 
@@ -173,220 +162,66 @@ const AtelierPage = () => {
           </Box>
 
           <Box sx={{ position: 'relative', mb: 4 }}>
-            <Grid container spacing={4}>
-              {projects.map((project, index) => (
-                <Grid item xs={12} md={6} lg={3} key={project.id}>
-                  <ProjectCard>
-                    <CardMedia
-                      component="img"
-                      height="250"
-                      image={project.image}
+            <ProjectGrid>
+              {projects.map((project) => (
+                <ProjectCard key={project.id}>
+                  <ImageWrapper>
+                    <ProjectImage
+                      src={project.image}
                       alt={project.title}
                     />
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      <Typography 
-                        variant="caption" 
-                        sx={{ 
-                          color: 'secondary.main',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
-                          fontWeight: 500,
-                          mb: 1,
-                          display: 'block'
-                        }}
-                      >
-                        {project.category}
-                      </Typography>
-                      <Typography 
-                        variant="h6" 
-                        sx={{ 
-                          mb: 2,
-                          fontFamily: 'Playfair Display',
-                          fontWeight: 400,
-                        }}
-                      >
-                        {project.title}
-                      </Typography>
-                      <Typography 
-                        variant="body2" 
-                        sx={{ 
-                          color: 'text.secondary',
-                          lineHeight: 1.6
-                        }}
-                      >
-                        {project.description}
-                      </Typography>
-                    </CardContent>
-                  </ProjectCard>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Process Section */}
-      <Box sx={{ py: 8, backgroundColor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                mb: 2,
-                color: 'primary.main',
-                fontWeight: 400,
-              }}
-            >
-              Our Process
-            </Typography>
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-              }}
-            >
-              We follow a structured approach to ensure every project meets our high standards 
-              and exceeds your expectations.
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {processSteps.map((step, index) => (
-              <Grid item xs={12} sm={6} md={3} key={index}>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography 
-                    variant="h1" 
-                    sx={{ 
-                      color: 'secondary.main',
-                      fontSize: '3rem',
-                      fontWeight: 300,
-                      mb: 2
-                    }}
-                  >
-                    {step.step}
-                  </Typography>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
-                      mb: 2,
-                      color: 'primary.main',
-                      fontFamily: 'Playfair Display',
-                      fontWeight: 400,
-                    }}
-                  >
-                    {step.title}
-                  </Typography>
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      color: 'text.secondary',
-                      lineHeight: 1.6
-                    }}
-                  >
-                    {step.description}
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Deliverables Section */}
-      <Box sx={{ py: 8, backgroundColor: 'background.default' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                mb: 2,
-                color: 'primary.main',
-                fontWeight: 400,
-              }}
-            >
-              What You'll Receive
-            </Typography>
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-                mb: 4
-              }}
-            >
-              Our comprehensive deliverables ensure you have everything needed to bring your vision to life.
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {deliverables.map((deliverable, index) => (
-              <Grid item xs={12} md={4} key={index}>
-                <Paper 
-                  elevation={0}
-                  sx={{ 
-                    p: 4, 
-                    height: '100%',
-                    border: '1px solid rgba(212, 165, 116, 0.2)',
-                    backgroundColor: 'background.paper',
-                    display: 'flex',
+                  </ImageWrapper>
+                  <CardContent sx={{ 
+                    p: 2, 
+                    pb: 3, 
+                    pt: 3, 
+                    display: 'flex', 
                     flexDirection: 'column',
-                    justifyContent: 'space-between'
-                  }}
-                >
-                  <Box>
+                    alignItems: 'flex-start', 
+                    justifyContent: 'flex-start', 
+                    width: '100%',
+                    minHeight: '80px',
+                    flex: '0 0 auto',
+                    overflow: 'hidden'
+                  }}>
                     <Typography 
-                      variant="h5" 
+                      variant="h6" 
                       sx={{ 
-                        mb: 2,
-                        color: 'primary.main',
                         fontFamily: 'Playfair Display',
-                        fontWeight: 400,
+                        fontWeight: 600,
+                        fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
+                        textAlign: 'left',
+                        width: '100%',
+                        textTransform: 'uppercase',
+                        letterSpacing: 0,
+                        lineHeight: 1.2,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        display: 'block',
+                        mb: 1
                       }}
                     >
-                      {deliverable.title}
+                      {project.title}
                     </Typography>
                     <Typography 
-                      variant="body1" 
+                      variant="body2" 
                       sx={{ 
                         color: 'text.secondary',
                         lineHeight: 1.6,
-                        mb: 3
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical'
                       }}
                     >
-                      {deliverable.description}
+                      {project.description}
                     </Typography>
-                  </Box>
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
-                      color: 'secondary.main',
-                      fontWeight: 500,
-                    }}
-                  >
-                    {deliverable.price}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Box sx={{ textAlign: 'center', mt: 6 }}>
-            <Button 
-              variant="contained" 
-              size="large"
-              href="/contact"
-              sx={{ 
-                px: 4, 
-                py: 1.5,
-                fontSize: '1rem',
-                fontWeight: 500,
-              }}
-            >
-              Get in Touch
-            </Button>
+                  </CardContent>
+                </ProjectCard>
+              ))}
+            </ProjectGrid>
           </Box>
         </Container>
       </Box>
@@ -403,7 +238,7 @@ const AtelierPage = () => {
                 fontWeight: 400,
               }}
             >
-              Client Testimonials
+              Testimonials
             </Typography>
             <Typography 
               variant="subtitle1" 
@@ -417,25 +252,36 @@ const AtelierPage = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={4}>
-            {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={4} key={index}>
+          <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+            <Box 
+              sx={{ 
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+                gap: 3,
+                transition: 'opacity 0.3s ease-in-out'
+              }}
+            >
+              {testimonials
+                .slice(currentTestimonial * 3, currentTestimonial * 3 + 3)
+                .map((testimonial, index) => (
                 <Paper 
+                  key={currentTestimonial * 3 + index}
                   elevation={0}
                   sx={{ 
                     p: 4, 
                     height: '100%',
                     border: '1px solid rgba(212, 165, 116, 0.2)',
                     backgroundColor: 'background.default',
+                    textAlign: 'center'
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
                     <Avatar
                       src={testimonial.avatar}
                       alt={testimonial.name}
                       sx={{ width: 60, height: 60, mr: 2 }}
                     />
-                    <Box>
+                    <Box sx={{ textAlign: 'left' }}>
                       <Typography variant="h6" sx={{ fontWeight: 500 }}>
                         {testimonial.name}
                       </Typography>
@@ -445,7 +291,7 @@ const AtelierPage = () => {
                     </Box>
                   </Box>
                   
-                  <Box sx={{ display: 'flex', mb: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <StarIcon key={i} sx={{ color: 'secondary.main', fontSize: 20 }} />
                     ))}
@@ -456,15 +302,79 @@ const AtelierPage = () => {
                     sx={{ 
                       color: 'text.secondary',
                       lineHeight: 1.6,
-                      fontStyle: 'italic'
+                      fontStyle: 'italic',
+                      fontSize: '1rem'
                     }}
                   >
                     "{testimonial.text}"
                   </Typography>
                 </Paper>
-              </Grid>
-            ))}
-          </Grid>
+              ))}
+            </Box>
+
+            {/* Navigation Dots */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 1 }}>
+              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
+                <Box
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  sx={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    backgroundColor: index === currentTestimonial ? 'secondary.main' : 'rgba(212, 165, 116, 0.3)',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: index === currentTestimonial ? 'secondary.main' : 'rgba(212, 165, 116, 0.5)',
+                    }
+                  }}
+                />
+              ))}
+            </Box>
+
+            {/* Navigation Arrows - Only show if there are more than 3 testimonials */}
+            {testimonials.length > 3 && (
+              <>
+                <IconButton
+                  onClick={() => setCurrentTestimonial((prev) => (prev - 1 + Math.ceil(testimonials.length / 3)) % Math.ceil(testimonials.length / 3))}
+                  sx={{
+                    position: 'absolute',
+                    left: -20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    backgroundColor: 'background.paper',
+                    border: '1px solid rgba(212, 165, 116, 0.2)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    '&:hover': {
+                      backgroundColor: 'background.paper',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    }
+                  }}
+                >
+                  <ArrowBackIosIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+                </IconButton>
+                <IconButton
+                  onClick={() => setCurrentTestimonial((prev) => (prev + 1) % Math.ceil(testimonials.length / 3))}
+                  sx={{
+                    position: 'absolute',
+                    right: -20,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    backgroundColor: 'background.paper',
+                    border: '1px solid rgba(212, 165, 116, 0.2)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    '&:hover': {
+                      backgroundColor: 'background.paper',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    }
+                  }}
+                >
+                  <ArrowForwardIosIcon sx={{ fontSize: 20, color: 'primary.main' }} />
+                </IconButton>
+              </>
+            )}
+          </Box>
         </Container>
       </Box>
     </Box>

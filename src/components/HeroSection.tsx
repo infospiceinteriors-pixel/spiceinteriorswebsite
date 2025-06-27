@@ -9,7 +9,7 @@ interface HeroSectionProps {
   ctaLink?: string;
 }
 
-const HeroContainer = styled(Box)(({ theme }) => ({
+const HeroContainer = styled(Box)(() => ({
   position: 'relative',
   height: '90vh',
   minHeight: 600,

@@ -20,7 +20,7 @@ interface FaqSectionProps {
   faqs: FAQItem[];
 }
 
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
+const StyledAccordion = styled(Accordion)(() => ({
   border: 'none',
   boxShadow: 'none',
   borderBottom: '1px solid rgba(212, 165, 116, 0.2)',

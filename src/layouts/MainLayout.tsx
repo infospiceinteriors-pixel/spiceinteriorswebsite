@@ -1,7 +1,6 @@
-import React, { ReactNode, useState, useRef } from 'react';
+import React, { ReactNode, useState } from 'react';
 import {
   AppBar,
-  Toolbar,
   Typography,
   Container,
   Box,

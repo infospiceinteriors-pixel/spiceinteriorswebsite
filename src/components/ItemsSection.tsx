@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Card, CardMedia, CardContent, Button, Container } from '@mui/material';
+import { Box, Typography, Card, CardContent, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React from 'react';
 
@@ -19,7 +19,7 @@ interface ItemsSectionProps {
   maxItems?: number;
 }
 
-const StyledCard = styled(Card)(({ theme }) => ({
+const StyledCard = styled(Card)(() => ({
   boxShadow: 'none',
   border: 'none',
   borderRadius: 0,
