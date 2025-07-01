@@ -1,9 +1,9 @@
 import { Box, Container, Typography, Link } from '@mui/material';
-import ItemsSection from '../components/ItemsSection';
-import { getFeaturedItems } from '../utils/data';
+// import ItemsSection from '../components/ItemsSection';
+// import { getFeaturedItems } from '../utils/data';
 
 const RentPage = () => {
-  const rentalItems = getFeaturedItems();
+  // const rentalItems = getFeaturedItems();
   
   return (
     <Box>
@@ -48,15 +48,15 @@ const RentPage = () => {
         </Container>
       </Box>
 
-      {/* Rental Items Section */}
-      <ItemsSection
+      {/* Temporarily removed rental items section */}
+      {/* <ItemsSection
         title="Featured"
         description="Discover our hand-picked collection of exceptional pieces available for rent"
         items={rentalItems}
         showViewAll={true}
         viewAllPath="/rent"
         maxItems={6}
-      />
+      /> */}
     </Box>
   );
 };

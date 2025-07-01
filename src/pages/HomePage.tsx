@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import HeroSection from '../components/HeroSection';
-import ItemsSection from '../components/ItemsSection';
+// import ItemsSection from '../components/ItemsSection';
 import FaqSection from '../components/FaqSection';
-import { getNewItems } from '../utils/data';
+// import { getNewItems } from '../utils/data';
 
 // Dummy FAQ data
 const faqs = [
@@ -34,7 +34,7 @@ const faqs = [
 
 const HomePage = () => {
   // Get items from centralized data
-  const newItems = getNewItems();
+  // const newItems = getNewItems();
 
   return (
     <Box>
@@ -42,13 +42,14 @@ const HomePage = () => {
         backgroundImage="/hero_image.jpg"
       />
       
-      <ItemsSection
+      {/* Temporarily removed items section */}
+      {/* <ItemsSection
         title="New In"
         items={newItems}
         showViewAll={true}
         viewAllPath="/shop"
         maxItems={6}
-      />
+      /> */}
       
       <FaqSection
         title="Frequently Asked Questions"

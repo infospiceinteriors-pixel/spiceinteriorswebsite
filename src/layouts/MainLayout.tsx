@@ -125,9 +125,9 @@ const SocialIconButton = styled(IconButton)(({ theme }) => ({
 
 const menuItems = [
   { label: 'Home', path: '/' },
+  { label: 'Atelier', path: '/atelier' },
   { label: 'Shop', path: '/shop' },
   { label: 'Rent', path: '/rent' },
-  { label: 'Atelier', path: '/atelier' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -446,8 +446,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Contact</Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Amsterdam, Netherlands<br />
-                +31 683142404
+                Rotterdam, Netherlands<br />
+                +31 626268470
               </Typography>
             </Box>
           </Box>

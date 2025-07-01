@@ -18,56 +18,63 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const projects = [
   {
     id: '1',
-    title: 'Modern Amsterdam Apartment',
-    description: 'Complete transformation of a 120m² apartment in the heart of Amsterdam. Modern minimalist design with premium finishes.',
-    image: '/placeholder.jpg',
-    category: 'Residential'
+    title: 'Monument Vas Dias, Amsterdam (AIP)',
+    description: 'For the Monument Vas Dias in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
+    images: ['/HNM-01.jpg', '/HNM-03.jpg', '/HNM-04.jpg'],
+    category: 'Architecture'
   },
   {
     id: '2',
-    title: 'Boutique Hotel Lobby',
-    description: 'Luxury hotel lobby redesign featuring custom furniture and statement lighting. Created an inviting atmosphere for guests.',
-    image: '/placeholder.jpg',
-    category: 'Commercial'
+    title: 'CiWoCo, Amsterdam (GAAGA)',
+    description: 'In the experimental circular district of Buiksloterham in Amsterdam-Noord, we designed a flexible, demountable live-work building that can adapt to future changes without major structural alterations. Developed in close collaboration with a resident-led construction group, the project embraces circular construction principles from design to execution. To support this innovative approach, I contributed by creating precise technical 3D drawings that clarified how the various circular building components come together—ensuring seamless coordination between design intent and construction.',
+    images: ['/GAAGA_CiWoCo_09.jpg', '/GAAGA_BSH20E_13.jpg', '/GAAGA_CiWoCo_11.jpg'],
+    category: 'Circular Design'
   },
   {
     id: '3',
-    title: 'Scandinavian Family Home',
-    description: 'Family home renovation with focus on functionality and style. Open plan living with natural materials throughout.',
-    image: '/placeholder.jpg',
+    title: 'De Hallen, Amsterdam (GAAGA)',
+    description: 'Block B5, located at the corner of Bilderdijkkade and Kwakersstraat near De Hallen in Amsterdam Oud-West, is a unique five-story residential project developed in collaboration with a construction group of private individuals. The building features nine distinct apartments, each with its own layout and size, tailored to the needs of its residents—visible in the varied facade with alternating steel balconies and bay windows. To support this high level of customization, I created detailed technical 3D drawings that helped clarify how the bespoke components of the building come together, ensuring precise coordination and an efficient fabrication and construction process.',
+    images: ['/GAAGA_De-Hallen-B5_10.jpg', '/GAAGA_De-Hallen-B5_16.jpg', '/GAAGA_De-Hallen-B5_11.jpg'],
     category: 'Residential'
   },
   {
     id: '4',
-    title: 'Co-working Space',
-    description: 'Modern co-working space design with flexible furniture solutions and inspiring work environments.',
-    image: '/placeholder.jpg',
-    category: 'Commercial'
+    title: 'Naraina house, Delhi (MOFA stdios)',
+    description: 'Early in my career, I was involved in the design and execution of high-end luxury residences, where architecture and interior design were seamlessly integrated to reflect refined living. These projects demanded meticulous attention to detail, from spatial planning to material selection, with a strong emphasis on craftsmanship and elegance. My role included translating bespoke client visions into cohesive design solutions that balanced functionality with timeless aesthetics.',
+    images: ['/naraina-02.jpeg', '/naraina-01.jpeg', '/naraina-03.png'],
+    category: 'Residential'
   }
 ];
 
 // Testimonials
 const testimonials = [
   {
-    name: 'Sarah van der Berg',
-    role: 'Homeowner',
+    name: 'Nikoletta Christidi',
+    role: 'PhD candidate at TU Delft',
     rating: 5,
-    text: 'Spice transformed our apartment into a beautiful, functional space that perfectly reflects our style. The attention to detail was incredible.',
-    avatar: '/placeholder.jpg'
+    text: 'Ankur often goes above and beyond to come up with the best solution, focusing on functionality, aesthetics and efficiency. His contribution improved greatly the quality of several projects. Even after working hard on client projects, he had the energy to explore new tools and automate processes. He is creative, diligent and driven.',
+    avatar: '/nikoletta.jpeg'
   },
   {
-    name: 'Michael Chen',
-    role: 'Restaurant Owner',
+    name: 'Leah Dierker Vilk',
+    role: 'Product Manager',
     rating: 5,
-    text: 'The team at Spice created an amazing atmosphere for our restaurant. The design exceeded our expectations and our customers love it.',
-    avatar: '/placeholder.jpg'
+    text: 'I worked for almost a year and a half with Ankur at White Lioness technologies. He is a very dedicated, hard worker who cares about producing high-quality work. He\'s a creative problem-solver, good at thinking of out-of-the-box solutions to difficult problems, and a very kind and helpful person.',
+    avatar: '/leah.jpeg'
   },
   {
-    name: 'Emma Johnson',
-    role: 'Property Developer',
+    name: 'Milou Klein',
+    role: 'Engineering and Software Development',
     rating: 5,
-    text: 'Working with Spice was a pleasure from start to finish. They delivered a stunning design that added significant value to our property.',
-    avatar: '/placeholder.jpg'
+    text: 'Ankur is a hard working and dedicated colleague who shows creativity and curiosity in his work. His technical expertise in Rhinoceros and Grasshopper contributed greatly to high quality solutions. He has great teaching skills and is enthusiastic to share his knowledge.',
+    avatar: '/Milou Klein.jpeg'
+  },
+  {
+    name: 'Twan (Antoine) Goossens',
+    role: 'Computational Designer Infrastructure at Haskoning',
+    rating: 5,
+    text: 'It\'s rare to find anyone with the same technical expertise, curiosity and drive as Ankur. He went above and beyond in designing software architecture, creating excellent user experiences, and building low-maintenance solutions. Ankur is also a great trainer, always looking for better ways of working and happy to share his knowledge.',
+    avatar: '/twan.jpeg'
   }
 ];
 
@@ -88,12 +95,49 @@ const ProjectCard = styled(Card)(() => ({
   },
 }));
 
-const ImageWrapper = styled('div')({
+// New styled components for the custom layout
+const ProjectImageGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: '1fr 1fr',
+  gap: '8px',
+  height: '400px',
+  width: '100%',
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('md')]: {
+    height: '300px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    height: 'auto',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'auto auto',
+    gap: '6px',
+  },
+}));
+
+const VerticalImageWrapper = styled('div')(({ theme }) => ({
+  position: 'relative',
+  gridColumn: '1',
+  gridRow: '1 / 3',
+  width: '100%',
+  overflow: 'hidden',
+  [theme.breakpoints.down('sm')]: {
+    gridColumn: '1 / 3', // Span both columns on mobile
+    gridRow: '1',
+    aspectRatio: '16 / 9', // More horizontal aspect ratio
+  },
+}));
+
+const SquareImageWrapper = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100%',
-  aspectRatio: '1 / 1', // This ensures square images
+  height: '100%',
   overflow: 'hidden',
-});
+  [theme.breakpoints.down('sm')]: {
+    aspectRatio: '1 / 1',
+    height: 'auto',
+  },
+}));
 
 const ProjectImage = styled('img')({
   width: '100%',
@@ -104,14 +148,16 @@ const ProjectImage = styled('img')({
 const ProjectGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: 0,
+  gap: theme.spacing(6),
   width: '100%',
   '& > *': {
-    minWidth: 0, // Prevent grid items from expanding beyond their allocated space
+    minWidth: 0,
     maxWidth: '100%'
   },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(1, 1fr)',
+    maxWidth: '600px',
+    margin: '0 auto',
   },
 }));
 
@@ -151,12 +197,26 @@ const AtelierPage = () => {
             <ProjectGrid>
               {projects.map((project) => (
                 <ProjectCard key={project.id}>
-                  <ImageWrapper>
-                    <ProjectImage
-                      src={project.image}
-                      alt={project.title}
-                    />
-                  </ImageWrapper>
+                  <ProjectImageGrid>
+                    <VerticalImageWrapper>
+                      <ProjectImage
+                        src={project.images[0]}
+                        alt={project.title}
+                      />
+                    </VerticalImageWrapper>
+                    <SquareImageWrapper>
+                      <ProjectImage
+                        src={project.images[1]}
+                        alt={project.title}
+                      />
+                    </SquareImageWrapper>
+                    <SquareImageWrapper>
+                      <ProjectImage
+                        src={project.images[2]}
+                        alt={project.title}
+                      />
+                    </SquareImageWrapper>
+                  </ProjectImageGrid>
                   <CardContent sx={{ 
                     p: 2, 
                     pb: 3, 
@@ -166,16 +226,14 @@ const AtelierPage = () => {
                     alignItems: 'flex-start', 
                     justifyContent: 'flex-start', 
                     width: '100%',
-                    minHeight: '80px',
-                    flex: '0 0 auto',
-                    overflow: 'hidden'
+                    flex: '0 0 auto'
                   }}>
                     <Typography 
                       variant="h6" 
                       sx={{ 
                         fontFamily: 'Playfair Display',
                         fontWeight: 600,
-                        fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
+                        fontSize: { xs: '0.9rem', md: '0.95rem', lg: '1rem' },
                         textAlign: 'left',
                         width: '100%',
                         textTransform: 'uppercase',
@@ -194,12 +252,10 @@ const AtelierPage = () => {
                       variant="body2" 
                       sx={{ 
                         color: 'text.secondary',
-                        lineHeight: 1.6,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical'
+                        lineHeight: 1.4,
+                        fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' },
+                        textAlign: 'left',
+                        width: '100%'
                       }}
                     >
                       {project.description}
@@ -234,67 +290,86 @@ const AtelierPage = () => {
                 mx: 'auto',
               }}
             >
-              Hear from our satisfied clients about their experience working with Spice Interior Design Studio.
+              Read what people say after working with me.
             </Typography>
           </Box>
 
           <Box sx={{ position: 'relative', overflow: 'hidden' }}>
             <Box 
               sx={{ 
-                display: 'grid',
-                gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-                gap: 3,
-                transition: 'opacity 0.3s ease-in-out'
+                display: 'flex',
+                width: `${Math.ceil(testimonials.length / 3) * 100}%`,
+                transition: 'transform 0.5s ease-in-out',
+                transform: `translateX(-${currentTestimonial * (100 / Math.ceil(testimonials.length / 3))}%)`
               }}
             >
-              {testimonials
-                .slice(currentTestimonial * 3, currentTestimonial * 3 + 3)
-                .map((testimonial, index) => (
-                <Paper 
-                  key={currentTestimonial * 3 + index}
-                  elevation={0}
-                  sx={{ 
-                    p: 4, 
-                    height: '100%',
-                    border: '1px solid rgba(212, 165, 116, 0.2)',
-                    backgroundColor: 'background.default',
-                    textAlign: 'center'
+              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, slideIndex) => (
+                <Box
+                  key={slideIndex}
+                  sx={{
+                    width: `${100 / Math.ceil(testimonials.length / 3)}%`,
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+                    gap: 3,
+                    flexShrink: 0
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-                    <Avatar
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      sx={{ width: 60, height: 60, mr: 2 }}
-                    />
-                    <Box sx={{ textAlign: 'left' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 500 }}>
-                        {testimonial.name}
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {testimonial.role}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  
-                  <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <StarIcon key={i} sx={{ color: 'secondary.main', fontSize: 20 }} />
+                  {testimonials
+                    .slice(slideIndex * 3, slideIndex * 3 + 3)
+                    .map((testimonial, index) => (
+                      <Paper 
+                        key={slideIndex * 3 + index}
+                        elevation={0}
+                        sx={{ 
+                          p: 4, 
+                          height: '100%',
+                          border: '1px solid rgba(212, 165, 116, 0.2)',
+                          backgroundColor: 'background.default',
+                          textAlign: 'center'
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
+                          <Avatar
+                            src={testimonial.avatar}
+                            alt={testimonial.name}
+                            sx={{ width: 45, height: 45, mr: 2 }}
+                          />
+                          <Box sx={{ textAlign: 'left' }}>
+                            <Typography variant="h6" sx={{ 
+                              fontWeight: 500,
+                              fontSize: { xs: '0.85rem', md: '0.9rem', lg: '0.95rem' }
+                            }}>
+                              {testimonial.name}
+                            </Typography>
+                            <Typography variant="body2" sx={{ 
+                              color: 'text.secondary',
+                              fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' }
+                            }}>
+                              {testimonial.role}
+                            </Typography>
+                          </Box>
+                        </Box>
+                        
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <StarIcon key={i} sx={{ color: 'secondary.main', fontSize: 20 }} />
+                          ))}
+                        </Box>
+                        
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            color: 'text.secondary',
+                            lineHeight: 1.4,
+                            fontStyle: 'italic',
+                            fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' }
+                          }}
+                        >
+                          "{testimonial.text}"
+                        </Typography>
+                      </Paper>
                     ))}
-                  </Box>
-                  
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      color: 'text.secondary',
-                      lineHeight: 1.6,
-                      fontStyle: 'italic',
-                      fontSize: '1rem'
-                    }}
-                  >
-                    "{testimonial.text}"
-                  </Typography>
-                </Paper>
+                </Box>
               ))}
             </Box>
 
@@ -326,12 +401,13 @@ const AtelierPage = () => {
                   onClick={() => setCurrentTestimonial((prev) => (prev - 1 + Math.ceil(testimonials.length / 3)) % Math.ceil(testimonials.length / 3))}
                   sx={{
                     position: 'absolute',
-                    left: -20,
+                    left: 10,
                     top: '50%',
                     transform: 'translateY(-50%)',
                     backgroundColor: 'background.paper',
                     border: '1px solid rgba(212, 165, 116, 0.2)',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    zIndex: 2,
                     '&:hover': {
                       backgroundColor: 'background.paper',
                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -344,12 +420,13 @@ const AtelierPage = () => {
                   onClick={() => setCurrentTestimonial((prev) => (prev + 1) % Math.ceil(testimonials.length / 3))}
                   sx={{
                     position: 'absolute',
-                    right: -20,
+                    right: 10,
                     top: '50%',
                     transform: 'translateY(-50%)',
                     backgroundColor: 'background.paper',
                     border: '1px solid rgba(212, 165, 116, 0.2)',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    zIndex: 2,
                     '&:hover': {
                       backgroundColor: 'background.paper',
                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -367,4 +444,4 @@ const AtelierPage = () => {
   );
 };
 
-export default AtelierPage; 
+export default AtelierPage;
