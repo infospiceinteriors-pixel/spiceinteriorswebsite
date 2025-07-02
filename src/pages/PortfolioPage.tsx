@@ -40,14 +40,14 @@ const projects = [
     id: '2',
     title: 'CiWoCo, Amsterdam (GAAGA)',
     description: 'In the experimental circular district of Buiksloterham in Amsterdam-Noord, we designed a flexible, demountable live-work building that can adapt to future changes without major structural alterations. Developed in close collaboration with a resident-led construction group, the project embraces circular construction principles from design to execution. To support this innovative approach, I contributed by creating precise technical 3D drawings that clarified how the various circular building components come together—ensuring seamless coordination between design intent and construction.',
-    images: ['/GAAGA_CiWoCo_09.jpg', '/GAAGA_BSH20E_13.jpg', '/GAAGA_CiWoCo_11.jpg'],
+    images: ['/buiksloterham-01.jpg', '/buiksloterham-02.jpg', '/buiksloterham-03.jpg'],
     category: 'Circular Design'
   },
   {
     id: '3',
     title: 'De Hallen, Amsterdam (GAAGA)',
     description: 'Block B5, located at the corner of Bilderdijkkade and Kwakersstraat near De Hallen in Amsterdam Oud-West, is a unique five-story residential project developed in collaboration with a construction group of private individuals. The building features nine distinct apartments, each with its own layout and size, tailored to the needs of its residents—visible in the varied facade with alternating steel balconies and bay windows. To support this high level of customization, I created detailed technical 3D drawings that helped clarify how the bespoke components of the building come together, ensuring precise coordination and an efficient fabrication and construction process.',
-    images: ['/GAAGA_De-Hallen-B5_10.jpg', '/GAAGA_De-Hallen-B5_16.jpg', '/GAAGA_De-Hallen-B5_11.jpg'],
+    images: ['/dehallen-01.jpg', '/dehallen-02.jpg', '/GAAGA_De-Hallen-B5_10.jpg'],
     category: 'Residential'
   }
 ];
