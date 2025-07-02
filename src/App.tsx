@@ -5,7 +5,8 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import RentPage from './pages/RentPage';
-import AtelierPage from './pages/AtelierPage';
+import PortfolioPage from './pages/PortfolioPage';
+import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 
 // Create a theme instance for Spice Interior Design Studio
@@ -201,9 +202,10 @@ function App() {
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/services" element={<ServicesPage />} />
               <Route path="/shop" element={<ShopPage />} />
               <Route path="/rent" element={<RentPage />} />
-              <Route path="/atelier" element={<AtelierPage />} />
               <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </MainLayout>

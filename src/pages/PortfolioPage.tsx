@@ -14,12 +14,25 @@ import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-// Dummy data for projects
 const projects = [
+    {
+      id: '4',
+      title: 'Naraina house, Delhi (MOFA stdios)',
+      description: 'Early in my career, I was involved in the design and execution of high-end luxury residences, where architecture and interior design were seamlessly integrated to reflect refined living. These projects demanded meticulous attention to detail, from spatial planning to material selection, with a strong emphasis on craftsmanship and elegance. My role included translating bespoke client visions into cohesive design solutions that balanced functionality with timeless aesthetics.',
+      images: ['/naraina-02.jpeg', '/naraina-01.jpeg', '/naraina-04.png'],
+      category: 'Residential'
+    },
+    {
+      id: '5',
+      title: 'Hatsoff accessories, Delhi',
+      description: 'I designed a retail interior for Hatsoff Accessories\' shoe store, drawing inspiration from mid-century Scandinavian wall units known for their clean lines, modularity, and warmth. The display system was crafted to feel like an extension of refined home furniture—elevating the retail experience while maintaining a minimalist, approachable atmosphere. Natural wood tones, thoughtful lighting, and flexible shelving allowed the shoes to be presented as curated objects, balancing function with an inviting, timeless aesthetic.',
+      images: ['/hatsoff-01.jpeg', '/hatsoff-02.jpeg', '/hatsoff-04.png'],
+      category: 'Retail'
+    },
   {
     id: '1',
-    title: 'Monument Vas Dias, Amsterdam (AIP)',
-    description: 'For the Monument Vas Dias in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
+    title: 'Holocaust Name Monument, Amsterdam (AIP)',
+    description: 'For the Holocaust Name Monument in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
     images: ['/HNM-01.jpg', '/HNM-03.jpg', '/HNM-04.jpg'],
     category: 'Architecture'
   },
@@ -35,13 +48,6 @@ const projects = [
     title: 'De Hallen, Amsterdam (GAAGA)',
     description: 'Block B5, located at the corner of Bilderdijkkade and Kwakersstraat near De Hallen in Amsterdam Oud-West, is a unique five-story residential project developed in collaboration with a construction group of private individuals. The building features nine distinct apartments, each with its own layout and size, tailored to the needs of its residents—visible in the varied facade with alternating steel balconies and bay windows. To support this high level of customization, I created detailed technical 3D drawings that helped clarify how the bespoke components of the building come together, ensuring precise coordination and an efficient fabrication and construction process.',
     images: ['/GAAGA_De-Hallen-B5_10.jpg', '/GAAGA_De-Hallen-B5_16.jpg', '/GAAGA_De-Hallen-B5_11.jpg'],
-    category: 'Residential'
-  },
-  {
-    id: '4',
-    title: 'Naraina house, Delhi (MOFA stdios)',
-    description: 'Early in my career, I was involved in the design and execution of high-end luxury residences, where architecture and interior design were seamlessly integrated to reflect refined living. These projects demanded meticulous attention to detail, from spatial planning to material selection, with a strong emphasis on craftsmanship and elegance. My role included translating bespoke client visions into cohesive design solutions that balanced functionality with timeless aesthetics.',
-    images: ['/naraina-02.jpeg', '/naraina-01.jpeg', '/naraina-03.png'],
     category: 'Residential'
   }
 ];
@@ -161,12 +167,12 @@ const ProjectGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AtelierPage = () => {
+const PortfolioPage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   return (
     <Box>
-      {/* Projects Carousel */}
+      {/* Projects Section */}
       <Box sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -188,8 +194,8 @@ const AtelierPage = () => {
                 mx: 'auto',
               }}
             >
-              Explore our portfolio of completed projects, showcasing our expertise in creating 
-              beautiful and functional spaces for our clients.
+              Explore my portfolio of completed projects, showcasing expertise in creating 
+              beautiful and functional spaces through innovative design solutions.
             </Typography>
           </Box>
 
@@ -444,4 +450,4 @@ const AtelierPage = () => {
   );
 };
 
-export default AtelierPage;
+export default PortfolioPage; 

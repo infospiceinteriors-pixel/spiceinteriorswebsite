@@ -28,18 +28,15 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
-const LogoTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Playfair Display, serif',
-  fontWeight: 500,
-  fontSize: '2.5rem',
-  letterSpacing: '0.08em',
-  textAlign: 'center',
-  color: theme.palette.primary.main,
+const LogoImage = styled('img')(({ theme }) => ({
+  height: '60px',
+  width: 'auto',
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(2),
   userSelect: 'none',
+  cursor: 'pointer',
   [theme.breakpoints.down('sm')]: {
-    fontSize: '1.7rem',
+    height: '45px',
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1.5),
   },
@@ -125,7 +122,8 @@ const SocialIconButton = styled(IconButton)(({ theme }) => ({
 
 const menuItems = [
   { label: 'Home', path: '/' },
-  { label: 'Atelier', path: '/atelier' },
+  { label: 'Portfolio', path: '/portfolio' },
+  { label: 'Services', path: '/services' },
   { label: 'Shop', path: '/shop' },
   { label: 'Rent', path: '/rent' },
   { label: 'Contact', path: '/contact' },
@@ -203,9 +201,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   zIndex: 1
                 }}>
                   <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
-                    <LogoTypography variant="h1" sx={{ marginTop: 0, marginBottom: 0 }}>
-                      SPICE
-                    </LogoTypography>
+                    <LogoImage 
+                      src="/logo-1.png" 
+                      alt="Spice Interior Design Studio" 
+                      sx={{ marginTop: 0, marginBottom: 0 }}
+                    />
                   </Link>
                 </Box>
                 
@@ -222,9 +222,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             ) : (
               <>
                 <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
-                  <LogoTypography variant="h1">
-                    SPICE
-                  </LogoTypography>
+                  <LogoImage 
+                    src="/logo-1.png" 
+                    alt="Spice Interior Design Studio"
+                  />
                 </Link>
                 <NavBar>
                   {menuItems.map((item) => {
