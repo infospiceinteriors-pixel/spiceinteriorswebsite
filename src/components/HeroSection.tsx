@@ -1,103 +1,139 @@
-import { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button, Container, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 interface HeroSectionProps {
-  backgroundImage?: string; // Keep for backward compatibility, but won't be used
+  backgroundImage?: string; // Keep for backward compatibility
 }
 
-const portfolioImages = [
-  '/buiksloterham-02.jpg', 
-  '/buiksloterham-01.jpg', 
-  '/dehallen-01.jpg',
-  '/buiksloterham-03.jpg', 
-  '/dehallen-02.jpg',
+const heroCards = [
+  {
+    id: 1,
+    image: '/buiksloterham-01.jpg',
+    buttonText: 'View Portfolio',
+    linkTo: '/portfolio'
+  },
+  {
+    id: 2,
+    image: '/dehallen-01.jpg',
+    buttonText: 'Our Services',
+    linkTo: '/services'
+  },
+  {
+    id: 3,
+    image: '/naraina-01.jpeg',
+    buttonText: 'Get In Touch',
+    linkTo: '/contact'
+  },
+  {
+    id: 4,
+    image: '/hatsoff-01.jpeg',
+    buttonText: 'Explore Work',
+    linkTo: '/portfolio'
+  }
 ];
 
-const HeroContainer = styled(Box)(() => ({
-  position: 'relative',
-  height: '90vh',
-  minHeight: 600,
+const HeroContainer = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(4, 0),
+  backgroundColor: 'background.default',
+  minHeight: '90vh',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-  overflow: 'hidden',
 }));
 
-const SlideImage = styled('img')<{ isActive: boolean }>(({ isActive }) => ({
-  position: 'absolute',
-  top: 0,
-  left: 0,
+const GridContainer = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: theme.spacing(3),
+  width: '100%',
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(4, 1fr)',
+  },
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '1fr',
+  },
+}));
+
+const CardContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+}));
+
+const ImageCard = styled(Card)(({ theme }) => ({
+  height: '500px',
+  position: 'relative',
+  overflow: 'hidden',
+  borderRadius: 0,
+  boxShadow: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'transform 0.3s ease',
+  marginBottom: theme.spacing(2),
+  '&:hover': {
+    transform: 'translateY(-5px)',
+    '& .image': {
+      transform: 'scale(1.05)',
+    }
+  },
+  [theme.breakpoints.down('sm')]: {
+    height: '400px',
+  },
+}));
+
+const CardImage = styled('img')(() => ({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
-  opacity: isActive ? 1 : 0,
-  transition: 'opacity 1s ease-in-out',
-  zIndex: isActive ? 1 : 0,
+  transition: 'transform 0.3s ease',
 }));
 
-const NavigationDots = styled(Box)(() => ({
-  position: 'absolute',
-  bottom: 30,
-  left: '50%',
-  transform: 'translateX(-50%)',
-  display: 'flex',
-  gap: 10,
-  zIndex: 10,
-}));
-
-const Dot = styled(Box)<{ isActive: boolean }>(({ theme, isActive }) => ({
-  width: 12,
-  height: 12,
-  borderRadius: '50%',
-  backgroundColor: isActive ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease',
-  border: '2px solid rgba(255, 255, 255, 0.8)',
+const ActionButton = styled(Button)(({ theme }) => ({
+  borderColor: theme.palette.primary.main,
+  color: theme.palette.primary.main,
+  textTransform: 'none',
+  fontSize: '0.9rem',
+  padding: '8px 24px',
+  alignSelf: 'center',
   '&:hover': {
+    borderColor: theme.palette.primary.main,
     backgroundColor: theme.palette.primary.main,
-    transform: 'scale(1.2)',
+    color: 'white',
   },
 }));
 
 const HeroSection = ({ backgroundImage }: HeroSectionProps) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
-  // Auto-advance slides every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % portfolioImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+  const handleCardClick = (linkTo: string) => {
+    navigate(linkTo);
   };
 
   return (
     <HeroContainer>
-      {/* Slide Images */}
-      {portfolioImages.map((image, index) => (
-        <SlideImage
-          key={index}
-          src={image}
-          alt={`Portfolio ${index + 1}`}
-          isActive={index === currentSlide}
-        />
-      ))}
-
-      {/* Navigation Dots */}
-      <NavigationDots>
-        {portfolioImages.map((_, index) => (
-          <Dot
-            key={index}
-            isActive={index === currentSlide}
-            onClick={() => goToSlide(index)}
-          />
-        ))}
-      </NavigationDots>
+      <Container maxWidth="xl">
+        <GridContainer>
+          {heroCards.map((card) => (
+            <CardContainer key={card.id}>
+              <ImageCard onClick={() => handleCardClick(card.linkTo)}>
+                <CardImage
+                  src={card.image}
+                  alt={`Portfolio ${card.id}`}
+                  className="image"
+                />
+              </ImageCard>
+              <ActionButton 
+                variant="outlined"
+                onClick={() => handleCardClick(card.linkTo)}
+              >
+                {card.buttonText}
+              </ActionButton>
+            </CardContainer>
+          ))}
+        </GridContainer>
+      </Container>
     </HeroContainer>
   );
 };

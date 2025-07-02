@@ -1,4 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Typography, Button, Container, Card, CardContent } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 // import ItemsSection from '../components/ItemsSection';
 import FaqSection from '../components/FaqSection';
@@ -32,13 +34,183 @@ const faqs = [
   }
 ];
 
+const featuresData = [
+  {
+    id: 1,
+    image: '/services-01.jpg',
+    title: 'Brutalist Collection',
+    description: 'Discover our curated selection of modern and vintage furniture pieces. From statement sofas to elegant dining sets, each piece is carefully chosen for quality and design.',
+    buttonText: 'Shop Furniture',
+    linkTo: '/shop'
+  },
+  {
+    id: 2,
+    image: '/services-03.jpg',
+    title: 'Lighting & Decor',
+    description: 'Illuminate your space with our collection of designer lighting and decorative accessories. Find the perfect pieces to add personality and warmth to any room.',
+    buttonText: 'Shop Lighting',
+    linkTo: '/shop'
+  },
+  {
+    id: 3,
+    image: '/services-05.jpg',
+    title: 'Textiles & Rugs',
+    description: 'Complete your interior with our selection of luxury textiles, rugs, and soft furnishings. Add texture, color, and comfort to create the perfect atmosphere.',
+    buttonText: 'Shop Textiles',
+    linkTo: '/shop'
+  }
+];
+
+// Styled components for the features section
+const FeaturesSection = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(8, 0),
+  backgroundColor: 'background.paper',
+}));
+
+const FeaturesGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: theme.spacing(4),
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '1fr',
+  },
+}));
+
+const FeatureCard = styled(Card)(() => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  boxShadow: 'none',
+  border: 'none',
+  borderRadius: 0,
+  backgroundColor: 'transparent',
+  '&:hover': {
+    boxShadow: 'none',
+    transform: 'none',
+    backgroundColor: 'transparent',
+  },
+}));
+
+const FeatureImage = styled('img')(({ theme }) => ({
+  width: '100%',
+  height: '300px',
+  objectFit: 'cover',
+  marginBottom: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    height: '250px',
+  },
+}));
+
+const FeatureContent = styled(CardContent)(({ theme }) => ({
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  '&:last-child': {
+    paddingBottom: 0,
+  },
+}));
+
+const FeatureTitle = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  color: 'primary.main',
+  fontFamily: 'Playfair Display',
+  fontWeight: 600,
+  fontSize: '1.25rem',
+  lineHeight: 1.2,
+  textAlign: 'center',
+}));
+
+const FeatureDescription = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+  color: 'text.secondary',
+  lineHeight: 1.6,
+  fontSize: '0.9rem',
+  flexGrow: 1,
+  textAlign: 'center',
+}));
+
+const FeatureButton = styled(Button)(({ theme }) => ({
+  alignSelf: 'center',
+  textTransform: 'none',
+  fontSize: '0.9rem',
+  padding: '8px 24px',
+}));
+
+const SectionHeader = styled(Box)(({ theme }) => ({
+  textAlign: 'center',
+  marginBottom: theme.spacing(6),
+}));
+
+const SectionTitle = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  color: 'primary.main',
+  fontWeight: 400,
+}));
+
+const SectionSubtitle = styled(Typography)(({ theme }) => ({
+  color: 'text.secondary',
+  maxWidth: 600,
+  margin: '0 auto',
+  lineHeight: 1.6,
+}));
+
 const HomePage = () => {
+  const navigate = useNavigate();
   // Get items from centralized data
   // const newItems = getNewItems();
+
+  const handleFeatureClick = (linkTo: string) => {
+    navigate(linkTo);
+  };
 
   return (
     <Box>
       <HeroSection />
+      
+      {/* Features Section */}
+      <FeaturesSection>
+        <Container maxWidth="lg">
+          <SectionHeader>
+            <SectionTitle variant="h2">
+              Shop my curated collection
+            </SectionTitle>
+            <SectionSubtitle variant="body1">
+              Explore our carefully hand-picked collection of furniture, lighting, and decor. 
+              Each piece is selected from travels in Europe and Asia for its exceptional design, quality craftsmanship, 
+              and ability to transform your living spaces.
+            </SectionSubtitle>
+          </SectionHeader>
+          
+          <FeaturesGrid>
+            {featuresData.map((feature) => (
+              <FeatureCard key={feature.id}>
+                <FeatureImage
+                  src={feature.image}
+                  alt={feature.title}
+                />
+                <FeatureContent>
+                  <FeatureTitle variant="h5">
+                    {feature.title}
+                  </FeatureTitle>
+                  <FeatureDescription variant="body1">
+                    {feature.description}
+                  </FeatureDescription>
+                  <FeatureButton
+                    variant="outlined"
+                    onClick={() => handleFeatureClick(feature.linkTo)}
+                  >
+                    {feature.buttonText}
+                  </FeatureButton>
+                </FeatureContent>
+              </FeatureCard>
+            ))}
+          </FeaturesGrid>
+        </Container>
+      </FeaturesSection>
       
       {/* Temporarily removed items section */}
       {/* <ItemsSection

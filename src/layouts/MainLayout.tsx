@@ -125,7 +125,6 @@ const menuItems = [
   { label: 'Portfolio', path: '/portfolio' },
   { label: 'Services', path: '/services' },
   { label: 'Shop', path: '/shop' },
-  { label: 'Rent', path: '/rent' },
   { label: 'Contact', path: '/contact' },
 ];
 

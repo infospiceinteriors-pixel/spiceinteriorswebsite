@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
-import RentPage from './pages/RentPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
@@ -205,7 +204,6 @@ function App() {
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/shop" element={<ShopPage />} />
-              <Route path="/rent" element={<RentPage />} />
               <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </MainLayout>

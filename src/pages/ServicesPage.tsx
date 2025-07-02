@@ -12,7 +12,7 @@ const services = [
       'Save your time by letting us pick the right furniture for you instead of weeks and months of chasing vendors on Instagram or Markplaats.',
       'Hire us for a stress free move-in. We will get your apartment ready while you focus on what\'s important to you - your business.'
     ],
-    image: '/services-01.jpg'
+    image: '/services-01.jpeg'
   },
   {
     id: 2,
