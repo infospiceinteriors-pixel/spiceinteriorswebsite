@@ -138,12 +138,12 @@ const ServicesPage = () => {
               }}
             >
               Comprehensive design and consultation services 
-              for your home and renovation projects
+              for your business or your home.
             </Typography>
           </Box>
 
           {/* Services Sections */}
-          {services.map((service, index) => (
+          {services.map((service) => (
             <ServiceSection key={service.id}>
               <ServiceImage
                 src={service.image}
