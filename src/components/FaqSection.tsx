@@ -24,6 +24,7 @@ const StyledAccordion = styled(Accordion)(() => ({
   border: 'none',
   boxShadow: 'none',
   borderBottom: '1px solid rgba(212, 165, 116, 0.2)',
+  marginBottom: '0px',
   '&:before': {
     display: 'none',
   },
@@ -33,7 +34,7 @@ const StyledAccordion = styled(Accordion)(() => ({
 }));
 
 const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
-  padding: theme.spacing(3, 0),
+  padding: theme.spacing(1.5, 0),
   '& .MuiAccordionSummary-content': {
     margin: 0,
   },
@@ -41,44 +42,32 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
     color: theme.palette.secondary.main,
   },
   '&.Mui-expanded': {
-    minHeight: 48,
+    minHeight: 40,
   },
 }));
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(0, 0, 3, 0),
+  padding: theme.spacing(0, 0, 1.5, 0),
 }));
 
-const FaqSection = ({ title, subtitle, faqs }: FaqSectionProps) => {
+const FaqSection = ({ title, faqs }: FaqSectionProps) => {
   return (
-    <Box sx={{ py: 8, backgroundColor: 'background.paper' }}>
+    <Box sx={{ py: 5, backgroundColor: 'background.paper' }}>
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
           <Typography 
             variant="h2" 
             sx={{ 
-              mb: 2,
+              mb: 0,
               color: 'primary.main',
               fontWeight: 400,
             }}
           >
             {title}
           </Typography>
-          {subtitle && (
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-              }}
-            >
-              {subtitle}
-            </Typography>
-          )}
         </Box>
 
-        <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+        <Box sx={{ maxWidth: 600, mx: 'auto' }}>
           {faqs.map((faq, index) => (
             <StyledAccordion key={index}>
               <StyledAccordionSummary

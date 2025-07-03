@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 
+# Temporarily disallow journal/postcards section
+Disallow: /journal
+
 # Sitemap location
 Sitemap: https://wardrob.web.app/sitemap.xml 

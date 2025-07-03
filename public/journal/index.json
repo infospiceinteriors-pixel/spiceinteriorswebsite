@@ -1,0 +1,18 @@
+[
+  {
+    "filename": "copenhagen-design-inspiration.md",
+    "title": "Design Inspiration from Copenhagen",
+    "date": "2024-01-15",
+    "excerpt": "Exploring the minimalist design philosophy and sustainable architecture that defines Danish interior design...",
+    "slug": "copenhagen-design-inspiration",
+    "images": ["/dehallen-01.jpg", "/buiksloterham-01.jpg", "/services-01.jpg"]
+  },
+  {
+    "filename": "sustainable-design-trends-2024.md",
+    "title": "Sustainable Design Trends 2024", 
+    "date": "2024-01-10",
+    "excerpt": "The future of interior design lies in sustainability. Here are the trends shaping our industry...",
+    "slug": "sustainable-design-trends-2024",
+    "images": ["/buiksloterham-02.jpg", "/dehallen-02.jpg", "/services-05.jpg"]
+  }
+] 

@@ -122,9 +122,10 @@ const SocialIconButton = styled(IconButton)(({ theme }) => ({
 
 const menuItems = [
   { label: 'Home', path: '/' },
-  { label: 'Portfolio', path: '/portfolio' },
+  // { label: 'Postcards', path: '/journal' }, // Temporarily removed
   { label: 'Services', path: '/services' },
   { label: 'Shop', path: '/shop' },
+  { label: 'Projects', path: '/portfolio' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -380,7 +381,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </Box>
         </Container>
       </AppBar>
-      <WhatsAppButton />
+      {location.pathname === '/contact' && <WhatsAppButton />}
       <Box component="main" sx={{
         flex: 1,
         width: '100%',

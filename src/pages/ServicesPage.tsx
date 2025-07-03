@@ -24,7 +24,7 @@ const services = [
       'Maximize rental profitability by maximizing the usable space and number of units',
       'Convert your property into a luxury apartment with budget friendly tips and tricks.'
     ],
-    image: '/placeholder.jpg'
+    image: '/rental-01.jpg'
   },
   {
     id: 3,
@@ -46,7 +46,7 @@ const services = [
       'Want to add a skylight? We can provide you best available options for your situation.',
       'Want to add a house extension (Aanbouw)? We can customize a design that is eclectic and unique to your home.'
     ],
-    image: '/placeholder.jpg'
+    image: '/brick-wall.jpg'
   },
   {
     id: 5,

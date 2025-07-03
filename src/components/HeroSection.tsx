@@ -1,35 +1,36 @@
 import { Box, Button, Container, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
-interface HeroSectionProps {
-  backgroundImage?: string; // Keep for backward compatibility
-}
+import CachedImage from './CachedImage';
 
 const heroCards = [
   {
     id: 1,
-    image: '/buiksloterham-01.jpg',
-    buttonText: 'View Portfolio',
-    linkTo: '/portfolio'
+    image: '/cafe-americano-ams-01.jpg',
+    buttonText: 'Socials',
+    linkTo: 'https://www.instagram.com/4nkur_gupta/',
+    external: true
   },
   {
     id: 2,
-    image: '/dehallen-01.jpg',
-    buttonText: 'Our Services',
-    linkTo: '/services'
+    image: '/services-01.jpg',
+    buttonText: 'Shop my collection',
+    linkTo: 'https://www.instagram.com/spice_int/',
+    external: true
   },
   {
     id: 3,
-    image: '/naraina-01.jpeg',
-    buttonText: 'Get In Touch',
-    linkTo: '/contact'
+    image: '/lamps-01.jpg',
+    buttonText: 'Shop lamps',
+    linkTo: 'https://www.instagram.com/spice_int/',
+    external: true
   },
   {
     id: 4,
-    image: '/hatsoff-01.jpeg',
-    buttonText: 'Explore Work',
-    linkTo: '/portfolio'
+    image: '/dehallen-01.jpg',
+    buttonText: 'Our Services',
+    linkTo: '/services',
+    external: false
   }
 ];
 
@@ -70,25 +71,15 @@ const ImageCard = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   border: 'none',
   cursor: 'pointer',
-  transition: 'transform 0.3s ease',
   marginBottom: theme.spacing(2),
-  '&:hover': {
-    transform: 'translateY(-5px)',
-    '& .image': {
-      transform: 'scale(1.05)',
-    }
-  },
   [theme.breakpoints.down('sm')]: {
     height: '400px',
   },
 }));
 
-const CardImage = styled('img')(() => ({
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  transition: 'transform 0.3s ease',
-}));
+
+
+
 
 const ActionButton = styled(Button)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
@@ -104,11 +95,15 @@ const ActionButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const HeroSection = ({ backgroundImage }: HeroSectionProps) => {
+const HeroSection = () => {
   const navigate = useNavigate();
 
-  const handleCardClick = (linkTo: string) => {
-    navigate(linkTo);
+  const handleCardClick = (linkTo: string, external: boolean) => {
+    if (external) {
+      window.open(linkTo, '_blank');
+    } else {
+      navigate(linkTo);
+    }
   };
 
   return (
@@ -117,16 +112,19 @@ const HeroSection = ({ backgroundImage }: HeroSectionProps) => {
         <GridContainer>
           {heroCards.map((card) => (
             <CardContainer key={card.id}>
-              <ImageCard onClick={() => handleCardClick(card.linkTo)}>
-                <CardImage
+              <ImageCard onClick={() => handleCardClick(card.linkTo, card.external)}>
+                <CachedImage
                   src={card.image}
-                  alt={`Portfolio ${card.id}`}
-                  className="image"
+                  alt={`Project ${card.id}`}
+                  width="100%"
+                  height="100%"
+                  objectFit="cover"
+                  preload={true}
                 />
               </ImageCard>
               <ActionButton 
                 variant="outlined"
-                onClick={() => handleCardClick(card.linkTo)}
+                onClick={() => handleCardClick(card.linkTo, card.external)}
               >
                 {card.buttonText}
               </ActionButton>

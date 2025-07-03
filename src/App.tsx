@@ -7,6 +7,8 @@ import ShopPage from './pages/ShopPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
+// import JournalPage from './pages/JournalPage'; // Temporarily removed
+import ImagePreloader from './components/ImagePreloader';
 
 // Create a theme instance for Spice Interior Design Studio
 const theme = createTheme({
@@ -197,13 +199,16 @@ function App() {
           boxSizing: 'border-box'
         }
       }}>
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+          <ImagePreloader />
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/shop" element={<ShopPage />} />
+              {/* <Route path="/journal" element={<JournalPage />} /> */}
+              {/* <Route path="/journal/:slug" element={<JournalPage />} /> */}
               <Route path="/contact" element={<ContactPage />} />
             </Routes>
           </MainLayout>

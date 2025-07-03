@@ -184,7 +184,7 @@ const PortfolioPage = () => {
                 fontWeight: 400,
               }}
             >
-              Portfolio
+              Projects
             </Typography>
             <Typography 
               variant="subtitle1" 
@@ -194,7 +194,7 @@ const PortfolioPage = () => {
                 mx: 'auto',
               }}
             >
-              Explore my portfolio of completed projects, showcasing expertise in creating 
+                              Explore my projects showcasing expertise in creating 
               beautiful and functional spaces through innovative design solutions.
             </Typography>
           </Box>

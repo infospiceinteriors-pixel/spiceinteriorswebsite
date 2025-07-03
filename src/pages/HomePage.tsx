@@ -1,10 +1,22 @@
 import { Box, Typography, Button, Container, Card, CardContent } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 // import ItemsSection from '../components/ItemsSection';
 import FaqSection from '../components/FaqSection';
+import CachedImage from '../components/CachedImage';
 // import { getNewItems } from '../utils/data';
+
+// Journal entry interface
+interface JournalEntry {
+  filename: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  slug: string;
+  images?: string[];
+}
 
 // Dummy FAQ data
 const faqs = [
@@ -37,27 +49,27 @@ const faqs = [
 const featuresData = [
   {
     id: 1,
-    image: '/services-01.jpg',
-    title: 'Brutalist Collection',
-    description: 'Discover our curated selection of modern and vintage furniture pieces. From statement sofas to elegant dining sets, each piece is carefully chosen for quality and design.',
-    buttonText: 'Shop Furniture',
-    linkTo: '/shop'
+    image: '/collection-01.jpg',
+    title: 'Art Deco Collection',
+    description: 'Bold geometric patterns and luxurious materials define our Art Deco collection. Discover statement pieces that bring glamour and sophistication to modern interiors with timeless elegance.',
+    buttonText: 'Explore Art Deco',
+    linkTo: 'https://www.instagram.com/spice_int/'
   },
   {
     id: 2,
-    image: '/services-03.jpg',
+    image: '/collection-02.jpg',
     title: 'Lighting & Decor',
-    description: 'Illuminate your space with our collection of designer lighting and decorative accessories. Find the perfect pieces to add personality and warmth to any room.',
+    description: 'Transform your space with our curated selection of designer lighting and sculptural decor. Each piece is chosen to create ambiance and add personality to your home.',
     buttonText: 'Shop Lighting',
-    linkTo: '/shop'
+    linkTo: 'https://www.instagram.com/spice_int/'
   },
   {
     id: 3,
-    image: '/services-05.jpg',
-    title: 'Textiles & Rugs',
-    description: 'Complete your interior with our selection of luxury textiles, rugs, and soft furnishings. Add texture, color, and comfort to create the perfect atmosphere.',
-    buttonText: 'Shop Textiles',
-    linkTo: '/shop'
+    image: '/collection-03.jpg',
+    title: 'Scandinavian Collection',
+    description: 'Embrace the beauty of simplicity with our Scandinavian-inspired pieces. Clean lines, natural materials, and functional design create spaces that feel both cozy and refined.',
+    buttonText: 'Browse Collection',
+    linkTo: 'https://www.instagram.com/spice_int/'
   }
 ];
 
@@ -104,7 +116,7 @@ const FeatureImage = styled('img')(({ theme }) => ({
   },
 }));
 
-const FeatureContent = styled(CardContent)(({ theme }) => ({
+const FeatureContent = styled(CardContent)(() => ({
   padding: 0,
   display: 'flex',
   flexDirection: 'column',
@@ -119,25 +131,43 @@ const FeatureTitle = styled(Typography)(({ theme }) => ({
   color: 'primary.main',
   fontFamily: 'Playfair Display',
   fontWeight: 600,
-  fontSize: '1.25rem',
+  fontSize: '0.9rem',
   lineHeight: 1.2,
   textAlign: 'center',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.95rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1rem',
+  },
 }));
 
 const FeatureDescription = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
   color: 'text.secondary',
-  lineHeight: 1.6,
-  fontSize: '0.9rem',
+  lineHeight: 1.4,
+  fontSize: '0.65rem',
   flexGrow: 1,
   textAlign: 'center',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.7rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '0.75rem',
+  },
 }));
 
 const FeatureButton = styled(Button)(({ theme }) => ({
   alignSelf: 'center',
   textTransform: 'none',
-  fontSize: '0.9rem',
+  fontSize: '0.65rem',
   padding: '8px 24px',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.7rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '0.75rem',
+  },
 }));
 
 const SectionHeader = styled(Box)(({ theme }) => ({
@@ -155,16 +185,175 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   color: 'text.secondary',
   maxWidth: 600,
   margin: '0 auto',
-  lineHeight: 1.6,
+  lineHeight: 1.5,
+  fontSize: '0.9rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.95rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1rem',
+  },
+}));
+
+// Styled components for postcards section
+const PostcardsSection = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(8, 0),
+  backgroundColor: 'background.default',
+}));
+
+const PostcardsGrid = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+  gap: theme.spacing(4),
+  marginBottom: theme.spacing(4),
+  width: '100%',
+  [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  },
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  },
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'minmax(0, 1fr)',
+  },
+}));
+
+const PostcardCard = styled('div')(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  cursor: 'pointer',
+  textDecoration: 'none',
+  color: 'inherit',
+  minWidth: 0, // Allow content to shrink
+}));
+
+const PostcardImageContainer = styled('div')(() => ({
+  width: '100%',
+  aspectRatio: '9 / 16',
+  overflow: 'hidden',
+  marginBottom: '16px',
+  position: 'relative',
+}));
+
+const PostcardContent = styled('div')(() => ({
+  padding: '8px 0 24px 0',
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  width: '100%',
+  minWidth: 0, // Allow content to shrink
+}));
+
+const PostcardTitle = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(1),
+  color: 'primary.main',
+  fontFamily: 'Playfair Display',
+  fontWeight: 600,
+  lineHeight: 1.2,
+  textAlign: 'left',
+  textTransform: 'uppercase',
+  letterSpacing: 0,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  width: '100%',
+  minWidth: 0,
+  fontSize: '0.9rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.95rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1rem',
+  },
+}));
+
+const PostcardDate = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  color: 'text.secondary',
+  textAlign: 'left',
+  width: '100%',
+  minWidth: 0,
+  fontSize: '0.6rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.65rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '0.7rem',
+  },
+}));
+
+const PostcardExcerpt = styled(Typography)(({ theme }) => ({
+  color: 'text.secondary',
+  lineHeight: 1.4,
+  textAlign: 'left',
+  flexGrow: 1,
+  width: '100%',
+  minWidth: 0,
+  overflow: 'hidden',
+  fontSize: '0.65rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.7rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '0.75rem',
+  },
+}));
+
+const ViewAllButton = styled(Button)(({ theme }) => ({
+  alignSelf: 'center',
+  textTransform: 'none',
+  fontSize: '0.9rem',
+  padding: '12px 32px',
+  marginTop: theme.spacing(2),
 }));
 
 const HomePage = () => {
   const navigate = useNavigate();
-  // Get items from centralized data
-  // const newItems = getNewItems();
+  const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load journal entries on component mount
+  useEffect(() => {
+    const loadJournalEntries = async () => {
+      try {
+        const indexResponse = await fetch('/journal/index.json');
+        if (!indexResponse.ok) {
+          throw new Error('Failed to load journal index');
+        }
+        const indexData = await indexResponse.json();
+        
+        const entries: JournalEntry[] = indexData.map((entry: any) => ({
+          filename: entry.filename,
+          title: entry.title,
+          date: entry.date,
+          excerpt: entry.excerpt,
+          slug: entry.slug,
+          images: entry.images || []
+        }));
+        
+        // Sort by date (newest first) and take first 4
+        const sortedEntries = entries
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 4);
+        
+        setJournalEntries(sortedEntries);
+      } catch (err) {
+        console.error('Error loading journal entries:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadJournalEntries();
+  }, []);
 
   const handleFeatureClick = (linkTo: string) => {
-    navigate(linkTo);
+    if (linkTo.startsWith('http')) {
+      window.open(linkTo, '_blank');
+    } else {
+      navigate(linkTo);
+    }
   };
 
   return (
@@ -211,6 +400,73 @@ const HomePage = () => {
           </FeaturesGrid>
         </Container>
       </FeaturesSection>
+
+      {/* Temporarily removed Postcards Section */}
+      {/* <PostcardsSection>
+        <Container maxWidth="lg">
+          <SectionHeader>
+            <SectionTitle variant="h2">
+              Postcards
+            </SectionTitle>
+            <SectionSubtitle variant="body1">
+              Insights, inspirations, and stories from my design journey. 
+              Exploring the intersection of culture, sustainability, and beautiful living spaces.
+            </SectionSubtitle>
+          </SectionHeader>
+          
+          {!loading && journalEntries.length > 0 && (
+            <>
+              <PostcardsGrid>
+                {journalEntries.map((entry) => (
+                  <Link 
+                    key={entry.slug}
+                    to={`/journal/${entry.slug}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <PostcardCard>
+                      <PostcardImageContainer>
+                        <CachedImage
+                          src={entry.images?.[0] || '/placeholder.jpg'}
+                          alt={`${entry.title} - Main Image`}
+                          width="100%"
+                          height="100%"
+                          objectFit="cover"
+                          loading="lazy"
+                        />
+                      </PostcardImageContainer>
+                      
+                      <PostcardContent>
+                        <PostcardTitle variant="h6">
+                          {entry.title}
+                        </PostcardTitle>
+                        <PostcardDate variant="body2">
+                          {new Date(entry.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </PostcardDate>
+                        <PostcardExcerpt variant="body2">
+                          {entry.excerpt}
+                        </PostcardExcerpt>
+                      </PostcardContent>
+                    </PostcardCard>
+                  </Link>
+                ))}
+              </PostcardsGrid>
+              
+              <Box sx={{ textAlign: 'center' }}>
+                <ViewAllButton
+                  variant="outlined"
+                  onClick={() => navigate('/journal')}
+                >
+                  View All Postcards
+                </ViewAllButton>
+              </Box>
+            </>
+          )}
+        </Container>
+      </PostcardsSection> */}
       
       {/* Temporarily removed items section */}
       {/* <ItemsSection
