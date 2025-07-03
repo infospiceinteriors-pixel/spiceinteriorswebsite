@@ -1,28 +1,29 @@
 import { Box, Typography, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useEffect } from 'react';
 
 const services = [
-
   {
     id: 2,
     title: 'Rental Property Optimization',
-    description: 'Make the best out of your rental property with our advise on the new point system introduced by the Dutch government.',
+    description: 'Navigate the Dutch rental market with confidence. Our strategic advisory service maximizes your property\'s potential under the new government point system, ensuring optimal returns and regulatory compliance.',
     examples: [
-      'Check the viability of your rental property for the free market vs the rent controlled sector.',
-      'Get approvals from the municipality while we support you with all the necessary documentation of your property - floor plans and photographs',
-      'Maximize rental profitability by maximizing the usable space and number of units',
-      'Convert your property into a luxury apartment with budget friendly tips and tricks.'
+      'Market analysis: Free market vs. rent-controlled sector positioning',
+      'Municipal compliance: Complete documentation and approval support',
+      'Revenue optimization: Space efficiency and unit maximization strategies',
+      'Cost-effective luxury conversions with high-impact, budget-conscious solutions'
     ],
     image: '/rental-01.jpg'
-  },{
+  },
+  {
     id: 1,
     title: 'Interior Design Consultation',
-    description: 'Transform your living spaces with expert interior design guidance. From concept development to material selection, we provide comprehensive consultation services to create beautiful, functional interiors that reflect your personal style and meet your lifestyle needs.',
+    description: 'Elevate your space with strategic design expertise. From concept to completion, we craft interiors that seamlessly blend your personal aesthetic with functional brilliance—saving you time, money, and costly mistakes.',
     examples: [
-      'We help you choreograph all the belongings you have collected over the years in your new space by means of mood boards.',
-      'We help you save 1000s of Euros by preparing a floor layout with list of furniture with dimensions, so you don\'t buy something that doesn\'t fit.',
-      'Save your time by letting us pick the right furniture for you instead of weeks and months of chasing vendors on Instagram or Markplaats.',
-      'Hire us for a stress free move-in. We will get your apartment ready while you focus on what\'s important to you - your business.'
+      'Space curation: Transform your collected treasures into cohesive design stories',
+      'Precision planning: Detailed layouts and specifications prevent expensive purchasing errors',
+      'Curated sourcing: Expert furniture selection eliminates endless vendor research',
+      'Turnkey solutions: Stress-free move-in while you focus on what matters most'
     ],
     image: '/services-01.jpeg'
   }
@@ -78,6 +79,11 @@ const ExamplesList = styled('ul')(({ theme }) => ({
 }));
 
 const ServicesPage = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   return (
     <Box>
       {/* Services Sections */}
@@ -125,7 +131,7 @@ const ServicesPage = () => {
                     mb: 1,
                   }}
                 >
-                  Examples:
+                  Key Services:
                 </Typography>
                 <ExamplesList>
                   {service.examples.map((example, exampleIndex) => (
@@ -161,7 +167,7 @@ const ServicesPage = () => {
                 fontSize: { xs: '1.2rem', md: '1.3rem', lg: '1.4rem' },
               }}
             >
-              Ready to Start Your Project?
+              Let's Transform Your Vision Into Reality
             </Typography>
             <Typography 
               variant="body1" 
@@ -173,8 +179,8 @@ const ServicesPage = () => {
                 fontSize: { xs: '0.8rem', md: '0.85rem', lg: '0.9rem' },
               }}
             >
-              Get in touch to discuss your project needs and discover how I can help 
-              bring your vision to life with expert design consultation and guidance.
+              Ready to unlock your space's potential? Connect with us to discuss your project 
+              and discover how strategic design expertise can elevate your property and lifestyle.
             </Typography>
           </Box>
         </Container>

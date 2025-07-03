@@ -103,6 +103,10 @@ const HeroSection = () => {
       window.open(linkTo, '_blank');
     } else {
       navigate(linkTo);
+      // Scroll to top after navigation
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 0);
     }
   };
 
