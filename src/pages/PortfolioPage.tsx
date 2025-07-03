@@ -175,29 +175,6 @@ const PortfolioPage = () => {
       {/* Projects Section */}
       <Box sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="xl">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                mb: 2,
-                color: 'primary.main',
-                fontWeight: 400,
-              }}
-            >
-              Projects
-            </Typography>
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-              }}
-            >
-                              Explore my projects showcasing expertise in creating 
-              beautiful and functional spaces through innovative design solutions.
-            </Typography>
-          </Box>
 
           <Box sx={{ position: 'relative', mb: 4 }}>
             <ProjectGrid>

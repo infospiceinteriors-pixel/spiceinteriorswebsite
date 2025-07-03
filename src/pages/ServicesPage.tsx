@@ -80,36 +80,9 @@ const ExamplesList = styled('ul')(({ theme }) => ({
 const ServicesPage = () => {
   return (
     <Box>
-      {/* Hero Section */}
+      {/* Services Sections */}
       <Box sx={{ py: 3, backgroundColor: 'background.default' }}>
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                mb: 2,
-                color: 'primary.main',
-                fontWeight: 400,
-              }}
-            >
-              Services
-            </Typography>
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-                lineHeight: 1.5,
-                fontSize: { xs: '0.9rem', md: '0.95rem', lg: '1rem' },
-              }}
-            >
-              Comprehensive design and consultation services 
-              for your business or your home.
-            </Typography>
-          </Box>
-
-          {/* Services Sections */}
           {services.map((service) => (
             <ServiceSection key={service.id}>
               <ServiceImage
