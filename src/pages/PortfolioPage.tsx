@@ -39,7 +39,7 @@ const projects = [
   {
     id: '2',
     title: 'CiWoCo, Amsterdam (GAAGA)',
-    description: 'In the experimental circular district of Buiksloterham in Amsterdam-Noord, we designed a flexible, demountable live-work building that can adapt to future changes without major structural alterations. Developed in close collaboration with a resident-led construction group, the project embraces circular construction principles from design to execution. To support this innovative approach, I contributed by creating precise technical 3D drawings that clarified how the various circular building components come together—ensuring seamless coordination between design intent and construction.',
+    description: 'In the experimental circular district of Buiksloterham in Amsterdam-Noord, GAAGA designed a flexible, demountable live-work building that can adapt to future changes without major structural alterations. Developed in close collaboration with a resident-led construction group, the project embraces circular construction principles from design to execution. To support this innovative approach, I contributed by creating precise technical 3D drawings that clarified how the various circular building components come together—ensuring seamless coordination between design intent and construction.',
     images: ['/buiksloterham-01.jpg', '/buiksloterham-02.jpg', '/buiksloterham-03.jpg'],
     category: 'Circular Design'
   },
