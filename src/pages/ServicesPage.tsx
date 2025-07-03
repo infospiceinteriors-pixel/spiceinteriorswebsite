@@ -2,18 +2,7 @@ import { Box, Typography, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const services = [
-  {
-    id: 1,
-    title: 'Interior Design Consultation',
-    description: 'Transform your living spaces with expert interior design guidance. From concept development to material selection, we provide comprehensive consultation services to create beautiful, functional interiors that reflect your personal style and meet your lifestyle needs.',
-    examples: [
-      'We help you choreograph all the belongings you have collected over the years in your new space by means of mood boards.',
-      'We help you save 1000s of Euros by preparing a floor layout with list of furniture with dimensions, so you don\'t buy something that doesn\'t fit.',
-      'Save your time by letting us pick the right furniture for you instead of weeks and months of chasing vendors on Instagram or Markplaats.',
-      'Hire us for a stress free move-in. We will get your apartment ready while you focus on what\'s important to you - your business.'
-    ],
-    image: '/services-01.jpeg'
-  },
+
   {
     id: 2,
     title: 'Rental Property Optimization',
@@ -25,39 +14,17 @@ const services = [
       'Convert your property into a luxury apartment with budget friendly tips and tricks.'
     ],
     image: '/rental-01.jpg'
-  },
-  {
-    id: 3,
-    title: 'House Renovation Consultation',
-    description: 'Navigate your renovation project with confidence through expert consultation. I provide strategic planning, design coordination, and project management guidance to ensure your renovation achieves your vision while staying on budget and timeline.',
+  },{
+    id: 1,
+    title: 'Interior Design Consultation',
+    description: 'Transform your living spaces with expert interior design guidance. From concept development to material selection, we provide comprehensive consultation services to create beautiful, functional interiors that reflect your personal style and meet your lifestyle needs.',
     examples: [
-      'Bought a renovation property (Kluswoning) or a 1 Euro home in Italy? We can help you plan and execute your project.',
-      'Save yourself from expensive mistakes and money sinks when planning to renovate your property with our expert guidance.',
-      'We help you manage the project by defining phases that matches your requirements and budget.'
+      'We help you choreograph all the belongings you have collected over the years in your new space by means of mood boards.',
+      'We help you save 1000s of Euros by preparing a floor layout with list of furniture with dimensions, so you don\'t buy something that doesn\'t fit.',
+      'Save your time by letting us pick the right furniture for you instead of weeks and months of chasing vendors on Instagram or Markplaats.',
+      'Hire us for a stress free move-in. We will get your apartment ready while you focus on what\'s important to you - your business.'
     ],
-    image: '/services-03.jpg'
-  },
-  {
-    id: 4,
-    title: 'Structural Changes Consultation',
-    description: 'Expert guidance for structural modifications and layout improvements. Whether you\'re planning to remove walls, add extensions, or make significant structural changes, we work with experts to ensure safety, compliance, and optimal design outcomes.',
-    examples: [
-      'Want to maximize your carpet area by removing a wall? We can provide you insights into how to make the most with minimal altercations.',
-      'Want to add a skylight? We can provide you best available options for your situation.',
-      'Want to add a house extension (Aanbouw)? We can customize a design that is eclectic and unique to your home.'
-    ],
-    image: '/brick-wall.jpg'
-  },
-  {
-    id: 5,
-    title: 'Full service architecture',
-    description: 'Bring your unique design visions to life with our turnkey offer. We will be with you until your house is ready for you to move-in.',
-    examples: [
-      'We help you get your house approved by the local municipality, so you can build your dream (holiday) home and start your new life.',
-      'Planning a project abroad? We are the right partner with our extensive network of local architects in EU, Middle East, Asia and Canada.',
-      'We are licensed to practice architecture in India and work with local partners in Netherlands, Spain, Italy, Dubai, Taiwan and UAE to realize your dream home.'
-    ],
-    image: '/services-05.jpg'
+    image: '/services-01.jpeg'
   }
 ];
 

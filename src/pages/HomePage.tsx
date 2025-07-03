@@ -1,22 +1,23 @@
 import { Box, Typography, Button, Container, Card, CardContent } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { Link } from 'react-router-dom'; // Temporarily removed with postcards
+// import { useState, useEffect } from 'react'; // Temporarily removed with postcards
 import HeroSection from '../components/HeroSection';
 // import ItemsSection from '../components/ItemsSection';
 import FaqSection from '../components/FaqSection';
-import CachedImage from '../components/CachedImage';
+// import CachedImage from '../components/CachedImage'; // Temporarily removed with postcards
 // import { getNewItems } from '../utils/data';
 
-// Journal entry interface
-interface JournalEntry {
-  filename: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  slug: string;
-  images?: string[];
-}
+// Journal entry interface - Temporarily removed with postcards
+// interface JournalEntry {
+//   filename: string;
+//   title: string;
+//   date: string;
+//   excerpt: string;
+//   slug: string;
+//   images?: string[];
+// }
 
 // Dummy FAQ data
 const faqs = [
@@ -195,158 +196,159 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
-// Styled components for postcards section
-const PostcardsSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8, 0),
-  backgroundColor: 'background.default',
-}));
+// Styled components for postcards section - Temporarily removed with postcards
+// const PostcardsSection = styled(Box)(({ theme }) => ({
+//   padding: theme.spacing(8, 0),
+//   backgroundColor: 'background.default',
+// }));
 
-const PostcardsGrid = styled(Box)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-  gap: theme.spacing(4),
-  marginBottom: theme.spacing(4),
-  width: '100%',
-  [theme.breakpoints.down('lg')]: {
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-  },
-  [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-  },
-  [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: 'minmax(0, 1fr)',
-  },
-}));
+// const PostcardsGrid = styled(Box)(({ theme }) => ({
+//   display: 'grid',
+//   gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+//   gap: theme.spacing(4),
+//   marginBottom: theme.spacing(4),
+//   width: '100%',
+//   [theme.breakpoints.down('lg')]: {
+//     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+//   },
+//   [theme.breakpoints.down('md')]: {
+//     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+//   },
+//   [theme.breakpoints.down('sm')]: {
+//     gridTemplateColumns: 'minmax(0, 1fr)',
+//   },
+// }));
 
-const PostcardCard = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  cursor: 'pointer',
-  textDecoration: 'none',
-  color: 'inherit',
-  minWidth: 0, // Allow content to shrink
-}));
+// const PostcardCard = styled('div')(() => ({
+//   display: 'flex',
+//   flexDirection: 'column',
+//   width: '100%',
+//   cursor: 'pointer',
+//   textDecoration: 'none',
+//   color: 'inherit',
+//   minWidth: 0, // Allow content to shrink
+// }));
 
-const PostcardImageContainer = styled('div')(() => ({
-  width: '100%',
-  aspectRatio: '9 / 16',
-  overflow: 'hidden',
-  marginBottom: '16px',
-  position: 'relative',
-}));
+// const PostcardImageContainer = styled('div')(() => ({
+//   width: '100%',
+//   aspectRatio: '9 / 16',
+//   overflow: 'hidden',
+//   marginBottom: '16px',
+//   position: 'relative',
+// }));
 
-const PostcardContent = styled('div')(() => ({
-  padding: '8px 0 24px 0',
-  display: 'flex',
-  flexDirection: 'column',
-  flexGrow: 1,
-  width: '100%',
-  minWidth: 0, // Allow content to shrink
-}));
+// const PostcardContent = styled('div')(() => ({
+//   padding: '8px 0 24px 0',
+//   display: 'flex',
+//   flexDirection: 'column',
+//   flexGrow: 1,
+//   width: '100%',
+//   minWidth: 0, // Allow content to shrink
+// }));
 
-const PostcardTitle = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-  color: 'primary.main',
-  fontFamily: 'Playfair Display',
-  fontWeight: 600,
-  lineHeight: 1.2,
-  textAlign: 'left',
-  textTransform: 'uppercase',
-  letterSpacing: 0,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  width: '100%',
-  minWidth: 0,
-  fontSize: '0.9rem',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.95rem',
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '1rem',
-  },
-}));
+// const PostcardTitle = styled(Typography)(({ theme }) => ({
+//   marginBottom: theme.spacing(1),
+//   color: 'primary.main',
+//   fontFamily: 'Playfair Display',
+//   fontWeight: 600,
+//   lineHeight: 1.2,
+//   textAlign: 'left',
+//   textTransform: 'uppercase',
+//   letterSpacing: 0,
+//   overflow: 'hidden',
+//   textOverflow: 'ellipsis',
+//   whiteSpace: 'nowrap',
+//   width: '100%',
+//   minWidth: 0,
+//   fontSize: '0.9rem',
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '0.95rem',
+//   },
+//   [theme.breakpoints.up('lg')]: {
+//     fontSize: '1rem',
+//   },
+// }));
 
-const PostcardDate = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-  color: 'text.secondary',
-  textAlign: 'left',
-  width: '100%',
-  minWidth: 0,
-  fontSize: '0.6rem',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.65rem',
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '0.7rem',
-  },
-}));
+// const PostcardDate = styled(Typography)(({ theme }) => ({
+//   marginBottom: theme.spacing(2),
+//   color: 'text.secondary',
+//   textAlign: 'left',
+//   width: '100%',
+//   minWidth: 0,
+//   fontSize: '0.6rem',
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '0.65rem',
+//   },
+//   [theme.breakpoints.up('lg')]: {
+//     fontSize: '0.7rem',
+//   },
+// }));
 
-const PostcardExcerpt = styled(Typography)(({ theme }) => ({
-  color: 'text.secondary',
-  lineHeight: 1.4,
-  textAlign: 'left',
-  flexGrow: 1,
-  width: '100%',
-  minWidth: 0,
-  overflow: 'hidden',
-  fontSize: '0.65rem',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.7rem',
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '0.75rem',
-  },
-}));
+// const PostcardExcerpt = styled(Typography)(({ theme }) => ({
+//   color: 'text.secondary',
+//   lineHeight: 1.4,
+//   textAlign: 'left',
+//   flexGrow: 1,
+//   width: '100%',
+//   minWidth: 0,
+//   overflow: 'hidden',
+//   fontSize: '0.65rem',
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '0.7rem',
+//   },
+//   [theme.breakpoints.up('lg')]: {
+//     fontSize: '0.75rem',
+//   },
+// }));
 
-const ViewAllButton = styled(Button)(({ theme }) => ({
-  alignSelf: 'center',
-  textTransform: 'none',
-  fontSize: '0.9rem',
-  padding: '12px 32px',
-  marginTop: theme.spacing(2),
-}));
+// const ViewAllButton = styled(Button)(({ theme }) => ({
+//   alignSelf: 'center',
+//   textTransform: 'none',
+//   fontSize: '0.9rem',
+//   padding: '12px 32px',
+//   marginTop: theme.spacing(2),
+// }));
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Temporarily removed with postcards
+  // const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  // Load journal entries on component mount
-  useEffect(() => {
-    const loadJournalEntries = async () => {
-      try {
-        const indexResponse = await fetch('/journal/index.json');
-        if (!indexResponse.ok) {
-          throw new Error('Failed to load journal index');
-        }
-        const indexData = await indexResponse.json();
+  // Load journal entries on component mount - Temporarily removed with postcards
+  // useEffect(() => {
+  //   const loadJournalEntries = async () => {
+  //     try {
+  //       const indexResponse = await fetch('/journal/index.json');
+  //       if (!indexResponse.ok) {
+  //         throw new Error('Failed to load journal index');
+  //       }
+  //       const indexData = await indexResponse.json();
         
-        const entries: JournalEntry[] = indexData.map((entry: any) => ({
-          filename: entry.filename,
-          title: entry.title,
-          date: entry.date,
-          excerpt: entry.excerpt,
-          slug: entry.slug,
-          images: entry.images || []
-        }));
+  //       const entries: JournalEntry[] = indexData.map((entry: any) => ({
+  //         filename: entry.filename,
+  //         title: entry.title,
+  //         date: entry.date,
+  //         excerpt: entry.excerpt,
+  //         slug: entry.slug,
+  //         images: entry.images || []
+  //       }));
         
-        // Sort by date (newest first) and take first 4
-        const sortedEntries = entries
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .slice(0, 4);
+  //       // Sort by date (newest first) and take first 4
+  //       const sortedEntries = entries
+  //         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  //         .slice(0, 4);
         
-        setJournalEntries(sortedEntries);
-      } catch (err) {
-        console.error('Error loading journal entries:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setJournalEntries(sortedEntries);
+  //     } catch (err) {
+  //       console.error('Error loading journal entries:', err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    loadJournalEntries();
-  }, []);
+  //   loadJournalEntries();
+  // }, []);
 
   const handleFeatureClick = (linkTo: string) => {
     if (linkTo.startsWith('http')) {
