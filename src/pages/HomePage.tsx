@@ -50,7 +50,7 @@ const faqs = [
 const featuresData = [
   {
     id: 1,
-    image: '/collection-01.jpg',
+    image: '/collection-04.jpg',
     title: 'Art Deco Collection',
     description: 'Bold geometric patterns and luxurious materials define our Art Deco collection. Discover statement pieces that bring glamour and sophistication to modern interiors with timeless elegance.',
     buttonText: 'Explore Art Deco',
