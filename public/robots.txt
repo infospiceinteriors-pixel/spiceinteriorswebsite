@@ -6,4 +6,4 @@ Allow: /
 Disallow: /journal
 
 # Sitemap location
-Sitemap: https://wardrob.web.app/sitemap.xml 
+Sitemap: https://spiceinteriorstudio.com/sitemap.xml 
