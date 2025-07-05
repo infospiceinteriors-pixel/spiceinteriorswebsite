@@ -33,7 +33,7 @@ const projects = [
     id: '1',
     title: 'Holocaust Name Monument, Amsterdam (AIP)',
     description: 'For the Holocaust Name Monument in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
-    images: ['/HNM-01.jpg', '/HNM-03.jpg', '/HNM-04.jpg'],
+    images: ['/HNM-07.jpg', '/HNM-05.jpg', '/HNM-06.jpg'],
     category: 'Architecture'
   },
   {
