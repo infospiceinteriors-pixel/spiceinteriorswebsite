@@ -31,7 +31,7 @@ const projects = [
     },
   {
     id: '1',
-    title: 'Holocaust Name Monument, Amsterdam (AIP)',
+    title: 'Holocaust Name Monument, Amsterdam (Libeskind studio, AIP)',
     description: 'For the Holocaust Name Monument in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
     images: ['/HNM-06.jpg', '/HNM-05.jpg', '/HNM-07.jpg'],
     category: 'Architecture'
