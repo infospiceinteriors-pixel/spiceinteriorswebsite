@@ -13,6 +13,7 @@ import { styled } from '@mui/material/styles';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ImageSlideshow from '../components/ImageSlideshow';
 
 const projects = [
     {
@@ -149,6 +150,11 @@ const ProjectImage = styled('img')({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
+  cursor: 'pointer',
+  transition: 'transform 0.2s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.02)',
+  },
 });
 
 const ProjectGrid = styled(Box)(({ theme }) => ({
@@ -169,6 +175,47 @@ const ProjectGrid = styled(Box)(({ theme }) => ({
 
 const PortfolioPage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [slideshowOpen, setSlideshowOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const handleImageClick = (project: typeof projects[0], imageIndex: number) => {
+    setSelectedProject(project);
+    setSelectedImageIndex(imageIndex);
+    setSlideshowOpen(true);
+  };
+
+  const handleCloseSlideshow = () => {
+    setSlideshowOpen(false);
+    setSelectedProject(null);
+    setSelectedImageIndex(0);
+    
+    // Comprehensive scroll restoration
+    setTimeout(() => {
+      const body = document.body;
+      const html = document.documentElement;
+      
+      // Clear all potential scroll-blocking styles
+      body.style.cssText = body.style.cssText
+        .replace(/position:[^;]*;?/gi, '')
+        .replace(/top:[^;]*;?/gi, '')
+        .replace(/left:[^;]*;?/gi, '')
+        .replace(/width:[^;]*;?/gi, '')
+        .replace(/height:[^;]*;?/gi, '')
+        .replace(/overflow:[^;]*;?/gi, '');
+      
+      html.style.overflow = '';
+      
+      // Force multiple reflows to ensure scrollbar restoration
+      body.offsetHeight;
+      html.offsetHeight;
+      
+      // Try to trigger scroll event
+      window.dispatchEvent(new Event('resize'));
+    }, 100);
+  };
+
+
 
   return (
     <Box>
@@ -185,18 +232,21 @@ const PortfolioPage = () => {
                       <ProjectImage
                         src={project.images[0]}
                         alt={project.title}
+                        onClick={() => handleImageClick(project, 0)}
                       />
                     </VerticalImageWrapper>
                     <SquareImageWrapper>
                       <ProjectImage
                         src={project.images[1]}
                         alt={project.title}
+                        onClick={() => handleImageClick(project, 1)}
                       />
                     </SquareImageWrapper>
                     <SquareImageWrapper>
                       <ProjectImage
                         src={project.images[2]}
                         alt={project.title}
+                        onClick={() => handleImageClick(project, 2)}
                       />
                     </SquareImageWrapper>
                   </ProjectImageGrid>
@@ -423,6 +473,17 @@ const PortfolioPage = () => {
           </Box>
         </Container>
       </Box>
+
+      {/* Image Slideshow */}
+      {selectedProject && (
+        <ImageSlideshow
+          images={selectedProject.images}
+          projectTitle={selectedProject.title}
+          isOpen={slideshowOpen}
+          initialIndex={selectedImageIndex}
+          onClose={handleCloseSlideshow}
+        />
+      )}
     </Box>
   );
 };
