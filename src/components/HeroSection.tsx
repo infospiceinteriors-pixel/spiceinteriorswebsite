@@ -20,7 +20,7 @@ const heroCards = [
   },
   {
     id: 3,
-    image: '/lamps-01.jpg',
+    image: '/lamp-1.jpg',
     buttonText: 'Shop lamps',
     linkTo: 'https://www.instagram.com/spice_int/',
     external: true
