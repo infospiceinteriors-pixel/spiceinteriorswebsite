@@ -7,6 +7,14 @@ export interface Item {
   category?: string;
   featured?: boolean;
   isNew?: boolean;
+  description?: string;
+  creator?: string;
+  dateOfManufacture?: string;
+  origin?: string;
+  period?: string;
+  materials?: string;
+  condition?: string;
+  measurements?: string;
 }
 
 // All items database
@@ -68,15 +76,31 @@ export const allItems: Item[] = [
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€650',
     category: 'Lighting',
-    featured: true
+    featured: true,
+    description: 'Mid-century modern floor lamp with brass finish and organic curves. A statement piece that provides both ambient and task lighting.',
+    creator: 'Scandinavian Designer',
+    dateOfManufacture: '1960s',
+    origin: 'Denmark',
+    period: 'Mid-Century',
+    materials: 'Brass and Fabric',
+    condition: 'Excellent vintage condition. Recently rewired to modern standards.',
+    measurements: 'Height: 165 cm, Base diameter: 35 cm'
   },
   {
     id: '8',
-    name: 'Vintage Armchair',
+    name: 'Art-Deco Danish Club Chair in Neutral Upholstery',
     images: ['/placeholder.jpg', '/placeholder.jpg'],
     price: '€890',
     category: 'Furniture',
-    featured: true
+    featured: true,
+    description: 'Elegant Art-Deco Danish club chair from the 1940s with clean, geometric lines and understated charm. Recently reupholstered in a soft, neutral fabric, it rests on wooden block feet. A timeless piece that blends comfort with refined modernist design.',
+    creator: 'Danish Cabinetmaker',
+    dateOfManufacture: '1940s',
+    origin: 'Denmark',
+    period: 'Art Deco',
+    materials: 'Beech and Velour',
+    condition: 'In good condition consistent with age. Newly reupholstered and restored.',
+    measurements: 'Height: 31.31 in (79 cm) Width: 30.35 in (77 cm) Depth: 30.32 in (77 cm) Seat Height: 15.36 in (39 cm)'
   },
   {
     id: '9',

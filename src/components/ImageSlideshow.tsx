@@ -20,7 +20,7 @@ interface ImageSlideshowProps {
   onClose: () => void;
 }
 
-const StyledDialog = styled(Dialog)(({ theme }) => ({
+const StyledDialog = styled(Dialog)(() => ({
   '& .MuiDialog-paper': {
     backgroundColor: 'rgba(0, 0, 0, 0.95)',
     maxWidth: '100vw',
@@ -54,7 +54,7 @@ const SlideImage = styled('img')({
   transition: 'opacity 0.3s ease-in-out',
 });
 
-const CloseButton = styled(IconButton)(({ theme }) => ({
+const CloseButton = styled(IconButton)(() => ({
   position: 'absolute',
   top: 20,
   right: 20,

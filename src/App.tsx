@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
+import ItemDetailPage from './pages/ItemDetailPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
@@ -206,6 +207,7 @@ function App() {
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/shop" element={<ShopPage />} />
+              <Route path="/shop/item/:id" element={<ItemDetailPage />} />
               {/* <Route path="/journal" element={<JournalPage />} /> */}
               {/* <Route path="/journal/:slug" element={<JournalPage />} /> */}
               <Route path="/contact" element={<ContactPage />} />

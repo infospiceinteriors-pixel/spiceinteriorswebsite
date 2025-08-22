@@ -1,6 +1,7 @@
 import { Box, Typography, Card, CardContent, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Item } from '../utils/data';
 
 interface ItemsSectionProps {
@@ -66,11 +67,18 @@ const CardGrid = styled(Box)(({ theme }) => ({
 
 const ItemCard = ({ item }: { item: Item }) => {
   const [hovered, setHovered] = React.useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/shop/item/${item.id}`);
+  };
+
   return (
     <StyledCard
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      sx={{ cursor: item.images[1] ? 'pointer' : 'default' }}
+      onClick={handleClick}
+      sx={{ cursor: 'pointer' }}
     >
       <ImageWrapper>
         <FadeImage

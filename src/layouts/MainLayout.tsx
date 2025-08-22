@@ -134,6 +134,7 @@ const shopCategories = [
   { label: 'Furniture', value: 'Furniture' },
   { label: 'Lighting', value: 'Lighting' },
   { label: 'Textiles', value: 'Textiles' },
+  { label: 'Decor', value: 'Decor' },
 ];
 
 const MainLayout = ({ children }: MainLayoutProps) => {
@@ -447,7 +448,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Contact</Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Rotterdam, Netherlands<br />
+                Amsterdam, Netherlands<br />
                 +31 626268470
               </Typography>
             </Box>
