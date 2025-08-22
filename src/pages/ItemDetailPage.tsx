@@ -137,14 +137,22 @@ const ItemDetailPage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 1,
-              backgroundColor: '#25D366',
+              backgroundColor: 'primary.main',
               color: 'white',
               py: 2,
               px: 3,
               borderRadius: 2,
               cursor: 'pointer',
               fontWeight: 600,
-              '&:hover': { backgroundColor: '#128C7E' }
+              border: theme => `2px solid ${theme.palette.secondary.main}`,
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 16px rgba(44, 44, 44, 0.15)',
+              '&:hover': { 
+                backgroundColor: 'secondary.main',
+                color: 'primary.main',
+                transform: 'translateY(-1px)',
+                boxShadow: '0 6px 20px rgba(44, 44, 44, 0.2)'
+              }
             }}
           >
             <WhatsApp />
@@ -331,18 +339,22 @@ const ItemDetailPage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 1,
-              backgroundColor: '#25D366',
+              backgroundColor: 'primary.main',
               color: 'white',
               py: 2,
               px: 3,
               borderRadius: 2,
               cursor: 'pointer',
-              transition: 'all 0.2s ease',
+              transition: 'all 0.3s ease',
               fontWeight: 600,
               fontSize: '1rem',
+              border: theme => `2px solid ${theme.palette.secondary.main}`,
+              boxShadow: '0 4px 16px rgba(44, 44, 44, 0.15)',
               '&:hover': {
-                backgroundColor: '#128C7E',
+                backgroundColor: 'secondary.main',
+                color: 'primary.main',
                 transform: 'translateY(-1px)',
+                boxShadow: '0 6px 20px rgba(44, 44, 44, 0.2)'
               }
             }}
           >

@@ -10,10 +10,19 @@ const FloatingButton = styled(Fab)(({ theme }) => ({
   position: 'fixed',
   right: 24,
   bottom: 24,
-  backgroundColor: '#25D366', // WhatsApp green color
+  backgroundColor: theme.palette.primary.main, // Deep charcoal from theme
   color: '#fff',
+  boxShadow: '0 4px 16px rgba(44, 44, 44, 0.15)', // Subtle shadow matching theme
+  border: `2px solid ${theme.palette.secondary.main}`, // Warm beige accent border
+  transition: 'all 0.3s ease',
   '&:hover': {
-    backgroundColor: '#128C7E', // WhatsApp darker green on hover
+    backgroundColor: theme.palette.secondary.main, // Warm beige on hover
+    color: theme.palette.primary.main, // Dark text on light background
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 20px rgba(44, 44, 44, 0.2)',
+  },
+  '&:active': {
+    transform: 'translateY(0px)',
   },
   zIndex: 1000,
   [theme.breakpoints.down('sm')]: {
@@ -31,9 +40,29 @@ const WhatsAppButton = () => {
 
   return (
     <Box>
-      <Tooltip title="Chat on WhatsApp" arrow placement="left">
+      <Tooltip 
+        title="Chat on WhatsApp" 
+        arrow 
+        placement="left"
+        componentsProps={{
+          tooltip: {
+            sx: {
+              backgroundColor: 'primary.main',
+              color: 'white',
+              fontSize: '0.8rem',
+              fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
+              borderRadius: '8px',
+              boxShadow: '0 4px 16px rgba(44, 44, 44, 0.15)',
+            }
+          },
+          arrow: {
+            sx: {
+              color: 'primary.main',
+            }
+          }
+        }}
+      >
         <FloatingButton
-          color="primary"
           aria-label="chat on whatsapp"
           onClick={handleClick}
         >
