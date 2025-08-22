@@ -1,7 +1,7 @@
 import { Box, Typography, Chip } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { WhatsApp } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getAllItems } from '../utils/data';
 import CachedImage from '../components/CachedImage';
 import ItemsSection from '../components/ItemsSection';
@@ -15,6 +15,11 @@ const ItemDetailPage = () => {
   // Slideshow state
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Scroll to top when item changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   if (!item) {
     return (

@@ -53,7 +53,7 @@ export const allItems: Item[] = [
   {
     id: '3',
     name: 'Solid Wood bowl',
-    images: ['/products/objects/3/3_1.jpg', '/products/objects/3/3_2.jpg', '/products/objects/3/3_3.jpg', '/products/objects/3/3_4.jpg', '/products/objects/3/3_5.jpg', '/products/objects/3/3_6.jpg','/products/objects/3/3_7.jpg','/products/objects/3/3_8.jpg'],
+    images: ['/products/objects/3/3_1.jpg', '/products/objects/3/3_2.jpg', '/products/objects/3/3_3.jpg', '/products/objects/3/3_4.jpg', '/products/objects/3/3_5.jpg', '/products/objects/3/3_6.jpg', '/products/objects/3/3_7.jpg', '/products/objects/3/3_8.jpg', '/products/objects/3/3_9.jpg'],
     price: '€19',
     category: 'Objects',
     description: 'Solid Wood bowl',
@@ -67,7 +67,7 @@ export const allItems: Item[] = [
   {
     id: '4',
     name: 'Solid wood carved bird statue',
-    images: ['/products/objects/4/4_1.jpg', '/products/objects/4/4_2.jpg', '/products/objects/4/4_3.jpg', '/products/objects/4/4_4.jpg', '/products/objects/4/4_5.jpg', '/products/objects/4/4_6.jpg','/products/objects/4/4_7.jpg','/products/objects/4/4_8.jpg'],
+    images: ['/products/objects/4/4_1.jpg', '/products/objects/4/4_2.jpg', '/products/objects/4/4_3.jpg', '/products/objects/4/4_4.jpg'],
     price: '€19',
     category: 'Objects',
     description: 'Solid wood carved bird statue',
@@ -81,7 +81,7 @@ export const allItems: Item[] = [
   {
     id: '5',
     name: 'Porcelain flamingo statue - Hollywood Regency',
-    images: ['/products/objects/5/5_1.jpg', '/products/objects/5/5_2.jpg', '/products/objects/5/5_3.jpg', '/products/objects/5/5_4.jpg', '/products/objects/5/5_5.jpg', '/products/objects/5/5_6.jpg','/products/objects/5/5_7.jpg','/products/objects/5/5_8.jpg'],
+    images: ['/products/objects/5/5_1.jpg', '/products/objects/5/5_2.jpg', '/products/objects/5/5_3.jpg', '/products/objects/5/5_4.jpg', '/products/objects/5/5_5.jpg'],
     price: '€39',
     category: 'Objects',
     description: 'Porcelain flamingo statue - Hollywood Regency',
@@ -113,7 +113,7 @@ export const allItems: Item[] = [
   {
     id: '9',
     name: 'Hollywood Regency swan lamp with lampshade',
-    images: ['/products/lamps/3/3_1.jpg', '/products/lamps/3/3_2.jpg', '/products/lamps/3/3_3.jpg', '/products/lamps/3/3_4.jpg', '/products/lamps/3/3_5.jpg', '/products/lamps/3/3_6.jpg','/products/lamps/3/3_7.jpg','/products/lamps/3/3_8.jpg'],
+    images: ['/products/lamps/3/3_1.jpg', '/products/lamps/3/3_2.jpg', '/products/lamps/3/3_3.jpg', '/products/lamps/3/3_4.jpg', '/products/lamps/3/3_5.jpg'],
     price: '€49',
     category: 'Lamps',
     featured: true,
@@ -127,7 +127,7 @@ export const allItems: Item[] = [
   {
     id: '10',
     name: 'Hollywood Regency unicorn lamp with lampshade',
-    images: ['/products/lamps/5/5_1.jpg', '/products/lamps/5/5_2.jpg', '/products/lamps/5/5_3.jpg', '/products/lamps/5/5_4.jpg', '/products/lamps/5/5_5.jpg', '/products/lamps/5/5_6.jpg','/products/lamps/5/5_7.jpg','/products/lamps/5/5_8.jpg'],
+    images: ['/products/lamps/5/5_1.jpg', '/products/lamps/5/5_2.jpg', '/products/lamps/5/5_3.jpg', '/products/lamps/5/5_4.jpg', '/products/lamps/5/5_5.jpg', '/products/lamps/5/5_6.jpg', '/products/lamps/5/5_7.jpg', '/products/lamps/5/5_8.jpg', '/products/lamps/5/5_9.jpg'],
     price: '€49',
     category: 'Lamps',
     featured: true,
@@ -141,7 +141,7 @@ export const allItems: Item[] = [
   {
     id: '11',
     name: 'Hollywood Regency side tables x2',
-    images: ['/products/tables/1/1_1.jpg', '/products/tables/1/1_2.jpg', '/products/tables/1/1_3.jpg', '/products/tables/1/1_4.jpg', '/products/tables/1/1_5.jpg', '/products/tables/1/1_6.jpg','/products/tables/1/1_7.jpg','/products/tables/1/1_8.jpg'],
+    images: ['/products/tables/1/1_1.jpg', '/products/tables/1/1_2.jpg', '/products/tables/1/1_3.jpg', '/products/tables/1/1_4.jpg'],
     price: '€85',
     category: 'Tables',
     featured: true
