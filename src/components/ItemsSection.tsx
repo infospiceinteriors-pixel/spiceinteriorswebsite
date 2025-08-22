@@ -33,7 +33,7 @@ const StyledCard = styled(Card)(() => ({
 const ImageWrapper = styled('div')({
   position: 'relative',
   width: '100%',
-  aspectRatio: '1 / 1', // This ensures square images
+  aspectRatio: '3 / 4', // This ensures 3:4 aspect ratio images
   overflow: 'hidden',
 });
 
@@ -54,7 +54,7 @@ const FadeImage = styled('img')<{
 const CardGrid = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  gap: 0,
+  gap: theme.spacing(3), // Add spacing between grid items
   width: '100%',
   '& > *': {
     minWidth: 0, // Prevent grid items from expanding beyond their allocated space
@@ -62,6 +62,7 @@ const CardGrid = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: theme.spacing(2), // Slightly smaller gap on mobile
   },
 }));
 
@@ -96,14 +97,14 @@ const ItemCard = ({ item }: { item: Item }) => {
       </ImageWrapper>
       <CardContent sx={{ 
         p: 2, 
-        pb: 3, 
-        pt: 3, 
+        pb: 2, 
+        pt: 2, 
         display: 'flex', 
         flexDirection: 'column',
         alignItems: 'flex-start', 
         justifyContent: 'flex-start', 
         width: '100%',
-        minHeight: '80px', // Ensure consistent text area height
+        minHeight: '90px', // Reduced height for more compact text area
         flex: '0 0 auto', // Don't grow or shrink
         overflow: 'hidden' // Prevent content from affecting layout
       }}>
@@ -120,8 +121,10 @@ const ItemCard = ({ item }: { item: Item }) => {
             lineHeight: 1.2,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            display: 'block'
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            whiteSpace: 'normal'
           }}
         >
           {item.name}

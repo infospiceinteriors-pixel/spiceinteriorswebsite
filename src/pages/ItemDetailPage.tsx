@@ -1,14 +1,20 @@
 import { Box, Typography, Chip } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { WhatsApp } from '@mui/icons-material';
+import { useState } from 'react';
 import { getAllItems } from '../utils/data';
 import CachedImage from '../components/CachedImage';
 import ItemsSection from '../components/ItemsSection';
+import ImageSlideshow from '../components/ImageSlideshow';
 
 const ItemDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const allItems = getAllItems();
   const item = allItems.find(item => item.id === id);
+  
+  // Slideshow state
+  const [slideshowOpen, setSlideshowOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   if (!item) {
     return (
@@ -24,6 +30,15 @@ const ItemDetailPage = () => {
     window.open(whatsappUrl, '_blank');
   };
 
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+    setSlideshowOpen(true);
+  };
+
+  const handleCloseSlideshow = () => {
+    setSlideshowOpen(false);
+  };
+
   // Get related items from the same category, excluding the current item
   const relatedItems = allItems.filter(relatedItem => 
     relatedItem.category === item.category && relatedItem.id !== item.id
@@ -33,38 +48,27 @@ const ItemDetailPage = () => {
     <Box sx={{ minHeight: '100vh', backgroundColor: '#fafafa' }}>
       {/* Mobile Layout */}
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-        {/* Mobile Images - Two Column Grid */}
+        {/* Mobile Images - Dynamic Grid */}
         <Box sx={{ 
           display: 'grid', 
           gridTemplateColumns: '1fr 1fr', 
           gap: 2,
           p: 1
         }}>
-          <Box sx={{ 
-            width: '100%', 
-            aspectRatio: '0.75',
-            overflow: 'hidden'
-          }}>
-            <CachedImage
-              src={item.images[0]}
-              alt={item.name}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block'
+          {item.images.map((image, index) => (
+            <Box 
+              key={index}
+              sx={{ 
+                width: '100%', 
+                aspectRatio: '0.75',
+                overflow: 'hidden',
+                cursor: 'pointer'
               }}
-            />
-          </Box>
-          {item.images[1] && (
-            <Box sx={{ 
-              width: '100%', 
-              aspectRatio: '0.75',
-              overflow: 'hidden'
-            }}>
+              onClick={() => handleImageClick(index)}
+            >
               <CachedImage
-                src={item.images[1]}
-                alt={`${item.name} alternate view`}
+                src={image}
+                alt={`${item.name} ${index === 0 ? '' : `view ${index + 1}`}`}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -73,26 +77,7 @@ const ItemDetailPage = () => {
                 }}
               />
             </Box>
-          )}
-          {item.images[2] && (
-            <Box sx={{ 
-              width: '100%', 
-              aspectRatio: '0.75',
-              overflow: 'hidden',
-              gridColumn: '1 / -1'
-            }}>
-              <CachedImage
-                src={item.images[2]}
-                alt={`${item.name} detail view`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
-              />
-            </Box>
-          )}
+          ))}
         </Box>
 
         {/* Mobile Content */}
@@ -169,61 +154,36 @@ const ItemDetailPage = () => {
       }}>
         {/* Left Side - Images (60% width) */}
         <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', pr: 2 }}>
-          {/* Top Row - Two images side by side with 0.75 aspect ratio */}
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Box sx={{ 
-              width: '50%', 
-              aspectRatio: '0.75',
-              overflow: 'hidden'
-            }}>
-              <CachedImage
-                src={item.images[0]}
-                alt={item.name}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block'
+          {/* Dynamic Image Grid */}
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: '1fr 1fr', 
+            gap: 2,
+            gridAutoRows: 'auto'
+          }}>
+            {item.images.map((image, index) => (
+              <Box 
+                key={index}
+                sx={{ 
+                  aspectRatio: '0.75',
+                  overflow: 'hidden',
+                  cursor: 'pointer'
                 }}
-              />
-            </Box>
-            <Box sx={{ 
-              width: '50%', 
-              aspectRatio: '0.75',
-              overflow: 'hidden'
-            }}>
-              <CachedImage
-                src={item.images[1] || item.images[0]}
-                alt={`${item.name} alternate view`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
-              />
-            </Box>
+                onClick={() => handleImageClick(index)}
+              >
+                <CachedImage
+                  src={image}
+                  alt={`${item.name} ${index === 0 ? '' : `view ${index + 1}`}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
+                />
+              </Box>
+            ))}
           </Box>
-          
-          {/* Bottom Row - Third image if available */}
-          {item.images[2] && (
-            <Box sx={{ 
-              aspectRatio: '0.75', 
-              mt: 2,
-              overflow: 'hidden'
-            }}>
-              <CachedImage
-                src={item.images[2]}
-                alt={`${item.name} detail view`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
-              />
-            </Box>
-          )}
         </Box>
 
         {/* Right Side - Content (40% width) */}
@@ -374,6 +334,15 @@ const ItemDetailPage = () => {
           maxItems={4}
         />
       )}
+
+      {/* Image Slideshow */}
+      <ImageSlideshow
+        images={item.images}
+        projectTitle={item.name}
+        isOpen={slideshowOpen}
+        initialIndex={selectedImageIndex}
+        onClose={handleCloseSlideshow}
+      />
     </Box>
   );
 };
