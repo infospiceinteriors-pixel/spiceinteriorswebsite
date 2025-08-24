@@ -10,6 +10,7 @@ import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
 // import JournalPage from './pages/JournalPage'; // Temporarily removed
 import ImagePreloader from './components/ImagePreloader';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 // Create a theme instance for Spice Interior Design Studio
 const theme = createTheme({
@@ -200,6 +201,7 @@ function App() {
         }
       }}>
         <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+          <GoogleAnalytics />
           <ImagePreloader />
           <MainLayout>
             <Routes>

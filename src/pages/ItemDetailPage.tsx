@@ -6,6 +6,7 @@ import { getAllItems } from '../utils/data';
 import CachedImage from '../components/CachedImage';
 import ItemsSection from '../components/ItemsSection';
 import ImageSlideshow from '../components/ImageSlideshow';
+import { trackItemView, trackEvent } from '../components/GoogleAnalytics';
 
 const ItemDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,10 +17,15 @@ const ItemDetailPage = () => {
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Scroll to top when item changes
+  // Scroll to top when item changes and track item view
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [id]);
+    
+    // Track item view in Google Analytics
+    if (item) {
+      trackItemView(item.id, item.name, item.category || 'Unknown', item.price);
+    }
+  }, [id, item]);
 
   if (!item) {
     return (
@@ -32,6 +38,10 @@ const ItemDetailPage = () => {
   const handleWhatsAppClick = () => {
     const message = `Hi! I am interested in this item: ${item.name} (${item.price})`;
     const whatsappUrl = `https://wa.me/31626268470?text=${encodeURIComponent(message)}`;
+    
+    // Track WhatsApp inquiry in Google Analytics
+    trackEvent('whatsapp_inquiry', 'engagement', `${item.name} - ${item.price}`, parseFloat(item.price.replace('€', '')));
+    
     window.open(whatsappUrl, '_blank');
   };
 
