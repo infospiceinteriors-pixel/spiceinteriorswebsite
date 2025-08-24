@@ -131,10 +131,9 @@ const menuItems = [
 
 const shopCategories = [
   { label: 'All', value: 'All' },
-  { label: 'Furniture', value: 'Furniture' },
-  { label: 'Lighting', value: 'Lighting' },
-  { label: 'Textiles', value: 'Textiles' },
-  { label: 'Decor', value: 'Decor' },
+  { label: 'Objects', value: 'Objects' },
+  { label: 'Lamps', value: 'Lamps' },
+  { label: 'Tables', value: 'Tables' },
 ];
 
 const MainLayout = ({ children }: MainLayoutProps) => {

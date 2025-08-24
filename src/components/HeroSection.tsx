@@ -15,15 +15,15 @@ const heroCards = [
     id: 2,
     image: '/services-01.jpg',
     buttonText: 'Shop my collection',
-    linkTo: 'https://www.instagram.com/spice_int/',
-    external: true
+    linkTo: '/shop',
+    external: false
   },
   {
     id: 3,
     image: '/lamp-1.jpg',
     buttonText: 'Shop lamps',
-    linkTo: 'https://www.instagram.com/spice_int/',
-    external: true
+    linkTo: '/shop?category=Lamps',
+    external: false
   },
   {
     id: 4,
