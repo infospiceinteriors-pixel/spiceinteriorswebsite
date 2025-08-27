@@ -1,11 +1,15 @@
-import { Box, Typography, Button, Container, Card, CardContent } from '@mui/material';
+import { Box, Typography, Button, Container, Card, CardContent, Paper, Avatar, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 // import { Link } from 'react-router-dom'; // Temporarily removed with postcards
 // import { useState, useEffect } from 'react'; // Temporarily removed with postcards
 import HeroSection from '../components/HeroSection';
 // import ItemsSection from '../components/ItemsSection';
-import FaqSection from '../components/FaqSection';
+// import FaqSection from '../components/FaqSection'; // Replaced with testimonials
+import StarIcon from '@mui/icons-material/Star';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // import CachedImage from '../components/CachedImage'; // Temporarily removed with postcards
 // import { getNewItems } from '../utils/data';
 
@@ -19,31 +23,35 @@ import FaqSection from '../components/FaqSection';
 //   images?: string[];
 // }
 
-// Dummy FAQ data
-const faqs = [
+// Testimonials data
+const testimonials = [
   {
-    question: "What services does Spice Interior Design Studio offer?",
-    answer: "We offer comprehensive interior design services including space planning, furniture selection, color consultation, lighting design, and complete room transformations. We also provide rental services for events and temporary styling needs."
+    name: 'Nikoletta Christidi',
+    role: 'PhD candidate at TU Delft',
+    rating: 5,
+    text: 'Ankur often goes above and beyond to come up with the best solution, focusing on functionality, aesthetics and efficiency. His contribution improved greatly the quality of several projects.',
+    avatar: '/nikoletta.jpeg'
   },
   {
-    question: "How do I schedule a consultation?",
-    answer: "You can schedule a consultation by contacting us through our website, calling us directly, or reaching out via WhatsApp. We offer both in-person and virtual consultations to accommodate your needs."
+    name: 'Leah Dierker Vilk',
+    role: 'Product Manager',
+    rating: 5,
+    text: 'I worked with Ankur for almost a year and a half. He is a very dedicated, hard worker who cares about producing high-quality work. He\'s a creative problem-solver and a very kind person.',
+    avatar: '/leah.jpeg'
   },
   {
-    question: "What is your design process?",
-    answer: "Our design process begins with an initial consultation to understand your vision and requirements. We then create a detailed design concept, present it for your approval, and oversee the implementation from start to finish."
+    name: 'Milou Klein',
+    role: 'Engineering and Software Development',
+    rating: 5,
+    text: 'Ankur is a hard working and dedicated colleague who shows creativity and curiosity in his work. His technical expertise contributed greatly to high quality solutions.',
+    avatar: '/Milou Klein.jpeg'
   },
   {
-    question: "Do you work with specific budgets?",
-    answer: "Yes, we work with various budgets and can tailor our services to meet your financial requirements. We'll discuss your budget during the initial consultation and provide options that align with your investment level."
-  },
-  {
-    question: "Can you help with small spaces?",
-    answer: "Absolutely! We specialize in maximizing the potential of small spaces through smart design solutions, multifunctional furniture, and strategic layout planning. Every space has potential, regardless of size."
-  },
-  {
-    question: "What areas do you serve?",
-    answer: "We primarily serve the Amsterdam metropolitan area and surrounding regions. For larger projects, we may consider locations throughout the Netherlands. Contact us to discuss your specific location."
+    name: 'Twan Goossens',
+    role: 'Computational Designer Infrastructure',
+    rating: 5,
+    text: 'It\'s rare to find anyone with the same technical expertise, curiosity and drive as Ankur. He went above and beyond in designing excellent user experiences and building solutions.',
+    avatar: '/twan.jpeg'
   }
 ];
 
@@ -196,6 +204,130 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
+// Testimonials section styled components
+const TestimonialsSection = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(8, 0),
+  backgroundColor: 'background.default',
+  position: 'relative',
+}));
+
+const CarouselContainer = styled(Box)(() => ({
+  position: 'relative',
+  overflow: 'hidden',
+  width: '100%',
+}));
+
+const CarouselTrack = styled(Box)<{ translateX: number }>(({ translateX }) => ({
+  display: 'flex',
+  transition: 'transform 0.5s ease-in-out',
+  transform: `translateX(${translateX}%)`,
+  width: '100%',
+}));
+
+const CarouselSlide = styled(Box)(({ theme }) => ({
+  minWidth: '100%',
+  display: 'flex',
+  gap: theme.spacing(4),
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+  },
+}));
+
+const CarouselNavigation = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '16px',
+  marginTop: '32px',
+}));
+
+const NavButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '50%',
+  width: 48,
+  height: 48,
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:disabled': {
+    opacity: 0.3,
+  },
+}));
+
+const CarouselDots = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '8px',
+  marginTop: '24px',
+}));
+
+const Dot = styled(Box)<{ active: boolean }>(({ theme, active }) => ({
+  width: 12,
+  height: 12,
+  borderRadius: '50%',
+  backgroundColor: active ? theme.palette.primary.main : theme.palette.divider,
+  cursor: 'pointer',
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: active ? theme.palette.primary.main : theme.palette.action.hover,
+  },
+}));
+
+const TestimonialCard = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  boxShadow: 'none',
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: 0,
+  backgroundColor: 'background.paper',
+  flex: '0 0 calc(50% - 16px)', // Each card takes 50% width minus gap
+  [theme.breakpoints.down('md')]: {
+    flex: '0 0 100%', // Full width on mobile
+  },
+}));
+
+const TestimonialHeader = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '24px',
+}));
+
+const TestimonialInfo = styled(Box)(() => ({
+  marginLeft: '16px',
+  flex: 1,
+}));
+
+const TestimonialName = styled(Typography)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: '0.9rem',
+  color: 'text.primary',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.95rem',
+  },
+}));
+
+
+
+const TestimonialStars = styled(Box)(() => ({
+  display: 'flex',
+  marginBottom: '16px',
+}));
+
+const TestimonialText = styled(Typography)(({ theme }) => ({
+  fontSize: '0.75rem',
+  lineHeight: 1.6,
+  color: 'text.secondary',
+  fontStyle: 'italic',
+  flexGrow: 1,
+  [theme.breakpoints.up('md')]: {
+    fontSize: '0.8rem',
+  },
+}));
+
 // Styled components for postcards section - Temporarily removed with postcards
 // const PostcardsSection = styled(Box)(({ theme }) => ({
 //   padding: theme.spacing(8, 0),
@@ -311,6 +443,12 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Calculate slides: 2 testimonials per slide on desktop, 1 on mobile
+  const testimonialsPerSlide = 2;
+  const totalSlides = Math.ceil(testimonials.length / testimonialsPerSlide);
+  
   // Temporarily removed with postcards
   // const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]);
   // const [loading, setLoading] = useState(true);
@@ -356,6 +494,18 @@ const HomePage = () => {
     } else {
       navigate(linkTo);
     }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
   };
 
   return (
@@ -479,11 +629,73 @@ const HomePage = () => {
         maxItems={6}
       /> */}
       
-      <FaqSection
-        title="Frequently Asked Questions"
-        subtitle="Find answers to common questions about our services and process."
-        faqs={faqs}
-      />
+      {/* Testimonials Carousel Section */}
+      <TestimonialsSection>
+        <Container maxWidth="lg">
+                     <SectionHeader>
+             <SectionTitle variant="h2">
+               What People Say
+             </SectionTitle>
+           </SectionHeader>
+          
+          <CarouselContainer>
+            <CarouselTrack translateX={-currentSlide * 100}>
+              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
+                <CarouselSlide key={slideIndex}>
+                  {testimonials
+                    .slice(slideIndex * testimonialsPerSlide, slideIndex * testimonialsPerSlide + testimonialsPerSlide)
+                    .map((testimonial, index) => (
+                      <TestimonialCard key={index}>
+                                                 <TestimonialHeader>
+                           <Avatar
+                             src={testimonial.avatar}
+                             alt={testimonial.name}
+                             sx={{ width: 50, height: 50 }}
+                           />
+                           <TestimonialInfo>
+                             <TestimonialName>
+                               {testimonial.name}
+                             </TestimonialName>
+                           </TestimonialInfo>
+                         </TestimonialHeader>
+                        
+                        <TestimonialStars>
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <StarIcon key={i} sx={{ color: '#00B67A', fontSize: 18 }} />
+                          ))}
+                        </TestimonialStars>
+                        
+                        <TestimonialText>
+                          "{testimonial.text}"
+                        </TestimonialText>
+                      </TestimonialCard>
+                    ))}
+                </CarouselSlide>
+              ))}
+            </CarouselTrack>
+          </CarouselContainer>
+          
+          <CarouselNavigation>
+            <NavButton onClick={prevSlide} disabled={currentSlide === 0}>
+              <ArrowBackIosIcon sx={{ fontSize: 20 }} />
+            </NavButton>
+            
+            <CarouselDots>
+              {Array.from({ length: totalSlides }).map((_, index) => (
+                <Dot
+                  key={index}
+                  active={index === currentSlide}
+                  onClick={() => goToSlide(index)}
+                />
+              ))}
+            </CarouselDots>
+            
+            <NavButton onClick={nextSlide} disabled={currentSlide === totalSlides - 1}>
+              <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
+            </NavButton>
+          </CarouselNavigation>
+        </Container>
+      </TestimonialsSection>
     </Box>
   );
 };

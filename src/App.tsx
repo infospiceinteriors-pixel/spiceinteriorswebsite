@@ -206,8 +206,8 @@ function App() {
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/services" element={<ServicesPage />} />
+              {/* <Route path="/portfolio" element={<PortfolioPage />} /> */} {/* Hidden for marketplace mode */}
+              {/* <Route path="/services" element={<ServicesPage />} /> */} {/* Hidden for marketplace mode */}
               <Route path="/shop" element={<ShopPage />} />
               <Route path="/shop/item/:id" element={<ItemDetailPage />} />
               {/* <Route path="/journal" element={<JournalPage />} /> */}

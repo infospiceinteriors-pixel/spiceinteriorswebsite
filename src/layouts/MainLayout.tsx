@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   AppBar,
   Typography,
@@ -15,12 +15,9 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import WhatsAppButton from '../components/WhatsAppButton';
+
 import { Link, useLocation } from 'react-router-dom';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Collapse from '@mui/material/Collapse';
+
 // Official Social Media Icons from React Icons
 import { FaInstagram, FaTiktok } from 'react-icons/fa';
 
@@ -46,10 +43,14 @@ const NavBar = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: theme.spacing(4),
+  gap: theme.spacing(2.5), // Reduced gap to fit more categories
   marginBottom: theme.spacing(2.5),
   width: '100%',
   position: 'relative',
+  flexWrap: 'wrap', // Allow wrapping on smaller screens
+  [theme.breakpoints.down('md')]: {
+    gap: theme.spacing(2), // Even smaller gap on medium screens
+  },
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
@@ -58,13 +59,13 @@ const NavBar = styled(Box)(({ theme }) => ({
 const NavLinkButton = styled(Button)<{ active?: number }>(({ theme, active }) => ({
   fontFamily: 'Inter, Helvetica, Arial, sans-serif',
   fontWeight: 400,
-  fontSize: '1.08rem',
+  fontSize: '1rem', // Slightly smaller for more categories
   color: theme.palette.text.primary,
   background: 'none',
   border: 'none',
   borderRadius: 0,
   boxShadow: 'none',
-  padding: '0 0 3px 0',
+  padding: '0 8px 3px 8px', // More compact horizontal padding
   minWidth: 0,
   borderBottom: active ? `2px solid ${theme.palette.text.primary}` : '2px solid transparent',
   transition: 'border-color 0.2s',
@@ -120,20 +121,18 @@ const SocialIconButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-const menuItems = [
-  { label: 'Home', path: '/' },
-  // { label: 'Postcards', path: '/journal' }, // Temporarily removed
-  { label: 'Services', path: '/services' },
-  { label: 'Shop', path: '/shop' },
-  { label: 'Projects', path: '/portfolio' },
-  { label: 'Contact', path: '/contact' },
-];
+
 
 const shopCategories = [
   { label: 'All', value: 'All' },
-  { label: 'Objects', value: 'Objects' },
-  { label: 'Lamps', value: 'Lamps' },
-  { label: 'Tables', value: 'Tables' },
+  { label: 'Furniture', value: 'Furniture' },
+  { label: 'Lighting', value: 'Lighting' },
+  { label: 'Home Decor', value: 'Home Decor' },
+  { label: 'Kitchen & Bar', value: 'Kitchen & Bar' },
+  { label: 'Art', value: 'Art' },
+  { label: 'Rugs', value: 'Rugs' },
+  { label: 'Garden', value: 'Garden' },
+  { label: 'New Arrivals', value: 'New Arrivals' },
 ];
 
 const MainLayout = ({ children }: MainLayoutProps) => {
@@ -141,15 +140,8 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [shopMenuAnchor, setShopMenuAnchor] = useState<null | HTMLElement>(null);
-  const shopMenuOpen = Boolean(shopMenuAnchor);
-  const handleShopMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setShopMenuAnchor(event.currentTarget);
-  };
-  const handleShopMenuClose = () => {
-    setShopMenuAnchor(null);
-  };
-  const [mobileShopOpen, setMobileShopOpen] = useState(false);
+
+
 
   return (
     <Box sx={{
@@ -228,55 +220,28 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   />
                 </Link>
                 <NavBar>
-                  {menuItems.map((item) => {
-                    if (item.label === 'Shop') {
-                      return (
-                        <React.Fragment key={item.path}>
-                          <NavLinkButton
-                            disableRipple
-                            active={location.pathname === item.path ? 1 : 0}
-                            sx={{ textTransform: 'none', display: 'flex', alignItems: 'center' }}
-                            onClick={handleShopMenuOpen}
-                            endIcon={<ArrowDropDownIcon sx={{ ml: 0.5, transition: 'transform 0.2s', transform: shopMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />}
-                          >
-                            {item.label}
-                          </NavLinkButton>
-                          <Menu
-                            anchorEl={shopMenuAnchor}
-                            open={shopMenuOpen}
-                            onClose={handleShopMenuClose}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                            MenuListProps={{ sx: { minWidth: 160 } }}
-                          >
-                            {shopCategories.map((cat) => (
-                              <MenuItem
-                                key={cat.value}
-                                component={Link}
-                                to={cat.value === 'All' ? '/shop' : `/shop?category=${cat.value}`}
-                                onClick={handleShopMenuClose}
-                                selected={location.pathname === '/shop' && (location.search.includes(cat.value) || (cat.value === 'All' && !location.search))}
-                              >
-                                {cat.label}
-                              </MenuItem>
-                            ))}
-                          </Menu>
-                        </React.Fragment>
-                      );
-                    }
-                    return (
-                      <Link key={item.path} to={item.path} style={{ textDecoration: 'none' }}>
-                        <NavLinkButton
-                          disableRipple
-                          active={location.pathname === item.path ? 1 : 0}
-                          sx={{ textTransform: 'none' }}
-                          onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
-                        >
-                          {item.label}
-                        </NavLinkButton>
-                      </Link>
-                    );
-                  })}
+                  {shopCategories.map((category) => (
+                    <Link 
+                      key={category.value} 
+                      to={category.value === 'All' ? '/shop' : `/shop?category=${category.value}`} 
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <NavLinkButton
+                        disableRipple
+                        active={
+                          location.pathname === '/shop' && 
+                          (
+                            (category.value === 'All' && !location.search) ||
+                            (new URLSearchParams(location.search).get('category') === category.value)
+                          ) ? 1 : 0
+                        }
+                        sx={{ textTransform: 'none' }}
+                        onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
+                      >
+                        {category.label}
+                      </NavLinkButton>
+                    </Link>
+                  ))}
                   
                   {/* Social Media Icons - Aligned with nav buttons */}
                   <SocialMediaContainer>
@@ -313,75 +278,47 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               PaperProps={{ sx: { width: 220 } }}
             >
               <List>
-                {menuItems.map((item) => {
-                  if (item.label === 'Shop') {
-                    return (
-                      <React.Fragment key={item.path}>
-                        <ListItemButton
-                          onClick={() => setMobileShopOpen((open) => !open)}
-                          selected={location.pathname === '/shop'}
-                          sx={{ display: 'flex', alignItems: 'center' }}
-                        >
-                          <ListItemText
-                            primary={item.label}
-                            primaryTypographyProps={{
-                              sx: {
-                                fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-                                fontWeight: location.pathname === item.path ? 600 : 400,
-                                fontSize: '1.1rem',
-                                color: location.pathname === item.path ? 'primary.main' : 'text.primary',
-                              },
-                            }}
-                          />
-                          <ArrowDropDownIcon sx={{ ml: 1, transition: 'transform 0.2s', transform: mobileShopOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-                        </ListItemButton>
-                        <Collapse in={mobileShopOpen} unmountOnExit>
-                          <List component="div" disablePadding>
-                            {shopCategories.map((cat) => (
-                              <ListItemButton
-                                key={cat.value}
-                                component={Link}
-                                to={cat.value === 'All' ? '/shop' : `/shop?category=${cat.value}`}
-                                onClick={() => setDrawerOpen(false)}
-                                selected={location.pathname === '/shop' && (location.search.includes(cat.value) || (cat.value === 'All' && !location.search))}
-                                sx={{ pl: 4 }}
-                              >
-                                <ListItemText primary={cat.label} />
-                              </ListItemButton>
-                            ))}
-                          </List>
-                        </Collapse>
-                      </React.Fragment>
-                    );
-                  }
-                  return (
-                    <ListItemButton
-                      key={item.path}
-                      component={Link}
-                      to={item.path}
-                      onClick={() => setDrawerOpen(false)}
-                      selected={location.pathname === item.path}
-                    >
-                      <ListItemText
-                        primary={item.label}
-                        primaryTypographyProps={{
-                          sx: {
-                            fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-                            fontWeight: location.pathname === item.path ? 600 : 400,
-                            fontSize: '1.1rem',
-                            color: location.pathname === item.path ? 'primary.main' : 'text.primary',
-                          },
-                        }}
-                      />
-                    </ListItemButton>
-                  );
-                })}
+                {shopCategories.map((category) => (
+                  <ListItemButton
+                    key={category.value}
+                    component={Link}
+                    to={category.value === 'All' ? '/shop' : `/shop?category=${category.value}`}
+                    onClick={() => setDrawerOpen(false)}
+                    selected={
+                      location.pathname === '/shop' && 
+                      (
+                        (category.value === 'All' && !location.search) ||
+                        (new URLSearchParams(location.search).get('category') === category.value)
+                      )
+                    }
+                  >
+                    <ListItemText
+                      primary={category.label}
+                      primaryTypographyProps={{
+                        sx: {
+                          fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+                          fontWeight: location.pathname === '/shop' && 
+                            (
+                              (category.value === 'All' && !location.search) ||
+                              (new URLSearchParams(location.search).get('category') === category.value)
+                            ) ? 600 : 400,
+                          fontSize: '1.1rem',
+                          color: location.pathname === '/shop' && 
+                            (
+                              (category.value === 'All' && !location.search) ||
+                              (new URLSearchParams(location.search).get('category') === category.value)
+                            ) ? 'primary.main' : 'text.primary',
+                        },
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
               </List>
             </Drawer>
           </Box>
         </Container>
       </AppBar>
-      {location.pathname === '/contact' && <WhatsAppButton />}
+
       <Box component="main" sx={{
         flex: 1,
         width: '100%',

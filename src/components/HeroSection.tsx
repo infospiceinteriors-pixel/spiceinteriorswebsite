@@ -28,8 +28,8 @@ const heroCards = [
   {
     id: 4,
     image: '/dehallen-01.jpg',
-    buttonText: 'Our Services',
-    linkTo: '/services',
+    buttonText: 'Shop objects',
+    linkTo: '/shop?category=Objects',
     external: false
   }
 ];
