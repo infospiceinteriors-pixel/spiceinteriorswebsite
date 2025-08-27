@@ -6,30 +6,30 @@ import CachedImage from './CachedImage';
 const heroCards = [
   {
     id: 1,
-    image: '/cafe-americano-ams-01.jpg',
-    buttonText: 'Socials',
-    linkTo: 'https://www.instagram.com/4nkur_gupta/',
-    external: true
+    image: '/products/tables/1/1_1.jpg',
+    buttonText: 'Shop Furniture',
+    linkTo: '/shop?category=Furniture',
+    external: false
   },
   {
     id: 2,
-    image: '/services-01.jpg',
-    buttonText: 'Shop my collection',
-    linkTo: '/shop',
+    image: '/lamp-1.jpg',
+    buttonText: 'Shop Lamps',
+    linkTo: '/shop?category=Lighting',
     external: false
   },
   {
     id: 3,
-    image: '/lamp-1.jpg',
-    buttonText: 'Shop lamps',
-    linkTo: '/shop?category=Lamps',
+    image: '/products/objects/1/1_1.jpg',
+    buttonText: 'Shop Objects',
+    linkTo: '/shop?category=Home Decor',
     external: false
   },
   {
     id: 4,
-    image: '/dehallen-01.jpg',
-    buttonText: 'Shop objects',
-    linkTo: '/shop?category=Objects',
+    image: '/services-01.jpg',
+    buttonText: 'Shop All',
+    linkTo: '/shop',
     external: false
   }
 ];

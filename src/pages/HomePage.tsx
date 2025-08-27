@@ -5,6 +5,7 @@ import { useState } from 'react';
 // import { Link } from 'react-router-dom'; // Temporarily removed with postcards
 // import { useState, useEffect } from 'react'; // Temporarily removed with postcards
 import HeroSection from '../components/HeroSection';
+import FullWidthBanner from '../components/FullWidthBanner';
 // import ItemsSection from '../components/ItemsSection';
 // import FaqSection from '../components/FaqSection'; // Replaced with testimonials
 import StarIcon from '@mui/icons-material/Star';
@@ -510,6 +511,7 @@ const HomePage = () => {
 
   return (
     <Box>
+      <FullWidthBanner />
       <HeroSection />
       
       {/* Features Section */}
