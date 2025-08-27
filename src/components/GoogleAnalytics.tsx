@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 // Google Analytics Measurement ID - Your actual GA4 ID
-const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID || 'G-DM5TQSNWPT';
+const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-DM5TQSNWPT';
 
 // Alternative: You can also set it directly here instead of using environment variables:
 // const GA_MEASUREMENT_ID = 'G-DM5TQSNWPT';
+// 
+// Note: For Vite, environment variables must be prefixed with VITE_ (e.g., VITE_GA_MEASUREMENT_ID)
 
 declare global {
   interface Window {
