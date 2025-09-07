@@ -165,6 +165,23 @@ export const allItems: Item[] = [
     materials: 'Wood with decorative finish, possibly gilt or lacquered details',
     condition: 'Excellent vintage condition with original finish largely intact',
     measurements: 'Height: 45-50cm, Width: 40-45cm, Depth: 35-40cm (each table)'
+  },
+  {
+    id: '12',
+    name: 'Italian Mid-Century Modern Furniture',
+    images: ['/products/tables/2/2_1.jpg'],
+    price: '€450',
+    category: 'Tables',
+    featured: true,
+    isNew: true,
+    description: 'Exceptional Italian Mid-Century Modern furniture piece showcasing the refined craftsmanship and innovative design principles of 1950s-60s Italian furniture makers. This piece exemplifies the era\'s emphasis on clean lines, functional beauty, and quality materials that have made Italian design legendary worldwide.',
+    creator: 'Italian Mid-Century Designer',
+    dateOfManufacture: '1950s-1960s',
+    origin: 'Italy',
+    period: 'Mid-Century Modern',
+    materials: 'High-quality wood with period-appropriate finish',
+    condition: 'Excellent vintage condition with authentic patina',
+    measurements: 'Dimensions to be confirmed upon viewing'
   }
 ];
 

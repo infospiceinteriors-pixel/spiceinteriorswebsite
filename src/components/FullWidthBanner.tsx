@@ -44,15 +44,14 @@ const ContentContainer = styled(Container)(({ theme }) => ({
 }));
 
 const BannerTitle = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Inter, Arial, sans-serif',
-  fontWeight: 900,
+  fontFamily: 'Playfair Display, Georgia, serif',
+  fontWeight: 600,
   fontSize: '4.5rem',
-  lineHeight: 0.9,
-  letterSpacing: '-0.02em',
+  lineHeight: 1.1,
+  letterSpacing: '-0.01em',
   marginBottom: theme.spacing(3),
   color: '#FFFFFF',
   textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
-  textTransform: 'uppercase',
   [theme.breakpoints.down('md')]: {
     fontSize: '3.5rem',
   },
@@ -63,21 +62,19 @@ const BannerTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const BannerSubtitle = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Inter, Arial, sans-serif',
-  fontSize: '1.3rem',
+  fontSize: '1.2rem',
   fontWeight: 400,
   lineHeight: 1.5,
-  letterSpacing: '0.01em',
   marginBottom: theme.spacing(4),
   color: '#FFFFFF',
   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.4)',
   maxWidth: '600px',
   [theme.breakpoints.down('md')]: {
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     marginBottom: theme.spacing(3),
   },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '1.1rem',
+    fontSize: '1rem',
     marginBottom: theme.spacing(3),
   },
 }));

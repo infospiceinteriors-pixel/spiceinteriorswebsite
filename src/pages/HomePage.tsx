@@ -59,27 +59,27 @@ const testimonials = [
 const featuresData = [
   {
     id: 1,
-    image: '/collection-04.jpg',
+    image: '/products/objects/2/2_1.jpg',
     title: 'Art Deco Collection',
     description: 'Bold geometric patterns and luxurious materials define our Art Deco collection. Discover statement pieces that bring glamour and sophistication to modern interiors with timeless elegance.',
-    buttonText: 'Explore Art Deco',
-    linkTo: 'https://www.instagram.com/spice_int/'
+    buttonText: 'Shop Art Deco',
+    linkTo: '/shop?tag=artdeco'
   },
   {
     id: 2,
-    image: '/collection-02.jpg',
-    title: 'Lighting & Decor',
-    description: 'Transform your space with our curated selection of designer lighting and sculptural decor. Each piece is chosen to create ambiance and add personality to your home.',
-    buttonText: 'Shop Lighting',
-    linkTo: 'https://www.instagram.com/spice_int/'
+    image: '/products/tables/2/2_1.jpg',
+    title: 'Mid-Century Modern',
+    description: 'Iconic designs from the 1950s and 60s featuring clean lines, functional beauty, and innovative materials. Perfect pieces that blend seamlessly with contemporary living.',
+    buttonText: 'Shop Mid-Century',
+    linkTo: '/shop?tag=midcenturymodern'
   },
   {
     id: 3,
-    image: '/collection-03.jpg',
-    title: 'Scandinavian Collection',
-    description: 'Embrace the beauty of simplicity with our Scandinavian-inspired pieces. Clean lines, natural materials, and functional design create spaces that feel both cozy and refined.',
-    buttonText: 'Browse Collection',
-    linkTo: 'https://www.instagram.com/spice_int/'
+    image: '/products/tables/1/1_1.jpg',
+    title: 'Hollywood Regency',
+    description: 'Glamorous and sophisticated pieces inspired by the golden age of Hollywood. Luxurious materials and dramatic styling that make every room feel like a movie set.',
+    buttonText: 'Shop Hollywood Regency',
+    linkTo: '/shop?tag=hollywoodregency'
   }
 ];
 
@@ -519,7 +519,7 @@ const HomePage = () => {
         <Container maxWidth="lg">
           <SectionHeader>
             <SectionTitle variant="h2">
-              Shop my curated collection
+              Shop European vintage collection
             </SectionTitle>
             <SectionSubtitle variant="body1">
               Explore our carefully hand-picked collection of furniture, lighting, and decor. 

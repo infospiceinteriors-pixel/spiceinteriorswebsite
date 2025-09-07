@@ -16,7 +16,7 @@ import {
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 // Official Social Media Icons from React Icons
 import { FaInstagram, FaTiktok } from 'react-icons/fa';
@@ -137,6 +137,7 @@ const shopCategories = [
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -343,12 +344,51 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <Container maxWidth="xl" sx={{ px: { xs: 3, sm: 4, md: 6, lg: 8 } }}>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Playfair Display' }}>
-                SPICE
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary', maxWidth: 300 }}>
-                Premium interior design studio creating bespoke spaces that reflect your unique style and elevate your living experience.
-              </Typography>
+              <Typography variant="subtitle2" sx={{ mb: 2 }}>About</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Button
+                  onClick={() => navigate('/services')}
+                  sx={{
+                    color: 'text.secondary',
+                    textAlign: 'left',
+                    justifyContent: 'flex-start',
+                    p: 0,
+                    fontSize: '0.875rem',
+                    textTransform: 'none',
+                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
+                  }}
+                >
+                  Services
+                </Button>
+                <Button
+                  onClick={() => navigate('/portfolio')}
+                  sx={{
+                    color: 'text.secondary',
+                    textAlign: 'left',
+                    justifyContent: 'flex-start',
+                    p: 0,
+                    fontSize: '0.875rem',
+                    textTransform: 'none',
+                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
+                  }}
+                >
+                  Projects
+                </Button>
+                <Button
+                  onClick={() => navigate('/contact')}
+                  sx={{
+                    color: 'text.secondary',
+                    textAlign: 'left',
+                    justifyContent: 'flex-start',
+                    p: 0,
+                    fontSize: '0.875rem',
+                    textTransform: 'none',
+                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
+                  }}
+                >
+                  Contact
+                </Button>
+              </Box>
             </Box>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
               <Typography variant="subtitle2" sx={{ mb: 2 }}>Legal</Typography>
@@ -382,11 +422,33 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               </Box>
             </Box>
             <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="subtitle2" sx={{ mb: 2 }}>Contact</Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Amsterdam, Netherlands<br />
-                +31 626268470
-              </Typography>
+              <Typography variant="subtitle2" sx={{ mb: 2 }}>Follow Us</Typography>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <IconButton
+                  href="https://www.instagram.com/spice_int/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'text.secondary',
+                    p: 0,
+                    '&:hover': { color: 'secondary.main' },
+                  }}
+                >
+                  <FaInstagram size={20} />
+                </IconButton>
+                <IconButton
+                  href="https://www.tiktok.com/@spice_int"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'text.secondary',
+                    p: 0,
+                    '&:hover': { color: 'secondary.main' },
+                  }}
+                >
+                  <FaTiktok size={20} />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
           <Box sx={{ mt: 4, textAlign: 'center' }}>
