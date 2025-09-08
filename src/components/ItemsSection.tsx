@@ -116,7 +116,7 @@ const ItemCard = ({ item }: { item: Item }) => {
             fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
             textAlign: 'left',
             width: '100%',
-            textTransform: 'uppercase',
+            textTransform: 'none',
             letterSpacing: 0,
             lineHeight: 1.2,
             overflow: 'hidden',

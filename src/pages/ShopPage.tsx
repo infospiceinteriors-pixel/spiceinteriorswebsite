@@ -58,7 +58,7 @@ const ShopPage = () => {
     // Map new categories to existing data categories
     const categoryMapping: Record<string, string[]> = {
       'Tables': ['Tables'],
-      'Seating': ['Sofas & Chairs'],
+      'Seating': ['Seating'],
       'Lighting': ['Lamps'],
       'Home Decor': ['Objects'],
       'Bars': [], // No items yet
