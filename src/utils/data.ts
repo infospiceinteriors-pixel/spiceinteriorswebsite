@@ -34,7 +34,7 @@ export const allItems: Item[] = [
     condition: 'Good vintage condition with minor age-appropriate wear on mechanism',
     measurements: 'Height: approximately 25-30cm, Base: 15cm diameter',
     category: 'Objects',
-    isNew: true
+    isNew: false
   },
   {
     id: '2',
@@ -50,7 +50,7 @@ export const allItems: Item[] = [
     materials: 'Composite material or plaster with patinated finish',
     condition: 'Good vintage condition with authentic age-related patina',
     measurements: 'Height: approximately 20-25cm, Width: 15cm',
-    isNew: true
+    isNew: false
   },
   {
     id: '3',
@@ -66,7 +66,7 @@ export const allItems: Item[] = [
     materials: 'Solid hardwood (likely oak, beech, or maple)',
     condition: 'Excellent vintage condition with natural wood patina',
     measurements: 'Diameter: 20-25cm, Height: 8-12cm',
-    isNew: true
+    isNew: false
   },
   {
     id: '4',
@@ -82,7 +82,7 @@ export const allItems: Item[] = [
     materials: 'Solid hardwood with natural finish',
     condition: 'Very good vintage condition with authentic wood aging',
     measurements: 'Length: 15-20cm, Height: 8-12cm, Width: 6-8cm',
-    isNew: true
+    isNew: false
   },
   {
     id: '5',
@@ -98,7 +98,7 @@ export const allItems: Item[] = [
     materials: 'Fine porcelain with hand-painted details',
     condition: 'Excellent vintage condition with original paint intact',
     measurements: 'Height: 25-30cm, Length: 20cm, Width: 8cm',
-    isNew: true
+    isNew: false
   },
   
   // Featured Items
