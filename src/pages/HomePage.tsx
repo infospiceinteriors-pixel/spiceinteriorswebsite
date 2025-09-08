@@ -1,12 +1,12 @@
 import { Box, Typography, Button, Container, Card, CardContent, Paper, Avatar, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom'; // Temporarily removed with postcards
-// import { useState, useEffect } from 'react'; // Temporarily removed with postcards
-import HeroSection from '../components/HeroSection';
-import FullWidthBanner from '../components/FullWidthBanner';
+import { getNewItems } from '../utils/data';
+import CategorySection from '../components/CategorySection';
 // import ItemsSection from '../components/ItemsSection';
+import ItemsCarousel from '../components/ItemsCarousel';
 // import FaqSection from '../components/FaqSection'; // Replaced with testimonials
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -183,6 +183,9 @@ const FeatureButton = styled(Button)(({ theme }) => ({
 const SectionHeader = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   marginBottom: theme.spacing(6),
+  [theme.breakpoints.down('md')]: {
+    marginBottom: theme.spacing(4), // Reduce margin on mobile
+  },
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -210,6 +213,9 @@ const TestimonialsSection = styled(Box)(({ theme }) => ({
   padding: theme.spacing(8, 0),
   backgroundColor: 'background.default',
   position: 'relative',
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(4, 0), // Reduce padding on mobile
+  },
 }));
 
 const CarouselContainer = styled(Box)(() => ({
@@ -230,17 +236,21 @@ const CarouselSlide = styled(Box)(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(4),
   [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-    gap: theme.spacing(3),
+    gap: theme.spacing(2), // Reduce gap between cards on mobile
+    justifyContent: 'center', // Center single testimonial on mobile
   },
 }));
 
-const CarouselNavigation = styled(Box)(() => ({
+const CarouselNavigation = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   gap: '16px',
   marginTop: '32px',
+  [theme.breakpoints.down('md')]: {
+    marginTop: '24px', // Reduce margin on mobile
+    gap: '12px', // Reduce gap on mobile
+  },
 }));
 
 const NavButton = styled(IconButton)(({ theme }) => ({
@@ -288,13 +298,19 @@ const TestimonialCard = styled(Paper)(({ theme }) => ({
   flex: '0 0 calc(50% - 16px)', // Each card takes 50% width minus gap
   [theme.breakpoints.down('md')]: {
     flex: '0 0 100%', // Full width on mobile
+    padding: theme.spacing(2), // Further reduce padding on mobile
+    height: 'auto', // Let content determine height on mobile
+    minHeight: 'unset', // Remove any minimum height constraints
   },
 }));
 
-const TestimonialHeader = styled(Box)(() => ({
+const TestimonialHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   marginBottom: '24px',
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '12px', // Further reduce margin on mobile
+  },
 }));
 
 const TestimonialInfo = styled(Box)(() => ({
@@ -313,9 +329,12 @@ const TestimonialName = styled(Typography)(({ theme }) => ({
 
 
 
-const TestimonialStars = styled(Box)(() => ({
+const TestimonialStars = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginBottom: '16px',
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '8px', // Further reduce margin on mobile
+  },
 }));
 
 const TestimonialText = styled(Typography)(({ theme }) => ({
@@ -326,6 +345,10 @@ const TestimonialText = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
   [theme.breakpoints.up('md')]: {
     fontSize: '0.8rem',
+  },
+  [theme.breakpoints.down('md')]: {
+    lineHeight: 1.4, // Tighter line height on mobile
+    fontSize: '0.8rem', // Slightly larger font on mobile for readability
   },
 }));
 
@@ -445,9 +468,25 @@ const TestimonialText = styled(Typography)(({ theme }) => ({
 const HomePage = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detect mobile breakpoint
+  useEffect(() => {
+    const checkMobile = () => {
+      const newIsMobile = window.innerWidth < 900; // md breakpoint
+      if (newIsMobile !== isMobile) {
+        setIsMobile(newIsMobile);
+        setCurrentSlide(0); // Reset slide when switching between mobile/desktop
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [isMobile]);
   
   // Calculate slides: 2 testimonials per slide on desktop, 1 on mobile
-  const testimonialsPerSlide = 2;
+  const testimonialsPerSlide = isMobile ? 1 : 2;
   const totalSlides = Math.ceil(testimonials.length / testimonialsPerSlide);
   
   // Temporarily removed with postcards
@@ -511,15 +550,24 @@ const HomePage = () => {
 
   return (
     <Box>
-      <FullWidthBanner />
-      <HeroSection />
+      {/* New Items Carousel */}
+      <ItemsCarousel
+        title="New Arrivals"
+        items={getNewItems()}
+        showViewAll={true}
+        viewAllPath="/shop?category=New Arrivals"
+        maxItems={8}
+      />
       
-      {/* Features Section */}
+      {/* Category Section */}
+      <CategorySection />
+      
+      {/* Vintage style section */}
       <FeaturesSection>
         <Container maxWidth="lg">
           <SectionHeader>
             <SectionTitle variant="h2">
-              Shop European vintage collection
+              Shop by style
             </SectionTitle>
             <SectionSubtitle variant="body1">
               Explore our carefully hand-picked collection of furniture, lighting, and decor. 
@@ -622,15 +670,6 @@ const HomePage = () => {
         </Container>
       </PostcardsSection> */}
       
-      {/* Temporarily removed items section */}
-      {/* <ItemsSection
-        title="New In"
-        items={newItems}
-        showViewAll={true}
-        viewAllPath="/shop"
-        maxItems={6}
-      /> */}
-      
       {/* Testimonials Carousel Section */}
       <TestimonialsSection>
         <Container maxWidth="lg">
@@ -652,7 +691,14 @@ const HomePage = () => {
                            <Avatar
                              src={testimonial.avatar}
                              alt={testimonial.name}
-                             sx={{ width: 50, height: 50 }}
+                             sx={{ 
+                               width: 50, 
+                               height: 50,
+                               '@media (max-width: 900px)': {
+                                 width: 40,
+                                 height: 40,
+                               }
+                             }}
                            />
                            <TestimonialInfo>
                              <TestimonialName>
@@ -663,7 +709,13 @@ const HomePage = () => {
                         
                         <TestimonialStars>
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <StarIcon key={i} sx={{ color: '#00B67A', fontSize: 18 }} />
+                            <StarIcon key={i} sx={{ 
+                              color: '#00B67A', 
+                              fontSize: 18,
+                              '@media (max-width: 900px)': {
+                                fontSize: 16,
+                              }
+                            }} />
                           ))}
                         </TestimonialStars>
                         

@@ -1,60 +1,59 @@
-import { Box, Button, Container, Card } from '@mui/material';
+import { Box, Button, Container, Card, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import CachedImage from './CachedImage';
 
-const heroCards = [
+const categoryCards = [
   {
     id: 1,
     image: '/products/tables/1/1_1.jpg',
-    buttonText: 'Shop Tables',
+    buttonText: 'Tables',
     linkTo: '/shop?category=Tables',
     external: false
   },
   {
     id: 2,
     image: '/products/sofas & chairs/1/1_1.png',
-    buttonText: 'Shop Seating',
+    buttonText: 'Seating',
     linkTo: '/shop?category=Seating',
     external: false
   },
   {
     id: 3,
     image: '/lamp-1.jpg',
-    buttonText: 'Shop Lamps',
+    buttonText: 'Lighting',
     linkTo: '/shop?category=Lighting',
     external: false
   },
   {
     id: 4,
     image: '/products/objects/1/1_1.jpg',
-    buttonText: 'Shop Objects',
+    buttonText: 'Objects',
     linkTo: '/shop?category=Home Decor',
     external: false
   }
 ];
 
-const HeroContainer = styled(Box)(({ theme }) => ({
+const CategoryContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4, 0),
   backgroundColor: 'background.default',
-  minHeight: '90vh',
-  display: 'flex',
-  alignItems: 'center',
 }));
 
 const GridContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gridTemplateColumns: 'repeat(4, 1fr)',
   gap: theme.spacing(3),
   width: '100%',
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(4, 1fr)',
+  [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: 'repeat(3, 1fr)',
   },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: theme.spacing(2.5),
   },
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: '1fr',
+    gridTemplateColumns: 'repeat(2, 1fr)', // 2 items per row on mobile
+    gap: theme.spacing(2),
   },
 }));
 
@@ -64,7 +63,6 @@ const CardContainer = styled(Box)(() => ({
 }));
 
 const ImageCard = styled(Card)(({ theme }) => ({
-  height: '500px',
   position: 'relative',
   overflow: 'hidden',
   borderRadius: 0,
@@ -72,9 +70,8 @@ const ImageCard = styled(Card)(({ theme }) => ({
   border: 'none',
   cursor: 'pointer',
   marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    height: '400px',
-  },
+  aspectRatio: '3 / 4', // 3:4 aspect ratio as requested
+  width: '100%',
 }));
 
 
@@ -95,7 +92,7 @@ const ActionButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const HeroSection = () => {
+const CategorySection = () => {
   const navigate = useNavigate();
 
   const handleCardClick = (linkTo: string, external: boolean) => {
@@ -111,10 +108,23 @@ const HeroSection = () => {
   };
 
   return (
-    <HeroContainer>
-      <Container maxWidth="xl">
+    <CategoryContainer>
+      <Container maxWidth={false} sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 4 } }}>
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography 
+            variant="h2" 
+            sx={{ 
+              mb: 2,
+              color: 'primary.main',
+              fontWeight: 400,
+            }}
+          >
+            Categories
+          </Typography>
+        </Box>
+
         <GridContainer>
-          {heroCards.map((card) => (
+          {categoryCards.map((card) => (
             <CardContainer key={card.id}>
               <ImageCard onClick={() => handleCardClick(card.linkTo, card.external)}>
                 <CachedImage
@@ -136,8 +146,8 @@ const HeroSection = () => {
           ))}
         </GridContainer>
       </Container>
-    </HeroContainer>
+    </CategoryContainer>
   );
 };
 
-export default HeroSection; 
+export default CategorySection; 

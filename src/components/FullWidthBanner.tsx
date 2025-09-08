@@ -8,7 +8,7 @@ const BannerWrapper = styled(Box)(({ theme }) => ({
   width: '100vw',
   maxWidth: '100%',
   position: 'relative',
-  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/hero_image.jpg")',
+  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/hero_banner.png")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundAttachment: 'fixed',
@@ -110,7 +110,7 @@ interface FullWidthBannerProps {
 }
 
 const FullWidthBanner = ({
-  backgroundImage = '/hero_image.jpg',
+  backgroundImage = '/hero_banner.png',
   title = 'Curated for you',
   subtitle = 'Interior items curated by the best in the business. Leveling up your space has never been easier.',
   buttonText = 'Shop Now',

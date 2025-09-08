@@ -60,9 +60,16 @@ const CardGrid = styled(Box)(({ theme }) => ({
     minWidth: 0, // Prevent grid items from expanding beyond their allocated space
     maxWidth: '100%'
   },
+  [theme.breakpoints.down('lg')]: {
+    gridTemplateColumns: 'repeat(3, 1fr)',
+  },
   [theme.breakpoints.down('md')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: theme.spacing(2), // Slightly smaller gap on mobile
+    gap: theme.spacing(2.5), // Slightly smaller gap on tablet
+  },
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)', // 2 items per row on mobile
+    gap: theme.spacing(2), // Smaller gap on mobile for better spacing
   },
 }));
 
