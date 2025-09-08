@@ -232,13 +232,29 @@ export const allItems: Item[] = [
     condition: 'Outstanding condition demonstrating superior British craftsmanship',
     measurements: '150cm W x 85cm D x 80cm H'
   },
+  {
+    id: '18',
+    name: 'Swedish Art Deco Armchair, 1930s',
+    images: ['/products/sofas & chairs/5/5_2.png','/products/sofas & chairs/5/5_3.png', '/products/sofas & chairs/5/5_1.png'],
+    price: '€759',
+    category: 'Seating',
+    isNew: true,
+    description: 'Stunning Swedish Art Deco armchair exemplifying the distinctive Nordic interpretation of the Art Deco movement. This elegant piece combines the geometric sophistication of Art Deco with Swedish craftsmanship traditions, featuring clean lines and refined proportions. The chair represents the unique Swedish approach to modernist design during the 1920s-30s era.',
+    creator: 'Swedish Art Deco Designer',
+    dateOfManufacture: '1920s-1930s',
+    origin: 'Sweden',
+    period: 'Swedish Art Deco',
+    materials: 'Solid birch or beech frame with period-appropriate upholstery',
+    condition: 'Excellent vintage condition with authentic Swedish Art Deco character',
+    measurements: '75cm W x 80cm D x 85cm H'
+  },
   
   // Additional Table
   {
     id: '16',
     name: 'Mid-Century Side Table',
     images: ['/products/tables/3/3_1.png', '/products/tables/3/3_2.png'],
-    price: '€125',
+    price: '€45',
     category: 'Tables',
     isNew: true,
     description: 'Elegant mid-century side table featuring clean geometric lines and quality wood construction. This versatile piece showcases the timeless appeal of 1960s design with its minimalist aesthetic and functional form.',
