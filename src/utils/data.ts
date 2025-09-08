@@ -166,23 +166,6 @@ export const allItems: Item[] = [
     condition: 'Excellent vintage condition with original finish largely intact',
     measurements: 'Height: 45-50cm, Width: 40-45cm, Depth: 35-40cm (each table)'
   },
-  {
-    id: '12',
-    name: 'Italian Mid-Century Modern Furniture',
-    images: ['/products/tables/2/2_1.jpg'],
-    price: '€450',
-    category: 'Tables',
-    featured: true,
-    isNew: true,
-    description: 'Exceptional Italian Mid-Century Modern furniture piece showcasing the refined craftsmanship and innovative design principles of 1950s-60s Italian furniture makers. This piece exemplifies the era\'s emphasis on clean lines, functional beauty, and quality materials that have made Italian design legendary worldwide.',
-    creator: 'Italian Mid-Century Designer',
-    dateOfManufacture: '1950s-1960s',
-    origin: 'Italy',
-    period: 'Mid-Century Modern',
-    materials: 'High-quality wood with period-appropriate finish',
-    condition: 'Excellent vintage condition with authentic patina',
-    measurements: 'Dimensions to be confirmed upon viewing'
-  },
   
   // Sofas & Chairs
   {
@@ -220,7 +203,7 @@ export const allItems: Item[] = [
   {
     id: '15',
     name: 'Vintage Lounge Chair',
-    images: ['/products/sofas & chairs/3/3_1.jpg'],
+    images: ['/products/sofas & chairs/3/3_1.png'],
     price: '€165',
     category: 'Sofas & Chairs',
     isNew: true,
@@ -233,12 +216,28 @@ export const allItems: Item[] = [
     condition: 'Good vintage condition with minor wear consistent with age',
     measurements: '75cm W x 80cm D x 85cm H'
   },
+  {
+    id: '17',
+    name: 'Mid-Century Modern Loveseat',
+    images: ['/products/sofas & chairs/4/4_1.png', '/products/sofas & chairs/4/4_2.png'],
+    price: '€385',
+    category: 'Sofas & Chairs',
+    isNew: true,
+    description: 'Elegant mid-century modern loveseat featuring clean geometric lines and sophisticated upholstery. This compact two-seater showcases the refined aesthetic of 1960s Scandinavian design with its sleek silhouette and quality craftsmanship. Perfect for smaller spaces or as a stylish accent piece in larger rooms.',
+    creator: 'Scandinavian Designer',
+    dateOfManufacture: '1960s-1970s',
+    origin: 'Scandinavian (likely Danish or Swedish)',
+    period: 'Mid-Century Modern',
+    materials: 'Solid wood frame with premium fabric upholstery',
+    condition: 'Excellent vintage condition with original upholstery in very good state',
+    measurements: '120cm W x 75cm D x 80cm H'
+  },
   
   // Additional Table
   {
     id: '16',
     name: 'Mid-Century Side Table',
-    images: ['/products/tables/3/3_1.jpg'],
+    images: ['/products/tables/3/3_1.png', '/products/tables/3/3_2.png'],
     price: '€125',
     category: 'Tables',
     isNew: true,
