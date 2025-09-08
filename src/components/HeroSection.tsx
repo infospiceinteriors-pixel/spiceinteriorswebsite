@@ -7,29 +7,29 @@ const heroCards = [
   {
     id: 1,
     image: '/products/tables/1/1_1.jpg',
-    buttonText: 'Shop Furniture',
-    linkTo: '/shop?category=Furniture',
+    buttonText: 'Shop Tables',
+    linkTo: '/shop?category=Tables',
     external: false
   },
   {
     id: 2,
+    image: '/products/sofas & chairs/1/1_1.png',
+    buttonText: 'Shop Seating',
+    linkTo: '/shop?category=Seating',
+    external: false
+  },
+  {
+    id: 3,
     image: '/lamp-1.jpg',
     buttonText: 'Shop Lamps',
     linkTo: '/shop?category=Lighting',
     external: false
   },
   {
-    id: 3,
+    id: 4,
     image: '/products/objects/1/1_1.jpg',
     buttonText: 'Shop Objects',
     linkTo: '/shop?category=Home Decor',
-    external: false
-  },
-  {
-    id: 4,
-    image: '/services-01.jpg',
-    buttonText: 'Shop All',
-    linkTo: '/shop',
     external: false
   }
 ];

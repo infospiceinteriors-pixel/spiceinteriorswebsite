@@ -182,6 +182,74 @@ export const allItems: Item[] = [
     materials: 'High-quality wood with period-appropriate finish',
     condition: 'Excellent vintage condition with authentic patina',
     measurements: 'Dimensions to be confirmed upon viewing'
+  },
+  
+  // Sofas & Chairs
+  {
+    id: '13',
+    name: 'Vintage Sofa Chair Set',
+    images: ['/products/sofas & chairs/1/1_1.png', '/products/sofas & chairs/1/1_2.png', '/products/sofas & chairs/1/1_3.png', '/products/sofas & chairs/1/1_4.png'],
+    price: '€280',
+    category: 'Sofas & Chairs',
+    isNew: true,
+    description: 'Beautiful vintage sofa and chair set featuring classic upholstery and timeless design. This elegant seating arrangement showcases quality craftsmanship with comfortable proportions that work perfectly in both traditional and contemporary interiors.',
+    creator: 'European Furniture Maker',
+    dateOfManufacture: '1960s-1970s',
+    origin: 'European',
+    period: 'Mid-Century Modern',
+    materials: 'Wood frame with fabric upholstery',
+    condition: 'Good vintage condition with authentic patina',
+    measurements: 'Sofa: 180cm W x 80cm D x 85cm H, Chair: 75cm W x 80cm D x 85cm H'
+  },
+  {
+    id: '14',
+    name: 'Mid-Century Armchair',
+    images: ['/products/sofas & chairs/2/2_1.png', '/products/sofas & chairs/2/2_2.png', '/products/sofas & chairs/2/2_3.png'],
+    price: '€195',
+    category: 'Sofas & Chairs',
+    isNew: true,
+    description: 'Stylish mid-century armchair with clean lines and comfortable proportions. This piece exemplifies the minimalist aesthetic of 1960s design with its sleek profile and quality construction, making it a perfect accent piece for modern living spaces.',
+    creator: 'Mid-Century Designer',
+    dateOfManufacture: '1960s',
+    origin: 'European',
+    period: 'Mid-Century Modern',
+    materials: 'Wood frame with upholstered seat and back',
+    condition: 'Very good vintage condition',
+    measurements: '70cm W x 75cm D x 80cm H'
+  },
+  {
+    id: '15',
+    name: 'Vintage Lounge Chair',
+    images: ['/products/sofas & chairs/3/3_1.jpg'],
+    price: '€165',
+    category: 'Sofas & Chairs',
+    isNew: true,
+    description: 'Comfortable vintage lounge chair with distinctive mid-century styling. This piece features the era\'s characteristic emphasis on both form and function, with ergonomic design that provides excellent comfort while maintaining visual appeal.',
+    creator: 'Mid-Century Furniture Designer',
+    dateOfManufacture: '1960s-1970s',
+    origin: 'European',
+    period: 'Mid-Century Modern',
+    materials: 'Wood frame with fabric upholstery',
+    condition: 'Good vintage condition with minor wear consistent with age',
+    measurements: '75cm W x 80cm D x 85cm H'
+  },
+  
+  // Additional Table
+  {
+    id: '16',
+    name: 'Mid-Century Side Table',
+    images: ['/products/tables/3/3_1.jpg'],
+    price: '€125',
+    category: 'Tables',
+    isNew: true,
+    description: 'Elegant mid-century side table featuring clean geometric lines and quality wood construction. This versatile piece showcases the timeless appeal of 1960s design with its minimalist aesthetic and functional form.',
+    creator: 'Mid-Century Furniture Designer',
+    dateOfManufacture: '1960s',
+    origin: 'European',
+    period: 'Mid-Century Modern',
+    materials: 'Solid wood with natural finish',
+    condition: 'Excellent vintage condition with beautiful wood grain',
+    measurements: '60cm W x 40cm D x 45cm H'
   }
 ];
 

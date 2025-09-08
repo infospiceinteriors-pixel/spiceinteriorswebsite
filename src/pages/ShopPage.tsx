@@ -3,7 +3,7 @@ import ItemsSection from '../components/ItemsSection';
 import { useLocation } from 'react-router-dom';
 import { getAllItems } from '../utils/data';
 
-const categories = ['All', 'Furniture', 'Lighting', 'Home Decor', 'Kitchen & Bar', 'Art', 'Rugs', 'Garden', 'New Arrivals'];
+const categories = ['All', 'Tables', 'Seating', 'Lighting', 'Home Decor', 'Bars', 'Art', 'Rugs', 'Garden', 'New Arrivals'];
 
 function getCategoryFromQuery(search: string): string {
   const params = new URLSearchParams(search);
@@ -57,10 +57,11 @@ const ShopPage = () => {
     
     // Map new categories to existing data categories
     const categoryMapping: Record<string, string[]> = {
-      'Furniture': ['Tables'],
+      'Tables': ['Tables'],
+      'Seating': ['Sofas & Chairs'],
       'Lighting': ['Lamps'],
       'Home Decor': ['Objects'],
-      'Kitchen & Bar': [], // No items yet
+      'Bars': [], // No items yet
       'Art': [], // No items yet
       'Rugs': [], // No items yet
       'Garden': [] // No items yet
