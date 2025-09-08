@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Typography,
   TextField,
   Button,
@@ -17,8 +16,8 @@ interface NewsletterSignupProps {
   placement?: 'homepage' | 'footer' | 'shop' | 'item-detail';
 }
 
-const NewsletterContainer = styled(Paper)<{ variant?: string }>(({ theme, variant }) => ({
-  padding: variant === 'compact' ? theme.spacing(3) : theme.spacing(4),
+const NewsletterContainer = styled(Paper)<{ customvariant?: string }>(({ theme, customvariant }) => ({
+  padding: customvariant === 'compact' ? theme.spacing(3) : theme.spacing(4),
   textAlign: 'center',
   backgroundColor: '#f8f8f8',
   borderRadius: theme.spacing(2),
@@ -171,7 +170,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
   return (
     <>
-      <NewsletterContainer variant={variant} elevation={0}>
+      <NewsletterContainer customvariant={variant} elevation={0}>
         <Typography 
           variant={variant === 'compact' ? 'h6' : 'h5'} 
           component="h3"
