@@ -1,19 +1,14 @@
-import { useState } from 'react';
 import { 
   Box, 
   Container, 
   Typography, 
   Card, 
-  CardContent,
-  Avatar,
-  Paper,
-  IconButton
+  CardContent
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import StarIcon from '@mui/icons-material/Star';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ImageSlideshow from '../components/ImageSlideshow';
+import TestimonialsSection from '../components/TestimonialsSection';
+import { portfolioTestimonials } from '../utils/testimonials';
 
 const projects = [
     {
@@ -53,37 +48,6 @@ const projects = [
   }
 ];
 
-// Testimonials
-const testimonials = [
-  {
-    name: 'Nikoletta Christidi',
-    role: 'PhD candidate at TU Delft',
-    rating: 5,
-    text: 'Ankur often goes above and beyond to come up with the best solution, focusing on functionality, aesthetics and efficiency. His contribution improved greatly the quality of several projects. Even after working hard on client projects, he had the energy to explore new tools and automate processes. He is creative, diligent and driven.',
-    avatar: '/nikoletta.jpeg'
-  },
-  {
-    name: 'Leah Dierker Vilk',
-    role: 'Product Manager',
-    rating: 5,
-    text: 'I worked for almost a year and a half with Ankur at White Lioness technologies. He is a very dedicated, hard worker who cares about producing high-quality work. He\'s a creative problem-solver, good at thinking of out-of-the-box solutions to difficult problems, and a very kind and helpful person.',
-    avatar: '/leah.jpeg'
-  },
-  {
-    name: 'Milou Klein',
-    role: 'Engineering and Software Development',
-    rating: 5,
-    text: 'Ankur is a hard working and dedicated colleague who shows creativity and curiosity in his work. His technical expertise in Rhinoceros and Grasshopper contributed greatly to high quality solutions. He has great teaching skills and is enthusiastic to share his knowledge.',
-    avatar: '/Milou Klein.jpeg'
-  },
-  {
-    name: 'Twan (Antoine) Goossens',
-    role: 'Computational Designer Infrastructure at Haskoning',
-    rating: 5,
-    text: 'It\'s rare to find anyone with the same technical expertise, curiosity and drive as Ankur. He went above and beyond in designing software architecture, creating excellent user experiences, and building low-maintenance solutions. Ankur is also a great trainer, always looking for better ways of working and happy to share his knowledge.',
-    avatar: '/twan.jpeg'
-  }
-];
 
 const ProjectCard = styled(Card)(() => ({
   boxShadow: 'none',
@@ -174,7 +138,6 @@ const ProjectGrid = styled(Box)(({ theme }) => ({
 }));
 
 const PortfolioPage = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [slideshowOpen, setSlideshowOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -302,177 +265,12 @@ const PortfolioPage = () => {
       </Box>
 
       {/* Testimonials Section */}
-      <Box sx={{ py: 8, backgroundColor: 'background.paper' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                mb: 2,
-                color: 'primary.main',
-                fontWeight: 400,
-              }}
-            >
-              Testimonials
-            </Typography>
-            <Typography 
-              variant="subtitle1" 
-              sx={{ 
-                color: 'text.secondary',
-                maxWidth: 600,
-                mx: 'auto',
-              }}
-            >
-              Read what people say after working with me.
-            </Typography>
-          </Box>
-
-          <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-            <Box 
-              sx={{ 
-                display: 'flex',
-                width: `${Math.ceil(testimonials.length / 3) * 100}%`,
-                transition: 'transform 0.5s ease-in-out',
-                transform: `translateX(-${currentTestimonial * (100 / Math.ceil(testimonials.length / 3))}%)`
-              }}
-            >
-              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, slideIndex) => (
-                <Box
-                  key={slideIndex}
-                  sx={{
-                    width: `${100 / Math.ceil(testimonials.length / 3)}%`,
-                    display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-                    gap: 3,
-                    flexShrink: 0
-                  }}
-                >
-                  {testimonials
-                    .slice(slideIndex * 3, slideIndex * 3 + 3)
-                    .map((testimonial, index) => (
-                      <Paper 
-                        key={slideIndex * 3 + index}
-                        elevation={0}
-                        sx={{ 
-                          p: 4, 
-                          height: '100%',
-                          border: '1px solid rgba(212, 165, 116, 0.2)',
-                          backgroundColor: 'background.default',
-                          textAlign: 'center'
-                        }}
-                      >
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 3 }}>
-                          <Avatar
-                            src={testimonial.avatar}
-                            alt={testimonial.name}
-                            sx={{ width: 45, height: 45, mr: 2 }}
-                          />
-                          <Box sx={{ textAlign: 'left' }}>
-                            <Typography variant="h6" sx={{ 
-                              fontWeight: 500,
-                              fontSize: { xs: '0.85rem', md: '0.9rem', lg: '0.95rem' }
-                            }}>
-                              {testimonial.name}
-                            </Typography>
-                            <Typography variant="body2" sx={{ 
-                              color: 'text.secondary',
-                              fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' }
-                            }}>
-                              {testimonial.role}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        
-                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <StarIcon key={i} sx={{ color: 'secondary.main', fontSize: 20 }} />
-                          ))}
-                        </Box>
-                        
-                        <Typography 
-                          variant="body1" 
-                          sx={{ 
-                            color: 'text.secondary',
-                            lineHeight: 1.4,
-                            fontStyle: 'italic',
-                            fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' }
-                          }}
-                        >
-                          "{testimonial.text}"
-                        </Typography>
-                      </Paper>
-                    ))}
-                </Box>
-              ))}
-            </Box>
-
-            {/* Navigation Dots */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 1 }}>
-              {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
-                <Box
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  sx={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    backgroundColor: index === currentTestimonial ? 'secondary.main' : 'rgba(212, 165, 116, 0.3)',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.3s ease',
-                    '&:hover': {
-                      backgroundColor: index === currentTestimonial ? 'secondary.main' : 'rgba(212, 165, 116, 0.5)',
-                    }
-                  }}
-                />
-              ))}
-            </Box>
-
-            {/* Navigation Arrows - Only show if there are more than 3 testimonials */}
-            {testimonials.length > 3 && (
-              <>
-                <IconButton
-                  onClick={() => setCurrentTestimonial((prev) => (prev - 1 + Math.ceil(testimonials.length / 3)) % Math.ceil(testimonials.length / 3))}
-                  sx={{
-                    position: 'absolute',
-                    left: 10,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    backgroundColor: 'background.paper',
-                    border: '1px solid rgba(212, 165, 116, 0.2)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                    zIndex: 2,
-                    '&:hover': {
-                      backgroundColor: 'background.paper',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    }
-                  }}
-                >
-                  <ArrowBackIosIcon sx={{ fontSize: 20, color: 'primary.main' }} />
-                </IconButton>
-                <IconButton
-                  onClick={() => setCurrentTestimonial((prev) => (prev + 1) % Math.ceil(testimonials.length / 3))}
-                  sx={{
-                    position: 'absolute',
-                    right: 10,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    backgroundColor: 'background.paper',
-                    border: '1px solid rgba(212, 165, 116, 0.2)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                    zIndex: 2,
-                    '&:hover': {
-                      backgroundColor: 'background.paper',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    }
-                  }}
-                >
-                  <ArrowForwardIosIcon sx={{ fontSize: 20, color: 'primary.main' }} />
-                </IconButton>
-              </>
-            )}
-          </Box>
-        </Container>
-      </Box>
+      <TestimonialsSection 
+        title="Testimonials"
+        description="Read what people say after working with me."
+        testimonials={portfolioTestimonials}
+        backgroundColor="background.paper"
+      />
 
       {/* Image Slideshow */}
       {selectedProject && (

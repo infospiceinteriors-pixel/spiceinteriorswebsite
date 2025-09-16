@@ -8,6 +8,7 @@ import ItemDetailPage from './pages/ItemDetailPage';
 import PortfolioPage from './pages/PortfolioPage';
 import ServicesPage from './pages/ServicesPage';
 import ContactPage from './pages/ContactPage';
+import LinktreePage from './pages/LinktreePage';
 // import JournalPage from './pages/JournalPage'; // Temporarily removed
 import ImagePreloader from './components/ImagePreloader';
 import GoogleAnalytics from './components/GoogleAnalytics';
@@ -206,6 +207,7 @@ function App() {
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/links" element={<LinktreePage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/shop" element={<ShopPage />} />

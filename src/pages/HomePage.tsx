@@ -1,18 +1,15 @@
-import { Box, Typography, Button, Container, Card, CardContent, Paper, Avatar, IconButton } from '@mui/material';
+import { Box, Typography, Button, Container, Card, CardContent } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom'; // Temporarily removed with postcards
 import { getNewItems } from '../utils/data';
 import CategorySection from '../components/CategorySection';
 // import ItemsSection from '../components/ItemsSection';
 import ItemsCarousel from '../components/ItemsCarousel';
+import TestimonialsSection from '../components/TestimonialsSection';
+import { testimonials } from '../utils/testimonials';
 // import FaqSection from '../components/FaqSection'; // Replaced with testimonials
-import StarIcon from '@mui/icons-material/Star';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // import CachedImage from '../components/CachedImage'; // Temporarily removed with postcards
-// import { getNewItems } from '../utils/data';
 
 // Journal entry interface - Temporarily removed with postcards
 // interface JournalEntry {
@@ -24,37 +21,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 //   images?: string[];
 // }
 
-// Testimonials data
-const testimonials = [
-  {
-    name: 'Nikoletta Christidi',
-    role: 'PhD candidate at TU Delft',
-    rating: 5,
-    text: 'Ankur often goes above and beyond to come up with the best solution, focusing on functionality, aesthetics and efficiency. His contribution improved greatly the quality of several projects.',
-    avatar: '/nikoletta.jpeg'
-  },
-  {
-    name: 'Leah Dierker Vilk',
-    role: 'Product Manager',
-    rating: 5,
-    text: 'I worked with Ankur for almost a year and a half. He is a very dedicated, hard worker who cares about producing high-quality work. He\'s a creative problem-solver and a very kind person.',
-    avatar: '/leah.jpeg'
-  },
-  {
-    name: 'Milou Klein',
-    role: 'Engineering and Software Development',
-    rating: 5,
-    text: 'Ankur is a hard working and dedicated colleague who shows creativity and curiosity in his work. His technical expertise contributed greatly to high quality solutions.',
-    avatar: '/Milou Klein.jpeg'
-  },
-  {
-    name: 'Twan Goossens',
-    role: 'Computational Designer Infrastructure',
-    rating: 5,
-    text: 'It\'s rare to find anyone with the same technical expertise, curiosity and drive as Ankur. He went above and beyond in designing excellent user experiences and building solutions.',
-    avatar: '/twan.jpeg'
-  }
-];
 
 const featuresData = [
   {
@@ -208,149 +174,6 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
-// Testimonials section styled components
-const TestimonialsSection = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8, 0),
-  backgroundColor: 'background.default',
-  position: 'relative',
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(4, 0), // Reduce padding on mobile
-  },
-}));
-
-const CarouselContainer = styled(Box)(() => ({
-  position: 'relative',
-  overflow: 'hidden',
-  width: '100%',
-}));
-
-const CarouselTrack = styled(Box)<{ translateX: number }>(({ translateX }) => ({
-  display: 'flex',
-  transition: 'transform 0.5s ease-in-out',
-  transform: `translateX(${translateX}%)`,
-  width: '100%',
-}));
-
-const CarouselSlide = styled(Box)(({ theme }) => ({
-  minWidth: '100%',
-  display: 'flex',
-  gap: theme.spacing(4),
-  [theme.breakpoints.down('md')]: {
-    gap: theme.spacing(2), // Reduce gap between cards on mobile
-    justifyContent: 'center', // Center single testimonial on mobile
-  },
-}));
-
-const CarouselNavigation = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '16px',
-  marginTop: '32px',
-  [theme.breakpoints.down('md')]: {
-    marginTop: '24px', // Reduce margin on mobile
-    gap: '12px', // Reduce gap on mobile
-  },
-}));
-
-const NavButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: '50%',
-  width: 48,
-  height: 48,
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:disabled': {
-    opacity: 0.3,
-  },
-}));
-
-const CarouselDots = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  gap: '8px',
-  marginTop: '24px',
-}));
-
-const Dot = styled(Box)<{ active: boolean }>(({ theme, active }) => ({
-  width: 12,
-  height: 12,
-  borderRadius: '50%',
-  backgroundColor: active ? theme.palette.primary.main : theme.palette.divider,
-  cursor: 'pointer',
-  transition: 'background-color 0.3s ease',
-  '&:hover': {
-    backgroundColor: active ? theme.palette.primary.main : theme.palette.action.hover,
-  },
-}));
-
-const TestimonialCard = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  boxShadow: 'none',
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: 0,
-  backgroundColor: 'background.paper',
-  flex: '0 0 calc(50% - 16px)', // Each card takes 50% width minus gap
-  [theme.breakpoints.down('md')]: {
-    flex: '0 0 100%', // Full width on mobile
-    padding: theme.spacing(2), // Further reduce padding on mobile
-    height: 'auto', // Let content determine height on mobile
-    minHeight: 'unset', // Remove any minimum height constraints
-  },
-}));
-
-const TestimonialHeader = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '24px',
-  [theme.breakpoints.down('md')]: {
-    marginBottom: '12px', // Further reduce margin on mobile
-  },
-}));
-
-const TestimonialInfo = styled(Box)(() => ({
-  marginLeft: '16px',
-  flex: 1,
-}));
-
-const TestimonialName = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
-  fontSize: '0.9rem',
-  color: 'text.primary',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.95rem',
-  },
-}));
-
-
-
-const TestimonialStars = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  marginBottom: '16px',
-  [theme.breakpoints.down('md')]: {
-    marginBottom: '8px', // Further reduce margin on mobile
-  },
-}));
-
-const TestimonialText = styled(Typography)(({ theme }) => ({
-  fontSize: '0.75rem',
-  lineHeight: 1.6,
-  color: 'text.secondary',
-  fontStyle: 'italic',
-  flexGrow: 1,
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.8rem',
-  },
-  [theme.breakpoints.down('md')]: {
-    lineHeight: 1.4, // Tighter line height on mobile
-    fontSize: '0.8rem', // Slightly larger font on mobile for readability
-  },
-}));
 
 // Styled components for postcards section - Temporarily removed with postcards
 // const PostcardsSection = styled(Box)(({ theme }) => ({
@@ -467,27 +290,6 @@ const TestimonialText = styled(Typography)(({ theme }) => ({
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  
-  // Detect mobile breakpoint
-  useEffect(() => {
-    const checkMobile = () => {
-      const newIsMobile = window.innerWidth < 900; // md breakpoint
-      if (newIsMobile !== isMobile) {
-        setIsMobile(newIsMobile);
-        setCurrentSlide(0); // Reset slide when switching between mobile/desktop
-      }
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [isMobile]);
-  
-  // Calculate slides: 2 testimonials per slide on desktop, 1 on mobile
-  const testimonialsPerSlide = isMobile ? 1 : 2;
-  const totalSlides = Math.ceil(testimonials.length / testimonialsPerSlide);
   
   // Temporarily removed with postcards
   // const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]);
@@ -536,17 +338,6 @@ const HomePage = () => {
     }
   };
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
 
   return (
     <Box>
@@ -670,86 +461,8 @@ const HomePage = () => {
         </Container>
       </PostcardsSection> */}
       
-      {/* Testimonials Carousel Section */}
-      <TestimonialsSection>
-        <Container maxWidth="lg">
-                     <SectionHeader>
-             <SectionTitle variant="h2">
-               What People Say
-             </SectionTitle>
-           </SectionHeader>
-          
-          <CarouselContainer>
-            <CarouselTrack translateX={-currentSlide * 100}>
-              {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-                <CarouselSlide key={slideIndex}>
-                  {testimonials
-                    .slice(slideIndex * testimonialsPerSlide, slideIndex * testimonialsPerSlide + testimonialsPerSlide)
-                    .map((testimonial, index) => (
-                      <TestimonialCard key={index}>
-                                                 <TestimonialHeader>
-                           <Avatar
-                             src={testimonial.avatar}
-                             alt={testimonial.name}
-                             sx={{ 
-                               width: 50, 
-                               height: 50,
-                               '@media (max-width: 900px)': {
-                                 width: 40,
-                                 height: 40,
-                               }
-                             }}
-                           />
-                           <TestimonialInfo>
-                             <TestimonialName>
-                               {testimonial.name}
-                             </TestimonialName>
-                           </TestimonialInfo>
-                         </TestimonialHeader>
-                        
-                        <TestimonialStars>
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <StarIcon key={i} sx={{ 
-                              color: '#00B67A', 
-                              fontSize: 18,
-                              '@media (max-width: 900px)': {
-                                fontSize: 16,
-                              }
-                            }} />
-                          ))}
-                        </TestimonialStars>
-                        
-                        <TestimonialText>
-                          "{testimonial.text}"
-                        </TestimonialText>
-                      </TestimonialCard>
-                    ))}
-                </CarouselSlide>
-              ))}
-            </CarouselTrack>
-          </CarouselContainer>
-          
-          <CarouselNavigation>
-            <NavButton onClick={prevSlide} disabled={currentSlide === 0}>
-              <ArrowBackIosIcon sx={{ fontSize: 20 }} />
-            </NavButton>
-            
-            <CarouselDots>
-              {Array.from({ length: totalSlides }).map((_, index) => (
-                <Dot
-                  key={index}
-                  active={index === currentSlide}
-                  onClick={() => goToSlide(index)}
-                />
-              ))}
-            </CarouselDots>
-            
-            <NavButton onClick={nextSlide} disabled={currentSlide === totalSlides - 1}>
-              <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
-            </NavButton>
-          </CarouselNavigation>
-        </Container>
-      </TestimonialsSection>
+      {/* Testimonials Section */}
+      <TestimonialsSection testimonials={testimonials} />
     </Box>
   );
 };
