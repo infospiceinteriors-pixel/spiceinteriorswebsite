@@ -270,7 +270,19 @@ const linkData = [
 
 
 const LinktreePage = () => {
-  const handleLinkClick = (url: string) => {
+  const handleLinkClick = (url: string, buttonTitle: string, buttonId: string) => {
+    // Track button click in GA4
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'linktree_button_click', {
+        button_name: buttonTitle,
+        button_id: buttonId,
+        destination_url: url,
+        page_location: window.location.href,
+        page_title: 'Linktree'
+      });
+    }
+
+    // Navigate to the URL
     if (url.startsWith('http')) {
       window.open(url, '_blank', 'noopener,noreferrer');
     } else {
@@ -289,7 +301,7 @@ const LinktreePage = () => {
             return (
               <ButtonComponent
                 key={link.id}
-                onClick={() => handleLinkClick(link.url)}
+                onClick={() => handleLinkClick(link.url, link.title, link.id)}
                 startIcon={link.icon}
               >
                 {link.title}
