@@ -1,6 +1,6 @@
-import { Box, Typography, Button, Avatar, Container, IconButton } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Instagram, CalendarToday, ShoppingBag, PlayArrow, VideoLibrary } from '@mui/icons-material';
+import { Instagram, CalendarToday, ShoppingBag } from '@mui/icons-material';
 import { FaYoutube } from 'react-icons/fa';
 
 // Styled components for the Linktree layout
@@ -55,56 +55,6 @@ const LinktreeContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProfileSection = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  marginBottom: theme.spacing(4),
-  [theme.breakpoints.down('sm')]: {
-    marginBottom: theme.spacing(3),
-  },
-}));
-
-const BrandAvatar = styled(Avatar)(({ theme }) => ({
-  width: 120,
-  height: 120,
-  margin: '0 auto',
-  marginBottom: theme.spacing(3),
-  border: '4px solid #fff',
-  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-  fontSize: '3rem',
-  fontWeight: 600,
-  backgroundColor: theme.palette.primary.main,
-  color: '#fff',
-  [theme.breakpoints.down('sm')]: {
-    width: 100,
-    height: 100,
-    fontSize: '2.5rem',
-    marginBottom: theme.spacing(2),
-  },
-}));
-
-const BrandName = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Playfair Display',
-  fontWeight: 600,
-  fontSize: '2.2rem',
-  color: theme.palette.primary.main,
-  marginBottom: theme.spacing(1),
-  letterSpacing: '0.02em',
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1.8rem',
-  },
-}));
-
-const BrandTagline = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  fontSize: '1.1rem',
-  maxWidth: 400,
-  margin: '0 auto',
-  lineHeight: 1.5,
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1rem',
-    maxWidth: 320,
-  },
-}));
 
 const LinksContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -164,7 +114,7 @@ const LinkButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const SpecialLinkButton = styled(LinkButton)(({ theme }) => ({
+const SpecialLinkButton = styled(LinkButton)(() => ({
   background: 'linear-gradient(135deg, #D4A574 0%, #B8945A 100%)',
   color: '#fff',
   fontWeight: 700,
@@ -173,45 +123,6 @@ const SpecialLinkButton = styled(LinkButton)(({ theme }) => ({
     background: 'linear-gradient(135deg, #B8945A 0%, #A17E47 100%)',
     transform: 'translateY(-3px)',
     boxShadow: '0 10px 40px rgba(212, 165, 116, 0.3)',
-  },
-}));
-
-const SocialContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: theme.spacing(2),
-  justifyContent: 'center',
-  [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(1.5),
-  },
-}));
-
-const SocialButton = styled(IconButton)(({ theme }) => ({
-  width: 56,
-  height: 56,
-  backgroundColor: '#fff',
-  color: theme.palette.primary.main,
-  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
-  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: '#fff',
-    transform: 'translateY(-2px)',
-    boxShadow: '0 6px 24px rgba(0, 0, 0, 0.15)',
-  },
-  [theme.breakpoints.down('sm')]: {
-    width: 48,
-    height: 48,
-  },
-}));
-
-const FooterText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  fontSize: '0.9rem',
-  textAlign: 'center',
-  marginTop: theme.spacing(4),
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '0.8rem',
-    marginTop: theme.spacing(3),
   },
 }));
 
