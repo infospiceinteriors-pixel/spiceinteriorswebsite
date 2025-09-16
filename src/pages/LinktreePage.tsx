@@ -76,7 +76,7 @@ const LinkButton = styled(Button)(({ theme }) => ({
   fontSize: '0.95rem', // Smaller font size for desktop
   fontWeight: 600,
   textTransform: 'none',
-  backgroundColor: '#fff',
+  backgroundColor: '#FFF8E7',
   color: theme.palette.primary.main,
   border: '2px solid transparent',
   boxShadow: '4px 4px 0px rgba(0, 0, 0, 0.25)',
