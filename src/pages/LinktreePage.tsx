@@ -160,21 +160,21 @@ const linkData = [
     id: 'vintage-market',
     title: 'Italian Vintage Market',
     description: 'Behind the scenes of our sourcing journey',
-    url: '/portfolio', // You might want to create a specific page for this
+    url: 'https://www.youtube.com/watch?v=VFQLaf7NKG4&list=PLzvHlGsDCM3nc2S0PxUMUC1jfPjE3sWO6&index=2',
     icon: <FaYoutube />,
   },
   {
     id: 'tiktok',
     title: 'TikTok',
     description: 'Follow us on TikTok',
-    url: 'https://www.tiktok.com/@yourhandle', // Replace with your actual TikTok handle
+    url: 'https://www.tiktok.com/@spice_interiors',
     icon: <TikTokIcon />,
   },
   {
     id: 'instagram',
     title: 'Instagram',
     description: 'Follow us on Instagram',
-    url: 'https://www.instagram.com/yourhandle', // Replace with your actual Instagram handle
+    url: 'https://www.instagram.com/spice_int/',
     icon: <Instagram />,
   },
 ];

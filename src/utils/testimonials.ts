@@ -68,3 +68,4 @@ export const portfolioTestimonials: Testimonial[] = [
     avatar: '/twan.jpeg'
   }
 ];
+

@@ -242,6 +242,7 @@ export const createWeeklyNewsletterTemplate = (items: any[]) => {
         <div class="footer">
             <div class="social-links">
                 <a href="https://www.instagram.com/spice_int/">Instagram</a> |
+                <a href="https://www.tiktok.com/@spice_interiors">TikTok</a> |
                 <a href="mailto:info@spice-interiors.com">Email</a> |
                 <a href="https://your-website.com">Website</a>
             </div>

@@ -438,7 +438,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   <FaInstagram size={20} />
                 </IconButton>
                 <IconButton
-                  href="https://www.tiktok.com/@spice_int"
+                  href="https://www.tiktok.com/@spice_interiors"
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
