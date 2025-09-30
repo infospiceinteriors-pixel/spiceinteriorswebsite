@@ -7,6 +7,7 @@ import CategorySection from '../components/CategorySection';
 // import ItemsSection from '../components/ItemsSection';
 import ItemsCarousel from '../components/ItemsCarousel';
 import TestimonialsSection from '../components/TestimonialsSection';
+import ImageHeroSection from '../components/ImageHeroSection';
 import { testimonials } from '../utils/testimonials';
 // import FaqSection from '../components/FaqSection'; // Replaced with testimonials
 // import CachedImage from '../components/CachedImage'; // Temporarily removed with postcards
@@ -341,6 +342,14 @@ const HomePage = () => {
 
   return (
     <Box>
+      {/* Hero Section with 4 Images */}
+      <ImageHeroSection 
+        onImageClick={(word) => {
+          // Optional: Add click tracking or navigation
+          console.log(`Clicked on: ${word}`);
+        }}
+      />
+      
       {/* New Items Carousel */}
       <ItemsCarousel
         title="New Arrivals"

@@ -194,7 +194,20 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                   transform: 'translate(-50%, -50%)',
                   zIndex: 1
                 }}>
-                  <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
+                  <Link 
+                    to="/" 
+                    style={{ 
+                      textDecoration: 'none', 
+                      display: 'block', 
+                      width: 'fit-content',
+                      cursor: 'pointer',
+                      zIndex: 10
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/');
+                    }}
+                  >
                     <LogoImage 
                       src="/logo-1.png" 
                       alt="Spice Interior Design Studio" 
@@ -215,7 +228,20 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               </MobileNavBar>
             ) : (
               <>
-                <Link to="/" style={{ textDecoration: 'none', display: 'block', width: 'fit-content' }}>
+                <Link 
+                  to="/" 
+                  style={{ 
+                    textDecoration: 'none', 
+                    display: 'block', 
+                    width: 'fit-content',
+                    cursor: 'pointer',
+                    zIndex: 10
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/');
+                  }}
+                >
                   <LogoImage 
                     src="/logo-1.png" 
                     alt="Spice Interior Design Studio"
