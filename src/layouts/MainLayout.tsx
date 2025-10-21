@@ -125,14 +125,11 @@ const SocialIconButton = styled(IconButton)(({ theme }) => ({
 
 const shopCategories = [
   { label: 'All', value: 'All' },
-  { label: 'Tables', value: 'Tables' },
   { label: 'Seating', value: 'Seating' },
-  { label: 'Lighting', value: 'Lighting' },
-  { label: 'Home Decor', value: 'Home Decor' },
+  { label: 'Storage', value: 'Storage' },
+  { label: 'Dining tables', value: 'Dining tables' },
   { label: 'Bars', value: 'Bars' },
-  { label: 'Art', value: 'Art' },
-  { label: 'Rugs', value: 'Rugs' },
-  { label: 'Garden', value: 'Garden' },
+  { label: 'Decor', value: 'Decor' },
   { label: 'New Arrivals', value: 'New Arrivals' },
 ];
 

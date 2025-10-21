@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Button, Container, Card, CardContent, IconButton } from '@mui/material';
+import { Box, Typography, Container, Card, CardContent, IconButton, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -44,42 +44,68 @@ const CarouselSlide = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CarouselNavigation = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '24px',
-  marginTop: '32px',
+const CarouselWrapper = styled(Box)(() => ({
+  position: 'relative',
+  width: '100%',
 }));
 
 const NavButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: '50%',
   width: 48,
   height: 48,
+  zIndex: 10,
   '&:hover': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: theme.palette.background.paper,
   },
   '&:disabled': {
-    opacity: 0.3,
+    opacity: 0,
+    pointerEvents: 'none',
   },
+  [theme.breakpoints.down('sm')]: {
+    width: 40,
+    height: 40,
+  },
+}));
+
+const LeftNavButton = styled(NavButton)(() => ({
+  left: '16px',
+}));
+
+const RightNavButton = styled(NavButton)(() => ({
+  right: '16px',
 }));
 
 const CarouselDots = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '8px',
+  gap: '6px',
+  marginTop: '16px',
 }));
 
 const Dot = styled(Box)<{ active: boolean }>(({ active, theme }) => ({
-  width: 8,
-  height: 8,
+  width: 6,
+  height: 6,
   borderRadius: '50%',
   backgroundColor: active ? theme.palette.primary.main : theme.palette.divider,
   cursor: 'pointer',
   transition: 'background-color 0.3s ease',
+}));
+
+const ViewAllLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  textDecoration: 'underline',
+  cursor: 'pointer',
+  fontSize: '0.95rem',
+  fontWeight: 400,
+  '&:hover': {
+    color: theme.palette.primary.main,
+  },
 }));
 
 const StyledCard = styled(Card)(() => ({
@@ -269,83 +295,79 @@ const ItemsCarousel = ({
   return (
     <Box sx={{ py: 4, backgroundColor: 'background.default' }}>
       <Container maxWidth={false} sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 4 } }}>
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography 
-            variant="h2" 
-            sx={{ 
-              mb: 2,
-              color: 'primary.main',
-              fontWeight: 400,
-            }}
-          >
-            {title}
-          </Typography>
-          {description && (
-            <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 2, fontSize: '1.05rem', textAlign: 'center', maxWidth: 500, mx: 'auto' }}>
-              {description}
+        <Box sx={{ position: 'relative', mb: 6 }}>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                mb: 2,
+                color: 'primary.main',
+                fontWeight: 400,
+              }}
+            >
+              {title}
             </Typography>
+            {description && (
+              <Typography variant="subtitle1" sx={{ color: 'text.secondary', mb: 2, fontSize: '1.05rem', textAlign: 'center', maxWidth: 500, mx: 'auto' }}>
+                {description}
+              </Typography>
+            )}
+          </Box>
+          
+          {showViewAll && items.length > maxItems && (
+            <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+              <ViewAllLink href={viewAllPath}>
+                View All
+              </ViewAllLink>
+            </Box>
           )}
         </Box>
 
         {totalSlides > 0 && (
           <>
-            <CarouselContainer
-              ref={carouselRef}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <CarouselTrack translateX={-currentSlide * 100}>
-                {slides.map((slideItems, slideIndex) => (
-                  <CarouselSlide key={slideIndex}>
-                    {slideItems.map((item) => (
-                      <ItemCard key={item.id} item={item} />
-                    ))}
-                  </CarouselSlide>
-                ))}
-              </CarouselTrack>
-            </CarouselContainer>
+            <CarouselWrapper>
+              {totalSlides > 1 && (
+                <>
+                  <LeftNavButton onClick={prevSlide} disabled={currentSlide === 0}>
+                    <ArrowBackIosIcon sx={{ fontSize: '1.2rem' }} />
+                  </LeftNavButton>
+                  
+                  <RightNavButton onClick={nextSlide} disabled={currentSlide === totalSlides - 1}>
+                    <ArrowForwardIosIcon sx={{ fontSize: '1.2rem' }} />
+                  </RightNavButton>
+                </>
+              )}
+              
+              <CarouselContainer
+                ref={carouselRef}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
+                <CarouselTrack translateX={-currentSlide * 100}>
+                  {slides.map((slideItems, slideIndex) => (
+                    <CarouselSlide key={slideIndex}>
+                      {slideItems.map((item) => (
+                        <ItemCard key={item.id} item={item} />
+                      ))}
+                    </CarouselSlide>
+                  ))}
+                </CarouselTrack>
+              </CarouselContainer>
+            </CarouselWrapper>
 
             {totalSlides > 1 && (
-              <CarouselNavigation>
-                <NavButton onClick={prevSlide} disabled={currentSlide === 0}>
-                  <ArrowBackIosIcon />
-                </NavButton>
-                
-                <CarouselDots>
-                  {Array.from({ length: totalSlides }).map((_, index) => (
-                    <Dot
-                      key={index}
-                      active={index === currentSlide}
-                      onClick={() => goToSlide(index)}
-                    />
-                  ))}
-                </CarouselDots>
-                
-                <NavButton onClick={nextSlide} disabled={currentSlide === totalSlides - 1}>
-                  <ArrowForwardIosIcon />
-                </NavButton>
-              </CarouselNavigation>
+              <CarouselDots>
+                {Array.from({ length: totalSlides }).map((_, index) => (
+                  <Dot
+                    key={index}
+                    active={index === currentSlide}
+                    onClick={() => goToSlide(index)}
+                  />
+                ))}
+              </CarouselDots>
             )}
           </>
-        )}
-
-        {showViewAll && items.length > maxItems && (
-          <Box sx={{ textAlign: 'center', mt: 6 }}>
-            <Button 
-              variant="outlined" 
-              size="large"
-              href={viewAllPath}
-              sx={{ 
-                px: 4, 
-                py: 1.5,
-                fontSize: '1rem',
-                fontWeight: 500,
-              }}
-            >
-              View All
-            </Button>
-          </Box>
         )}
       </Container>
     </Box>

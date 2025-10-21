@@ -6,30 +6,37 @@ import CachedImage from './CachedImage';
 const categoryCards = [
   {
     id: 1,
-    image: '/products/tables/1/1_1.jpg',
-    buttonText: 'Tables',
-    linkTo: '/shop?category=Tables',
-    external: false
-  },
-  {
-    id: 2,
-    image: '/products/sofas & chairs/1/1_1.png',
+    image: '/products/seating/5/5_1.jpg',
     buttonText: 'Seating',
     linkTo: '/shop?category=Seating',
     external: false
   },
   {
+    id: 2,
+    image: '/products/storage/1/1_1.webp',
+    buttonText: 'Storage',
+    linkTo: '/shop?category=Storage',
+    external: false
+  },
+  {
     id: 3,
-    image: '/lamp-1.jpg',
-    buttonText: 'Lighting',
-    linkTo: '/shop?category=Lighting',
+    image: '/products/tables/1/1_1.jpg',
+    buttonText: 'Dining tables',
+    linkTo: '/shop?category=Dining tables',
     external: false
   },
   {
     id: 4,
-    image: '/products/objects/1/1_1.jpg',
-    buttonText: 'Objects',
-    linkTo: '/shop?category=Home Decor',
+    image: '/products/bars/1/1_1.webp',
+    buttonText: 'Bars',
+    linkTo: '/shop?category=Bars',
+    external: false
+  },
+  {
+    id: 5,
+    image: '/products/decor/1/1_1.jpg',
+    buttonText: 'Decor',
+    linkTo: '/shop?category=Decor',
     external: false
   }
 ];
@@ -41,18 +48,15 @@ const CategoryContainer = styled(Box)(({ theme }) => ({
 
 const GridContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 1fr)',
+  gridTemplateColumns: 'repeat(5, 1fr)',
   gap: theme.spacing(3),
   width: '100%',
   [theme.breakpoints.down('lg')]: {
     gridTemplateColumns: 'repeat(3, 1fr)',
-  },
-  [theme.breakpoints.down('md')]: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
     gap: theme.spacing(2.5),
   },
   [theme.breakpoints.down('sm')]: {
-    gridTemplateColumns: 'repeat(2, 1fr)', // 2 items per row on mobile
+    gridTemplateColumns: 'repeat(3, 1fr)', // 3 items per row on mobile
     gap: theme.spacing(2),
   },
 }));
