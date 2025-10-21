@@ -8,6 +8,7 @@ import CategorySection from '../components/CategorySection';
 import ItemsCarousel from '../components/ItemsCarousel';
 import TestimonialsSection from '../components/TestimonialsSection';
 import ImageHeroSection from '../components/ImageHeroSection';
+import WhatWeDoSection from '../components/WhatWeDoSection';
 import { testimonials } from '../utils/testimonials';
 // import FaqSection from '../components/FaqSection'; // Replaced with testimonials
 // import CachedImage from '../components/CachedImage'; // Temporarily removed with postcards
@@ -135,6 +136,7 @@ const FeatureDescription = styled(Typography)(({ theme }) => ({
 }));
 
 const FeatureButton = styled(Button)(({ theme }) => ({
+  borderRadius: 50,
   alignSelf: 'center',
   textTransform: 'none',
   fontSize: '0.65rem',
@@ -349,6 +351,9 @@ const HomePage = () => {
           console.log(`Clicked on: ${word}`);
         }}
       />
+      
+      {/* What We Do Section */}
+      <WhatWeDoSection />
       
       {/* New Items Carousel */}
       <ItemsCarousel

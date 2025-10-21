@@ -50,7 +50,7 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: 'white',
   padding: '12px 24px',
-  borderRadius: theme.spacing(1),
+  borderRadius: 50,
   textTransform: 'none',
   fontWeight: 600,
   minWidth: '140px',

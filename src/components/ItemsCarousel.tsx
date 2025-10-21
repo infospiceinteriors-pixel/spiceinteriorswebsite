@@ -183,23 +183,6 @@ const ItemCard = ({ item }: { item: Item }) => {
         >
           {item.name}
         </Typography>
-        <Typography 
-          variant="h6"
-          sx={{ 
-            fontWeight: 600,
-            fontSize: { xs: '1.1rem', md: '1.15rem', lg: '1.2rem' },
-            textAlign: 'left',
-            color: 'text.primary',
-            width: '100%',
-            mt: 0.5,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            display: 'block'
-          }}
-        >
-          {item.price}
-        </Typography>
       </CardContent>
     </StyledCard>
   );

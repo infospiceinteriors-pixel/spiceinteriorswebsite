@@ -79,6 +79,7 @@ const ImageCard = styled(Card)(({ theme }) => ({
 
 
 const ActionButton = styled(Button)(({ theme }) => ({
+  borderRadius: 50,
   borderColor: theme.palette.primary.main,
   color: theme.palette.primary.main,
   textTransform: 'none',

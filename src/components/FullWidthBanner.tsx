@@ -88,7 +88,7 @@ const BannerButton = styled(Button)(({ theme }) => ({
   fontSize: '0.9rem',
   fontWeight: 400,
   padding: '8px 24px',
-  borderRadius: theme.spacing(1),
+  borderRadius: 50,
   transition: 'all 0.3s ease',
   '&:hover': {
     borderColor: '#FFFFFF',

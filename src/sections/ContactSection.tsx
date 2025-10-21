@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography, TextField, Button, MenuItem, useTheme, useMediaQuery, Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 const services = [
   'Wardrobe Decluttering',
@@ -129,7 +129,7 @@ const ContactSection = () => {
     const userId = import.meta.env.VITE_EMAILJS_USER_ID;
     
     emailjs.send(serviceId, templateId, templateParams, userId)
-      .then((response) => {
+      .then((response: unknown) => {
         console.log('Email sent successfully!', response);
         setSnackbar({
           open: true,
@@ -148,7 +148,7 @@ const ContactSection = () => {
           message: '',
         });
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error('Error sending email:', error);
         setSnackbar({
           open: true,

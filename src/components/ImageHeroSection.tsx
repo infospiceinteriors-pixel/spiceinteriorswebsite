@@ -15,7 +15,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ImageColumn = styled(Box)(({ theme }) => ({
+const ImageColumn = styled(Box)(() => ({
   flex: 1,
   position: 'relative',
   overflow: 'hidden',
@@ -29,7 +29,7 @@ const HeroImage = styled('img')(() => ({
   display: 'block',
 }));
 
-const ImageOverlay = styled(Box)(({ theme }) => ({
+const ImageOverlay = styled(Box)(() => ({
   position: 'absolute',
   top: 0,
   left: 0,
