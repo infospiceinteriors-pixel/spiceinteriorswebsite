@@ -127,9 +127,11 @@ const shopCategories = [
   { label: 'All', value: 'All' },
   { label: 'Seating', value: 'Seating' },
   { label: 'Storage', value: 'Storage' },
-  { label: 'Dining tables', value: 'Dining tables' },
+  { label: 'Tables', value: 'Tables' },
   { label: 'Bars', value: 'Bars' },
   { label: 'Decor', value: 'Decor' },
+  { label: 'Objects', value: 'Objects' },
+  { label: 'Lamps', value: 'Lamps' },
   { label: 'New Arrivals', value: 'New Arrivals' },
 ];
 

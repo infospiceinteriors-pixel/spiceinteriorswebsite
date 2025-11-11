@@ -21,8 +21,8 @@ const categoryCards = [
   {
     id: 3,
     image: '/products/tables/1/1_1.jpg',
-    buttonText: 'Dining tables',
-    linkTo: '/shop?category=Dining tables',
+    buttonText: 'Tables',
+    linkTo: '/shop?category=Tables',
     external: false
   },
   {

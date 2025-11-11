@@ -3,7 +3,7 @@ import ItemsSection from '../components/ItemsSection';
 import { useLocation } from 'react-router-dom';
 import { getAllItems } from '../utils/data';
 
-const categories = ['All', 'Tables', 'Seating', 'Lighting', 'Home Decor', 'Bars', 'Art', 'Rugs', 'Garden', 'New Arrivals'];
+const categories = ['All', 'Tables', 'Seating', 'Storage', 'Bars', 'Decor', 'Objects', 'Lamps', 'New Arrivals'];
 
 function getCategoryFromQuery(search: string): string {
   const params = new URLSearchParams(search);
@@ -55,28 +55,8 @@ const ShopPage = () => {
       return filteredItems.filter(item => item.isNew === true);
     }
     
-    // Map new categories to existing data categories
-    const categoryMapping: Record<string, string[]> = {
-      'Tables': ['Tables'],
-      'Seating': ['Seating'],
-      'Lighting': ['Lamps'],
-      'Home Decor': ['Objects'],
-      'Bars': [], // No items yet
-      'Art': [], // No items yet
-      'Rugs': [], // No items yet
-      'Garden': [] // No items yet
-    };
-    
-    const mappedCategories = categoryMapping[selectedCategory];
-    
-    // If category is not in mapping or has empty array, return empty results
-    if (!mappedCategories || mappedCategories.length === 0) {
-      return []; // No items for unmapped categories yet
-    }
-    
-    return filteredItems.filter(item => 
-      mappedCategories.includes(item.category || '')
-    );
+    // Filter by category - categories match the data category names directly
+    return filteredItems.filter(item => item.category === selectedCategory);
   };
 
   const filteredItems = getFilteredItems();
