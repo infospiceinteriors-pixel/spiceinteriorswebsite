@@ -1,7 +1,9 @@
 import { Box, Button, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Instagram, CalendarToday, ShoppingBag } from '@mui/icons-material';
+import { Instagram, WhatsApp, WorkOutline } from '@mui/icons-material';
 import { FaYoutube } from 'react-icons/fa';
+import { getIntroSessionWhatsAppUrl, introSessionContent } from '../utils/introSessionContent';
+import { trackLinktreeButtonClick } from '../utils/analytics';
 
 // Styled components for the Linktree layout
 const LinktreeContainer = styled(Box)(({ theme }) => ({
@@ -20,7 +22,7 @@ const LinktreeContainer = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: 'url(/services-01.jpg)',
+    backgroundImage: 'url(/intro-hero.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -114,18 +116,6 @@ const LinkButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const SpecialLinkButton = styled(LinkButton)(() => ({
-  background: 'linear-gradient(135deg, #D4A574 0%, #B8945A 100%)',
-  color: '#fff',
-  fontWeight: 700,
-  borderRadius: 50, // Ensure special button is also fully rounded
-  '&:hover': {
-    background: 'linear-gradient(135deg, #B8945A 0%, #A17E47 100%)',
-    transform: 'translateY(-3px)',
-    boxShadow: '0 10px 40px rgba(212, 165, 116, 0.3)',
-  },
-}));
-
 // Custom TikTok icon component
 const TikTokIcon = () => (
   <svg
@@ -142,19 +132,17 @@ const TikTokIcon = () => (
 // Link data
 const linkData = [
   {
-    id: 'consultation',
-    title: 'Book free consultation',
-    description: 'Schedule your design consultation',
-    url: 'https://calendly.com/ankur-spice-interiors/30min',
-    isSpecial: false,
-    icon: <CalendarToday />,
+    id: 'intro-session',
+    title: introSessionContent.hero.ctaLabel,
+    url: getIntroSessionWhatsAppUrl(),
+    icon: <WhatsApp />,
   },
   {
-    id: 'new-arrivals',
-    title: 'New Arrivals',
-    description: 'Discover our latest pieces',
-    url: '/shop?category=New Arrivals',
-    icon: <ShoppingBag />,
+    id: 'portfolio',
+    title: 'Projects',
+    description: 'Commercial, residential and public interiors',
+    url: '/portfolio',
+    icon: <WorkOutline />,
   },
   {
     id: 'vintage-market',
@@ -174,24 +162,18 @@ const linkData = [
     id: 'instagram',
     title: 'Instagram',
     description: 'Follow us on Instagram',
-    url: 'https://www.instagram.com/spice_int/',
+    url: 'https://www.instagram.com/spice_interior/',
     icon: <Instagram />,
   },
 ];
 
-
 const LinktreePage = () => {
   const handleLinkClick = (url: string, buttonTitle: string, buttonId: string) => {
-    // Track button click in GA4
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'linktree_button_click', {
-        button_name: buttonTitle,
-        button_id: buttonId,
-        destination_url: url,
-        page_location: window.location.href,
-        page_title: 'Linktree'
-      });
-    }
+    trackLinktreeButtonClick({
+      buttonId,
+      buttonName: buttonTitle,
+      destinationUrl: url,
+    });
 
     // Navigate to the URL
     if (url.startsWith('http')) {
@@ -207,18 +189,15 @@ const LinktreePage = () => {
 
         {/* Links Section */}
         <LinksContainer>
-          {linkData.map((link) => {
-            const ButtonComponent = link.isSpecial ? SpecialLinkButton : LinkButton;
-            return (
-              <ButtonComponent
-                key={link.id}
-                onClick={() => handleLinkClick(link.url, link.title, link.id)}
-                startIcon={link.icon}
-              >
-                {link.title}
-              </ButtonComponent>
-            );
-          })}
+          {linkData.map((link) => (
+            <LinkButton
+              key={link.id}
+              onClick={() => handleLinkClick(link.url, link.title, link.id)}
+              startIcon={link.icon}
+            >
+              {link.title}
+            </LinkButton>
+          ))}
         </LinksContainer>
 
 

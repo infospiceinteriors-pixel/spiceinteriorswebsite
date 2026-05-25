@@ -9,7 +9,8 @@ import {
   CircularProgress
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { trackEvent } from './GoogleAnalytics';
+import { trackNewsletterSignup } from '../utils/analytics';
+import type { Subscriber } from '../utils/newsletterManager';
 
 interface NewsletterSignupProps {
   variant?: 'full' | 'compact';
@@ -90,7 +91,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
     try {
       // Track newsletter signup
-      trackEvent('newsletter_signup', 'engagement', placement, 1);
+      trackNewsletterSignup(placement);
 
       // Here you can integrate with your preferred email service
       // Options: EmailJS, Google Sheets API, Mailchimp, ConvertKit, etc.
@@ -126,7 +127,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
     };
     
     // Check if email already exists
-    if (subscribers.some((sub: any) => sub.email === email)) {
+    if (subscribers.some((sub: Subscriber) => sub.email === email)) {
       throw new Error('Email already subscribed');
     }
     
@@ -175,7 +176,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
           variant={variant === 'compact' ? 'h6' : 'h5'} 
           component="h3"
           sx={{ 
-            fontFamily: 'Playfair Display',
+            fontFamily: "'Instrument Serif', Georgia, serif",
             fontWeight: 600,
             mb: 1,
             color: 'primary.main'

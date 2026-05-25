@@ -1,53 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container, Paper, Avatar, IconButton } from '@mui/material';
+import { Box, Typography, Paper, Avatar, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Testimonial } from '../utils/testimonials';
+import BookSessionCtaButton from './BookSessionCtaButton';
+import SectionLabel from './SectionLabel';
+import {
+  lovableSpacing as sp,
+  lovableTokens as t,
+  lovableTypography as type,
+  maxContent,
+} from '../theme/lovableTokens';
 
 interface TestimonialsSectionProps {
   title?: string;
   description?: string;
   testimonials: Testimonial[];
-  backgroundColor?: string;
+  backgroundColor?: 'default' | 'card';
+  showBookSessionCta?: boolean;
+  ctaTrackingSection?: string;
 }
 
-// Styled components
-const TestimonialsContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8, 0),
-  backgroundColor: 'background.default',
+const resolveBackground = (backgroundColor: TestimonialsSectionProps['backgroundColor']) =>
+  backgroundColor === 'card' ? t.card : t.background;
+
+const TestimonialsContainer = styled(Box)(() => ({
   position: 'relative',
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(4, 0), // Reduce padding on mobile
-  },
 }));
 
 const SectionHeader = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   marginBottom: theme.spacing(6),
   [theme.breakpoints.down('md')]: {
-    marginBottom: theme.spacing(4), // Reduce margin on mobile
-  },
-}));
-
-const SectionTitle = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-  color: 'primary.main',
-  fontWeight: 400,
-}));
-
-const SectionSubtitle = styled(Typography)(({ theme }) => ({
-  color: 'text.secondary',
-  maxWidth: 600,
-  margin: '0 auto',
-  lineHeight: 1.5,
-  fontSize: '0.9rem',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.95rem',
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '1rem',
+    marginBottom: theme.spacing(4),
   },
 }));
 
@@ -86,14 +73,16 @@ const CarouselNavigation = styled(Box)(({ theme }) => ({
   },
 }));
 
-const NavButton = styled(IconButton)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.divider}`,
+const NavButton = styled(IconButton)(() => ({
+  backgroundColor: t.card,
+  border: `1px solid ${t.border}`,
   borderRadius: '50%',
   width: 48,
   height: 48,
+  color: t.foreground,
   '&:hover': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: t.muted,
+    color: t.accent,
   },
   '&:disabled': {
     opacity: 0.3,
@@ -107,33 +96,33 @@ const CarouselDots = styled(Box)(() => ({
   marginTop: '24px',
 }));
 
-const Dot = styled(Box)<{ active: boolean }>(({ theme, active }) => ({
+const Dot = styled(Box)<{ active: boolean }>(({ active }) => ({
   width: 12,
   height: 12,
   borderRadius: '50%',
-  backgroundColor: active ? theme.palette.primary.main : theme.palette.divider,
+  backgroundColor: active ? t.accent : t.border,
   cursor: 'pointer',
   transition: 'background-color 0.3s ease',
   '&:hover': {
-    backgroundColor: active ? theme.palette.primary.main : theme.palette.action.hover,
+    backgroundColor: active ? t.accent : t.muted,
   },
 }));
 
-const TestimonialCard = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
+const TestimonialCard = styled(Paper)(() => ({
+  padding: 32,
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   boxShadow: 'none',
-  border: `1px solid ${theme.palette.divider}`,
+  border: `1px solid ${t.border}`,
   borderRadius: 0,
-  backgroundColor: 'background.paper',
-  flex: '0 0 calc(50% - 16px)', // Each card takes 50% width minus gap
-  [theme.breakpoints.down('md')]: {
-    flex: '0 0 100%', // Full width on mobile
-    padding: theme.spacing(2), // Further reduce padding on mobile
-    height: 'auto', // Let content determine height on mobile
-    minHeight: 'unset', // Remove any minimum height constraints
+  backgroundColor: t.background,
+  flex: '0 0 calc(50% - 16px)',
+  '@media (max-width: 900px)': {
+    flex: '0 0 100%',
+    padding: 16,
+    height: 'auto',
+    minHeight: 'unset',
   },
 }));
 
@@ -151,13 +140,11 @@ const TestimonialInfo = styled(Box)(() => ({
   flex: 1,
 }));
 
-const TestimonialName = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
-  fontSize: '0.9rem',
-  color: 'text.primary',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '0.95rem',
-  },
+const TestimonialName = styled(Typography)(() => ({
+  ...type.body,
+  fontSize: '1rem',
+  fontWeight: 500,
+  color: t.foreground,
 }));
 
 const TestimonialStars = styled(Box)(({ theme }) => ({
@@ -169,17 +156,15 @@ const TestimonialStars = styled(Box)(({ theme }) => ({
 }));
 
 const TestimonialText = styled(Typography)(({ theme }) => ({
-  fontSize: '0.75rem',
-  lineHeight: 1.6,
-  color: 'text.secondary',
+  fontFamily: t.fontSerif,
+  fontWeight: 400,
   fontStyle: 'italic',
+  fontSize: '1rem',
+  lineHeight: 1.4,
+  color: t.mutedForeground,
   flexGrow: 1,
   [theme.breakpoints.up('md')]: {
-    fontSize: '0.8rem',
-  },
-  [theme.breakpoints.down('md')]: {
-    lineHeight: 1.4, // Tighter line height on mobile
-    fontSize: '0.8rem', // Slightly larger font on mobile for readability
+    fontSize: '1.125rem',
   },
 }));
 
@@ -187,7 +172,9 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   title = "What People Say",
   description,
   testimonials,
-  backgroundColor = 'background.default'
+  backgroundColor = 'default',
+  showBookSessionCta = false,
+  ctaTrackingSection = 'testimonials',
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -224,16 +211,17 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   };
 
   return (
-    <TestimonialsContainer sx={{ backgroundColor }}>
-      <Container maxWidth="lg">
+    <TestimonialsContainer sx={{ py: sp.sectionPy, bgcolor: resolveBackground(backgroundColor) }}>
+      <Box sx={{ ...maxContent, px: sp.pagePx }}>
         <SectionHeader>
-          <SectionTitle variant="h2">
+          <SectionLabel sx={{ textAlign: 'center' }}>Testimonials</SectionLabel>
+          <Typography component="h2" sx={{ ...type.h2, color: t.foreground, mb: 2 }}>
             {title}
-          </SectionTitle>
+          </Typography>
           {description && (
-            <SectionSubtitle variant="body1">
+            <Typography sx={{ ...type.body, color: t.mutedForeground, maxWidth: 600, mx: 'auto' }}>
               {description}
-            </SectionSubtitle>
+            </Typography>
           )}
         </SectionHeader>
 
@@ -308,7 +296,13 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
             </NavButton>
           </CarouselNavigation>
         )}
-      </Container>
+
+        {showBookSessionCta && (
+          <Box sx={{ mt: { xs: 6, md: 8 } }}>
+            <BookSessionCtaButton trackingSection={ctaTrackingSection} />
+          </Box>
+        )}
+      </Box>
     </TestimonialsContainer>
   );
 };

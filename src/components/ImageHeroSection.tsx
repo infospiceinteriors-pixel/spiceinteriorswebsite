@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { lovableTokens as t } from '../theme/lovableTokens';
 
 const HeroContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -35,35 +36,28 @@ const ImageOverlay = styled(Box)(() => ({
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  backgroundColor: 'rgba(33, 25, 18, 0.25)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 }));
 
 const OverlayText = styled(Typography)(({ theme }) => ({
-  color: '#FFFFFF',
-  fontFamily: 'Playfair Display, serif',
-  fontWeight: 600,
-  fontSize: '2.5rem',
+  fontFamily: t.fontSerif,
+  fontWeight: 400,
+  fontSize: '2.25rem',
+  lineHeight: 1.1,
+  color: t.onDark,
   textAlign: 'center',
-  textTransform: 'uppercase',
-  letterSpacing: '0.1em',
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
+  letterSpacing: '0.08em',
+  textShadow: '0 2px 12px rgba(33, 25, 18, 0.35)',
   userSelect: 'none',
-  [theme.breakpoints.down('lg')]: {
-    fontSize: '2rem',
-  },
   [theme.breakpoints.down('md')]: {
-    fontSize: '1.5rem',
-    letterSpacing: '0.05em',
+    fontSize: '1.75rem',
   },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '1.2rem',
-    letterSpacing: '0.02em',
-  },
-  [theme.breakpoints.down('xs')]: {
-    fontSize: '1rem',
+    fontSize: '1.25rem',
+    letterSpacing: '0.04em',
   },
 }));
 
@@ -73,12 +67,12 @@ interface ImageHeroSectionProps {
 
 const ImageHeroSection = ({ onImageClick }: ImageHeroSectionProps) => {
   const heroData = [
-    { word: 'Some', image: '/hero-image-1.jpg' },
-    { word: 'Designs', image: '/hero-image-2.jpg' },
-    { word: 'Never', image: '/hero-image-3.jpg' },
-    { word: 'Date', image: '/hero-image-4.jpg' }
+    { word: 'Luxury', image: '/hero-image-1.jpg' },
+    { word: 'Interior', image: '/hero-image-2.jpg' },
+    { word: 'Design', image: '/hero-image-3.jpg' },
+    { word: 'Studio', image: '/hero-image-4.jpg' }
   ];
-  
+
   const handleImageClick = (word: string) => {
     if (onImageClick) {
       onImageClick(word);
@@ -88,7 +82,7 @@ const ImageHeroSection = ({ onImageClick }: ImageHeroSectionProps) => {
   return (
     <HeroContainer>
       {heroData.map((item, index) => (
-        <ImageColumn 
+        <ImageColumn
           key={index}
           onClick={() => handleImageClick(item.word)}
         >

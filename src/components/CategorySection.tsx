@@ -124,7 +124,7 @@ const CategorySection = () => {
               fontWeight: 400,
             }}
           >
-            Categories
+            Collection Categories
           </Typography>
         </Box>
 

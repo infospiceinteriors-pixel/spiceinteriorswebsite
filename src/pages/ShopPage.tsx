@@ -62,6 +62,10 @@ const ShopPage = () => {
   const filteredItems = getFilteredItems();
 
   const getPageTitle = () => {
+    if (selectedCategory === 'All' && !selectedTag) {
+      return 'Design Collection';
+    }
+
     if (selectedTag) {
       const tagDisplayNames: Record<string, string> = {
         'artdeco': 'Art Deco',
@@ -70,7 +74,7 @@ const ShopPage = () => {
       };
       return tagDisplayNames[selectedTag.toLowerCase()] || selectedTag;
     }
-    return selectedCategory === 'All' ? 'All Items' : selectedCategory;
+    return selectedCategory;
   };
 
   return (

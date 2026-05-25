@@ -343,7 +343,7 @@ const JournalPage = () => {
 
   return (
     <JournalContainer>
-      <ImagePreloader preloadJournalImages={true} />
+      <ImagePreloader />
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: 3 }}>
           <Typography 

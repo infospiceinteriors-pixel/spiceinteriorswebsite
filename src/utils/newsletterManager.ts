@@ -1,5 +1,7 @@
 // Newsletter Management Utilities
 
+import type { Item } from './data';
+
 export interface Subscriber {
   id: string;
   email: string;
@@ -70,7 +72,7 @@ export const exportSubscribers = (): string => {
 };
 
 // Email Templates
-export const createWeeklyNewsletterTemplate = (items: any[]) => {
+export const createWeeklyNewsletterTemplate = (items: Item[]) => {
   const currentDate = new Date().toLocaleDateString('en-US', { 
     weekday: 'long', 
     year: 'numeric', 
@@ -241,7 +243,7 @@ export const createWeeklyNewsletterTemplate = (items: any[]) => {
         
         <div class="footer">
             <div class="social-links">
-                <a href="https://www.instagram.com/spice_int/">Instagram</a> |
+                <a href="https://www.instagram.com/spice_interior/">Instagram</a> |
                 <a href="https://www.tiktok.com/@spice_interiors">TikTok</a> |
                 <a href="mailto:info@spice-interiors.com">Email</a> |
                 <a href="https://your-website.com">Website</a>
@@ -261,9 +263,15 @@ export const createWeeklyNewsletterTemplate = (items: any[]) => {
   `;
 };
 
+interface DevNewsletterWindow extends Window {
+  newsletterStats?: typeof getSubscriberStats;
+  exportSubscribers?: typeof exportSubscribers;
+}
+
 // Console helper to view subscriber stats (for development)
 if (typeof window !== 'undefined') {
-  (window as any).newsletterStats = getSubscriberStats;
-  (window as any).exportSubscribers = exportSubscribers;
+  const devWindow = window as unknown as DevNewsletterWindow;
+  devWindow.newsletterStats = getSubscriberStats;
+  devWindow.exportSubscribers = exportSubscribers;
 }
 

@@ -1,136 +1,159 @@
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
-import ShopPage from './pages/ShopPage';
-import ItemDetailPage from './pages/ItemDetailPage';
 import PortfolioPage from './pages/PortfolioPage';
-import ServicesPage from './pages/ServicesPage';
+import PortfolioProjectPage from './pages/PortfolioProjectPage';
 import ContactPage from './pages/ContactPage';
+import IntroductorySessionPage from './pages/IntroductorySessionPage';
 import LinktreePage from './pages/LinktreePage';
 // import JournalPage from './pages/JournalPage'; // Temporarily removed
 import ImagePreloader from './components/ImagePreloader';
 import GoogleAnalytics from './components/GoogleAnalytics';
+import { lovableTokens as t } from './theme/lovableTokens';
 
-// Create a theme instance for Spice Interior Design Studio
+// Create a theme instance aligned with the Lovable design system
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2C2C2C', // Deep charcoal for sophistication
-      light: '#4A4A4A',
-      dark: '#1A1A1A',
+      main: t.primary,
+      contrastText: t.primaryForeground,
     },
     secondary: {
-      main: '#D4A574', // Warm beige/gold
-      light: '#E6C396',
-      dark: '#B8945A',
+      main: t.accent,
+      contrastText: t.accentForeground,
     },
     background: {
-      default: '#FAFAFA', // Light cream background
-      paper: '#FFFFFF',  // Pure white paper
+      default: t.background,
+      paper: t.card,
     },
     text: {
-      primary: '#2C2C2C', // Dark charcoal for readability
-      secondary: '#6B6B6B', // Medium gray for secondary text
+      primary: t.foreground,
+      secondary: t.mutedForeground,
     },
+    divider: t.border,
   },
   typography: {
-    fontFamily: '"Playfair Display", "Georgia", serif',
+    fontFamily: t.fontSerif,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
     h1: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '2.2rem',
-      letterSpacing: '0.01em',
-      lineHeight: 1.2,
+      fontSize: '2.5rem',
+      letterSpacing: '-0.01em',
+      lineHeight: 1.1,
     },
     h2: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '1.7rem',
-      letterSpacing: '0.01em',
-      lineHeight: 1.3,
+      fontSize: '2rem',
+      letterSpacing: '-0.01em',
+      lineHeight: 1.15,
     },
     h3: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '1.3rem',
-      letterSpacing: '0.01em',
+      fontSize: '1.5rem',
+      letterSpacing: '0',
+      lineHeight: 1.2,
     },
     h4: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '1.1rem',
-      letterSpacing: '0.01em',
+      fontSize: '1.25rem',
+      letterSpacing: '0',
     },
     h5: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '1rem',
-      letterSpacing: '0.01em',
+      fontSize: '1.1rem',
+      letterSpacing: '0',
     },
     h6: {
-      fontFamily: '"Playfair Display", "Georgia", serif',
+      fontFamily: t.fontSerif,
       fontWeight: 400,
-      fontSize: '0.95rem',
-      letterSpacing: '0.01em',
+      fontSize: '1rem',
+      letterSpacing: '0',
     },
     subtitle1: {
-      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      fontSize: '0.98rem',
+      fontFamily: t.fontSans,
+      fontSize: '1rem',
       letterSpacing: '0.01em',
-      lineHeight: 1.5,
+      lineHeight: 1.6,
+      fontWeight: 300,
     },
     subtitle2: {
-      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      fontSize: '0.92rem',
-      letterSpacing: '0.01em',
-      lineHeight: 1.4,
+      fontFamily: t.fontSans,
+      fontSize: '0.875rem',
+      letterSpacing: '0.04em',
+      lineHeight: 1.5,
+      fontWeight: 300,
     },
     body1: {
-      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      fontSize: '0.98rem',
+      fontFamily: t.fontSans,
+      fontSize: '1rem',
       letterSpacing: '0.01em',
-      lineHeight: 1.5,
+      lineHeight: 1.7,
+      fontWeight: 300,
     },
     body2: {
-      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      fontSize: '0.89rem',
+      fontFamily: t.fontSans,
+      fontSize: '0.9375rem',
       letterSpacing: '0.01em',
-      lineHeight: 1.4,
+      lineHeight: 1.65,
+      fontWeight: 300,
     },
     button: {
-      fontFamily: '"Inter", "Helvetica", "Arial", sans-serif',
-      textTransform: 'none',
-      letterSpacing: '0.04em',
+      fontFamily: t.fontSans,
+      textTransform: 'uppercase',
+      letterSpacing: '0.16em',
       fontWeight: 500,
-      fontSize: '0.98rem',
+      fontSize: '0.8125rem',
     },
   },
+  shape: {
+    borderRadius: 4,
+  },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: t.background,
+          color: t.foreground,
+          fontFamily: t.fontSans,
+          fontWeight: 300,
+          WebkitFontSmoothing: 'antialiased',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 50,
-          fontWeight: 700,
-          fontSize: '1rem',
-          textTransform: 'none',
-          padding: '12px 0',
+          borderRadius: t.radius,
+          fontWeight: 500,
+          fontSize: '0.8125rem',
+          textTransform: 'uppercase',
+          letterSpacing: '0.16em',
+          padding: '14px 28px',
         },
         contained: {
-          backgroundColor: '#111',
-          color: '#fff',
+          backgroundColor: t.primary,
+          color: t.primaryForeground,
           '&:hover': {
-            backgroundColor: '#222',
+            backgroundColor: t.accent,
+            color: t.accentForeground,
           },
         },
         outlined: {
-          borderColor: '#222',
-          color: '#222',
-          background: '#fff',
+          borderColor: t.foreground,
+          color: t.foreground,
+          background: 'transparent',
           '&:hover': {
-            borderColor: '#111',
-            background: '#fafafa',
+            borderColor: t.accent,
+            background: 'rgba(175, 99, 64, 0.06)',
           },
         },
       },
@@ -139,31 +162,31 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
-            background: '#fff',
+            borderRadius: t.radius,
+            background: t.background,
             fontSize: '1rem',
             padding: 0,
             '& fieldset': {
-              borderColor: '#222',
+              borderColor: t.border,
               borderWidth: 1,
             },
             '&:hover fieldset': {
-              borderColor: '#111',
+              borderColor: t.foreground,
             },
             '&.Mui-focused fieldset': {
-              borderColor: '#111',
+              borderColor: t.accent,
             },
             '& input, & textarea': {
-              fontFamily: 'Inter, Helvetica, Arial, sans-serif',
+              fontFamily: t.fontSans,
               fontSize: '1rem',
-              color: '#222',
+              color: t.foreground,
               padding: '14px 16px',
             },
           },
           '& .MuiInputBase-input::placeholder': {
-            color: '#888',
+            color: t.mutedForeground,
             opacity: 1,
-            fontWeight: 400,
+            fontWeight: 300,
             fontSize: '1rem',
           },
           marginBottom: '16px',
@@ -206,12 +229,15 @@ function App() {
           <ImagePreloader />
           <MainLayout>
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<IntroductorySessionPage />} />
+              <Route path="/studio" element={<HomePage />} />
               <Route path="/links" element={<LinktreePage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="/shop/item/:id" element={<ItemDetailPage />} />
+              <Route path="/portfolio/:slug" element={<PortfolioProjectPage />} />
+              <Route path="/services" element={<Navigate to="/studio" replace />} />
+              <Route path="/introductory-session" element={<Navigate to="/" replace />} />
+              <Route path="/shop" element={<Navigate to="/" replace />} />
+              <Route path="/shop/item/:id" element={<Navigate to="/" replace />} />
               {/* <Route path="/journal" element={<JournalPage />} /> */}
               {/* <Route path="/journal/:slug" element={<JournalPage />} /> */}
               <Route path="/contact" element={<ContactPage />} />

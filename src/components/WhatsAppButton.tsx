@@ -1,6 +1,7 @@
 import { Box, Tooltip, Fab } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { trackCtaClick } from '../utils/analytics';
 
 // Replace with your actual WhatsApp number
 const WHATSAPP_NUMBER = '+31683142404';
@@ -33,6 +34,7 @@ const FloatingButton = styled(Fab)(({ theme }) => ({
 
 const WhatsAppButton = () => {
   const handleClick = () => {
+    trackCtaClick({ name: 'WhatsApp Floating', section: 'floating_button' });
     const encodedMessage = encodeURIComponent(WHATSAPP_MESSAGE);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');

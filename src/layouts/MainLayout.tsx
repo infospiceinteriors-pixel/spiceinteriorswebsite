@@ -1,491 +1,74 @@
-import { ReactNode, useState } from 'react';
-import {
-  AppBar,
-  Typography,
-  Container,
-  Box,
-  Button,
-  IconButton,
-  Drawer,
-  List,
-  ListItemText,
-  ListItemButton,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-// Official Social Media Icons from React Icons
-import { FaInstagram, FaTiktok } from 'react-icons/fa';
+import { ReactNode, useEffect } from 'react';
+import { Box } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import SiteHeader from '../components/SiteHeader';
+import SiteFooter from '../components/SiteFooter';
+import { lovableTokens as t } from '../theme/lovableTokens';
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
-const LogoImage = styled('img')(({ theme }) => ({
-  height: '60px',
-  width: 'auto',
-  marginTop: theme.spacing(3),
-  marginBottom: theme.spacing(2),
-  userSelect: 'none',
-  cursor: 'pointer',
-  [theme.breakpoints.down('sm')]: {
-    height: '45px',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(1.5),
-  },
-}));
-
-const NavBar = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: theme.spacing(2.5), // Reduced gap to fit more categories
-  marginBottom: theme.spacing(2.5),
-  width: '100%',
-  position: 'relative',
-  flexWrap: 'wrap', // Allow wrapping on smaller screens
-  [theme.breakpoints.down('md')]: {
-    gap: theme.spacing(2), // Even smaller gap on medium screens
-  },
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
-}));
-
-const NavLinkButton = styled(Button)<{ active?: number }>(({ theme, active }) => ({
-  fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-  fontWeight: 400,
-  fontSize: '1rem', // Slightly smaller for more categories
-  color: theme.palette.text.primary,
-  background: 'none',
-  border: 'none',
-  borderRadius: 0,
-  boxShadow: 'none',
-  padding: '0 8px 3px 8px', // More compact horizontal padding
-  minWidth: 0,
-  borderBottom: active ? `2px solid ${theme.palette.text.primary}` : '2px solid transparent',
-  transition: 'border-color 0.2s',
-  '&:hover': {
-    background: 'none',
-    borderBottom: `2px solid ${theme.palette.text.primary}`,
-    color: theme.palette.text.primary,
-  },
-  '&:focus': {
-    outline: 'none !important',
-    boxShadow: 'none !important',
-    border: 'none',
-    background: 'none',
-  },
-  '&.Mui-focused': {
-    outline: 'none !important',
-    boxShadow: 'none !important',
-    border: 'none',
-    background: 'none',
-  },
-}));
-
-const MobileNavBar = styled(Box)(({ theme }) => ({
-  display: 'none',
-  [theme.breakpoints.down('sm')]: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    padding: theme.spacing(2, 2, 1.5, 2),
-    boxSizing: 'border-box',
-    position: 'relative',
-  },
-}));
-
-const SocialMediaContainer = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  right: 0,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  display: 'flex',
-  gap: theme.spacing(1.5),
-  alignItems: 'center',
-}));
-
-const SocialIconButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  padding: theme.spacing(0.5),
-  '&:hover': {
-    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-    color: theme.palette.primary.main,
-  },
-}));
-
-
-
-const shopCategories = [
-  { label: 'All', value: 'All' },
-  { label: 'Seating', value: 'Seating' },
-  { label: 'Storage', value: 'Storage' },
-  { label: 'Tables', value: 'Tables' },
-  { label: 'Bars', value: 'Bars' },
-  { label: 'Decor', value: 'Decor' },
-  { label: 'Objects', value: 'Objects' },
-  { label: 'Lamps', value: 'Lamps' },
-  { label: 'New Arrivals', value: 'New Arrivals' },
-];
+const overlayHeaderConfig: Record<
+  string,
+  { variant: 'overlay'; overlayTone: 'dark' | 'light' }
+> = {
+  '/': { variant: 'overlay', overlayTone: 'dark' },
+};
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1);
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'auto' });
+      });
+      return;
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [location.pathname, location.hash]);
 
+  const overlayConfig = overlayHeaderConfig[location.pathname];
+  const headerVariant = overlayConfig?.variant ?? 'solid';
+  const headerOverlayTone = overlayConfig?.overlayTone;
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
-      width: '100%',
-      maxWidth: '100%',
-      overflow: 'hidden',
-      boxSizing: 'border-box',
-      backgroundColor: 'background.default',
-    }}>
-      <AppBar position="static" elevation={0} sx={{ background: 'transparent', boxShadow: 'none', p: 0 }}>
-        <Container maxWidth="lg" disableGutters>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative' }}>
-            {isMobile ? (
-              <MobileNavBar>
-                <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                  <a
-                    href="https://www.instagram.com/spice_int/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Follow us on Instagram"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <SocialIconButton size="small">
-                      <FaInstagram size={18} />
-                    </SocialIconButton>
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@spice_interiors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Follow us on TikTok"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <SocialIconButton size="small">
-                      <FaTiktok size={18} />
-                    </SocialIconButton>
-                  </a>
-                </Box>
-                
-                {/* Absolutely positioned logo for true center alignment */}
-                <Box sx={{ 
-                  position: 'absolute', 
-                  left: '50%', 
-                  top: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: 1
-                }}>
-                  <Link 
-                    to="/" 
-                    style={{ 
-                      textDecoration: 'none', 
-                      display: 'block', 
-                      width: 'fit-content',
-                      cursor: 'pointer',
-                      zIndex: 10
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate('/');
-                    }}
-                  >
-                    <LogoImage 
-                      src="/logo-1.png" 
-                      alt="Spice Interior Design Studio" 
-                      sx={{ marginTop: 0, marginBottom: 0 }}
-                    />
-                  </Link>
-                </Box>
-                
-                <IconButton
-                  edge="end"
-                  color="default"
-                  aria-label="menu"
-                  onClick={() => setDrawerOpen(true)}
-                  sx={{ ml: 'auto' }}
-                >
-                  <MenuIcon sx={{ fontSize: 32, color: '#222' }} />
-                </IconButton>
-              </MobileNavBar>
-            ) : (
-              <>
-                <Link 
-                  to="/" 
-                  style={{ 
-                    textDecoration: 'none', 
-                    display: 'block', 
-                    width: 'fit-content',
-                    cursor: 'pointer',
-                    zIndex: 10
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate('/');
-                  }}
-                >
-                  <LogoImage 
-                    src="/logo-1.png" 
-                    alt="Spice Interior Design Studio"
-                  />
-                </Link>
-                <NavBar>
-                  {shopCategories.map((category) => (
-                    <Link 
-                      key={category.value} 
-                      to={category.value === 'All' ? '/shop' : `/shop?category=${category.value}`} 
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <NavLinkButton
-                        disableRipple
-                        active={
-                          location.pathname === '/shop' && 
-                          (
-                            (category.value === 'All' && !location.search) ||
-                            (new URLSearchParams(location.search).get('category') === category.value)
-                          ) ? 1 : 0
-                        }
-                        sx={{ textTransform: 'none' }}
-                        onClick={e => (e.currentTarget as HTMLButtonElement).blur()}
-                      >
-                        {category.label}
-                      </NavLinkButton>
-                    </Link>
-                  ))}
-                  
-                  {/* Social Media Icons - Aligned with nav buttons */}
-                  <SocialMediaContainer>
-                    <a
-                      href="https://www.instagram.com/spice_int/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow us on Instagram"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <SocialIconButton>
-                        <FaInstagram size={20} />
-                      </SocialIconButton>
-                    </a>
-                    <a
-                      href="https://www.tiktok.com/@spice_interiors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Follow us on TikTok"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <SocialIconButton>
-                        <FaTiktok size={20} />
-                      </SocialIconButton>
-                    </a>
-                  </SocialMediaContainer>
-                </NavBar>
-              </>
-            )}
-            <Drawer
-              anchor="right"
-              open={drawerOpen}
-              onClose={() => setDrawerOpen(false)}
-              PaperProps={{ sx: { width: 220 } }}
-            >
-              <List>
-                {shopCategories.map((category) => (
-                  <ListItemButton
-                    key={category.value}
-                    component={Link}
-                    to={category.value === 'All' ? '/shop' : `/shop?category=${category.value}`}
-                    onClick={() => setDrawerOpen(false)}
-                    selected={
-                      location.pathname === '/shop' && 
-                      (
-                        (category.value === 'All' && !location.search) ||
-                        (new URLSearchParams(location.search).get('category') === category.value)
-                      )
-                    }
-                  >
-                    <ListItemText
-                      primary={category.label}
-                      primaryTypographyProps={{
-                        sx: {
-                          fontFamily: 'Inter, Helvetica, Arial, sans-serif',
-                          fontWeight: location.pathname === '/shop' && 
-                            (
-                              (category.value === 'All' && !location.search) ||
-                              (new URLSearchParams(location.search).get('category') === category.value)
-                            ) ? 600 : 400,
-                          fontSize: '1.1rem',
-                          color: location.pathname === '/shop' && 
-                            (
-                              (category.value === 'All' && !location.search) ||
-                              (new URLSearchParams(location.search).get('category') === category.value)
-                            ) ? 'primary.main' : 'text.primary',
-                        },
-                      }}
-                    />
-                  </ListItemButton>
-                ))}
-              </List>
-            </Drawer>
-          </Box>
-        </Container>
-      </AppBar>
-
-      <Box component="main" sx={{
-        flex: 1,
-        width: '100%',
-        maxWidth: '100%',
+    <Box
+      sx={{
         display: 'flex',
         flexDirection: 'column',
-        overflowX: 'hidden',
+        minHeight: '100vh',
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
         boxSizing: 'border-box',
-      }}>
-        {children}
-      </Box>
+        bgcolor: t.background,
+        color: t.foreground,
+        position: 'relative',
+      }}
+    >
+      <SiteHeader variant={headerVariant} overlayTone={headerOverlayTone} />
+
       <Box
-        component="footer"
+        component="main"
         sx={{
-          py: 6,
+          flex: 1,
           width: '100%',
-          backgroundColor: 'background.paper',
-          color: 'primary.main',
-          borderTop: '1px solid rgba(212, 165, 116, 0.2)',
+          maxWidth: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflowX: 'hidden',
+          boxSizing: 'border-box',
         }}
       >
-        <Container maxWidth="xl" sx={{ px: { xs: 3, sm: 4, md: 6, lg: 8 } }}>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-            <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="subtitle2" sx={{ mb: 2 }}>About</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Button
-                  onClick={() => navigate('/services')}
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'left',
-                    justifyContent: 'flex-start',
-                    p: 0,
-                    fontSize: '0.875rem',
-                    textTransform: 'none',
-                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
-                  }}
-                >
-                  Services
-                </Button>
-                <Button
-                  onClick={() => navigate('/portfolio')}
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'left',
-                    justifyContent: 'flex-start',
-                    p: 0,
-                    fontSize: '0.875rem',
-                    textTransform: 'none',
-                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
-                  }}
-                >
-                  Projects
-                </Button>
-                <Button
-                  onClick={() => navigate('/contact')}
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'left',
-                    justifyContent: 'flex-start',
-                    p: 0,
-                    fontSize: '0.875rem',
-                    textTransform: 'none',
-                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
-                  }}
-                >
-                  Contact
-                </Button>
-              </Box>
-            </Box>
-            <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="subtitle2" sx={{ mb: 2 }}>Legal</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Button
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'left',
-                    justifyContent: 'flex-start',
-                    p: 0,
-                    fontSize: '0.875rem',
-                    textTransform: 'none',
-                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
-                  }}
-                >
-                  Privacy Statement
-                </Button>
-                <Button
-                  sx={{
-                    color: 'text.secondary',
-                    textAlign: 'left',
-                    justifyContent: 'flex-start',
-                    p: 0,
-                    fontSize: '0.875rem',
-                    textTransform: 'none',
-                    '&:hover': { color: 'secondary.main', backgroundColor: 'transparent' },
-                  }}
-                >
-                  Terms & Conditions
-                </Button>
-              </Box>
-            </Box>
-            <Box sx={{ flex: '1 1 300px', minWidth: { xs: '100%', md: 0 } }}>
-              <Typography variant="subtitle2" sx={{ mb: 2 }}>Follow Us</Typography>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <IconButton
-                  href="https://www.instagram.com/spice_int/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: 'text.secondary',
-                    p: 0,
-                    '&:hover': { color: 'secondary.main' },
-                  }}
-                >
-                  <FaInstagram size={20} />
-                </IconButton>
-                <IconButton
-                  href="https://www.tiktok.com/@spice_interiors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: 'text.secondary',
-                    p: 0,
-                    '&:hover': { color: 'secondary.main' },
-                  }}
-                >
-                  <FaTiktok size={20} />
-                </IconButton>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary', opacity: 0.7 }}>
-              © {new Date().getFullYear()} Spice Interior Design Studio. All rights reserved.
-            </Typography>
-          </Box>
-        </Container>
+        {children}
       </Box>
+
+      <SiteFooter />
     </Box>
   );
 };
 
-export default MainLayout; 
+export default MainLayout;

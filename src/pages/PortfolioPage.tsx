@@ -1,53 +1,17 @@
 import { 
   Box, 
-  Container, 
   Typography, 
   Card, 
-  CardContent
+  CardContent,
 } from '@mui/material';
-import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import ImageSlideshow from '../components/ImageSlideshow';
 import TestimonialsSection from '../components/TestimonialsSection';
+import SectionLabel from '../components/SectionLabel';
 import { portfolioTestimonials } from '../utils/testimonials';
-
-const projects = [
-    {
-      id: '4',
-      title: 'Naraina house, Delhi (MOFA stdios)',
-      description: 'Early in my career, I was involved in the design and execution of high-end luxury residences, where architecture and interior design were seamlessly integrated to reflect refined living. These projects demanded meticulous attention to detail, from spatial planning to material selection, with a strong emphasis on craftsmanship and elegance. My role included translating bespoke client visions into cohesive design solutions that balanced functionality with timeless aesthetics.',
-      images: ['/naraina-02.jpeg', '/naraina-01.jpeg', '/naraina-04.png'],
-      category: 'Residential'
-    },
-    {
-      id: '5',
-      title: 'Hatsoff accessories, Delhi',
-      description: 'I designed a retail interior for Hatsoff Accessories\' shoe store, drawing inspiration from mid-century Scandinavian wall units known for their clean lines, modularity, and warmth. The display system was crafted to feel like an extension of refined home furniture—elevating the retail experience while maintaining a minimalist, approachable atmosphere. Natural wood tones, thoughtful lighting, and flexible shelving allowed the shoes to be presented as curated objects, balancing function with an inviting, timeless aesthetic.',
-      images: ['/hatsoff-01.jpeg', '/hatsoff-02.jpeg', '/hatsoff-04.png'],
-      category: 'Retail'
-    },
-  {
-    id: '1',
-    title: 'Holocaust Name Monument, Amsterdam (Libeskind studio, AIP)',
-    description: 'For the Holocaust Name Monument in Amsterdam, I developed a digital design model that allowed for highly customized components to be produced efficiently at scale. This approach enabled a bespoke, tailored design solution while dramatically accelerating the fabrication process—reducing production time by nearly fivefold. My role ensured each element was precisely crafted to fit the project\'s unique vision, while still meeting the demands of large-scale production.',
-    images: ['/HNM-06.jpg', '/HNM-05.jpg', '/HNM-07.jpg'],
-    category: 'Architecture'
-  },
-  {
-    id: '2',
-    title: 'CiWoCo, Amsterdam (GAAGA)',
-    description: 'In the experimental circular district of Buiksloterham in Amsterdam-Noord, GAAGA designed a flexible, demountable live-work building that can adapt to future changes without major structural alterations. Developed in close collaboration with a resident-led construction group, the project embraces circular construction principles from design to execution. To support this innovative approach, I contributed by creating precise technical 3D drawings that clarified how the various circular building components come together—ensuring seamless coordination between design intent and construction.',
-    images: ['/buiksloterham-01.jpg', '/buiksloterham-02.jpg', '/buiksloterham-03.jpg'],
-    category: 'Circular Design'
-  },
-  {
-    id: '3',
-    title: 'De Hallen, Amsterdam (GAAGA)',
-    description: 'Block B5, located at the corner of Bilderdijkkade and Kwakersstraat near De Hallen in Amsterdam Oud-West, is a unique five-story residential project developed in collaboration with a construction group of private individuals. The building features nine distinct apartments, each with its own layout and size, tailored to the needs of its residents—visible in the varied facade with alternating steel balconies and bay windows. To support this high level of customization, I created detailed technical 3D drawings that helped clarify how the bespoke components of the building come together, ensuring precise coordination and an efficient fabrication and construction process.',
-    images: ['/dehallen-01.jpg', '/dehallen-02.jpg', '/GAAGA_De-Hallen-B5_10.jpg'],
-    category: 'Residential'
-  }
-];
+import { getPortfolioProjectSlug, portfolioProjects, PortfolioFilterGroup } from '../utils/portfolioProjects';
+import { trackPortfolioClick } from '../utils/analytics';
+import { lovableSpacing as sp, lovableTokens as t, lovableTypography as type, maxContent } from '../theme/lovableTokens';
 
 
 const ProjectCard = styled(Card)(() => ({
@@ -138,79 +102,62 @@ const ProjectGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
+const FILTER_LABELS: Record<string, string> = {
+  commercial: 'Commercial',
+  residential: 'Residential',
+  public: 'Public',
+};
+
 const PortfolioPage = () => {
-  const [slideshowOpen, setSlideshowOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const filterParam = searchParams.get('filter') as PortfolioFilterGroup | null;
 
-  const handleImageClick = (project: typeof projects[0], imageIndex: number) => {
-    setSelectedProject(project);
-    setSelectedImageIndex(imageIndex);
-    setSlideshowOpen(true);
+  const visibleProjects = filterParam
+    ? portfolioProjects.filter((p) => p.filterGroup === filterParam)
+    : portfolioProjects;
+
+  const openProject = (project: (typeof portfolioProjects)[number]) => {
+    const slug = getPortfolioProjectSlug(project);
+    trackPortfolioClick({ slug, title: project.title });
+    navigate(`/portfolio/${slug}`);
   };
-
-  const handleCloseSlideshow = () => {
-    setSlideshowOpen(false);
-    setSelectedProject(null);
-    setSelectedImageIndex(0);
-    
-    // Comprehensive scroll restoration
-    setTimeout(() => {
-      const body = document.body;
-      const html = document.documentElement;
-      
-      // Clear all potential scroll-blocking styles
-      body.style.cssText = body.style.cssText
-        .replace(/position:[^;]*;?/gi, '')
-        .replace(/top:[^;]*;?/gi, '')
-        .replace(/left:[^;]*;?/gi, '')
-        .replace(/width:[^;]*;?/gi, '')
-        .replace(/height:[^;]*;?/gi, '')
-        .replace(/overflow:[^;]*;?/gi, '');
-      
-      html.style.overflow = '';
-      
-      // Force multiple reflows to ensure scrollbar restoration
-      body.offsetHeight;
-      html.offsetHeight;
-      
-      // Try to trigger scroll event
-      window.dispatchEvent(new Event('resize'));
-    }, 100);
-  };
-
-
 
   return (
     <Box>
       {/* Projects Section */}
-      <Box sx={{ py: 3, backgroundColor: 'background.default' }}>
-        <Container maxWidth="xl">
+      <Box sx={{ py: sp.sectionPy, bgcolor: t.background }}>
+        <Box sx={{ ...maxContent, px: sp.pagePx }}>
+          {filterParam && (
+            <SectionLabel sx={{ mb: 3 }}>
+              {FILTER_LABELS[filterParam]} Projects
+            </SectionLabel>
+          )}
 
           <Box sx={{ position: 'relative', mb: 4 }}>
             <ProjectGrid>
-              {projects.map((project) => (
+              {visibleProjects.map((project) => (
                 <ProjectCard key={project.id}>
                   <ProjectImageGrid>
                     <VerticalImageWrapper>
                       <ProjectImage
                         src={project.images[0]}
                         alt={project.title}
-                        onClick={() => handleImageClick(project, 0)}
+                        onClick={() => openProject(project)}
                       />
                     </VerticalImageWrapper>
                     <SquareImageWrapper>
                       <ProjectImage
                         src={project.images[1]}
                         alt={project.title}
-                        onClick={() => handleImageClick(project, 1)}
+                        onClick={() => openProject(project)}
                       />
                     </SquareImageWrapper>
                     <SquareImageWrapper>
                       <ProjectImage
                         src={project.images[2]}
                         alt={project.title}
-                        onClick={() => handleImageClick(project, 2)}
+                        onClick={() => openProject(project)}
                       />
                     </SquareImageWrapper>
                   </ProjectImageGrid>
@@ -225,34 +172,37 @@ const PortfolioPage = () => {
                     width: '100%',
                     flex: '0 0 auto'
                   }}>
-                    <Typography 
-                      variant="h6" 
-                      sx={{ 
-                        fontFamily: 'Playfair Display',
-                        fontWeight: 600,
-                        fontSize: { xs: '0.9rem', md: '0.95rem', lg: '1rem' },
+                    <Typography sx={{ ...type.caption, color: t.accent, letterSpacing: '0.12em' }}>
+                      {project.category}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        ...type.h3,
+                        fontSize: { xs: '1.125rem', md: '1.25rem' },
                         textAlign: 'left',
                         width: '100%',
-                        textTransform: 'uppercase',
-                        letterSpacing: 0,
                         lineHeight: 1.2,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
                         display: 'block',
-                        mb: 1
+                        mt: 0.5,
+                        mb: 1,
+                        cursor: 'pointer',
+                        color: t.foreground,
                       }}
+                      onClick={() => openProject(project)}
                     >
                       {project.title}
                     </Typography>
-                    <Typography 
-                      variant="body2" 
-                      sx={{ 
-                        color: 'text.secondary',
-                        lineHeight: 1.4,
-                        fontSize: { xs: '0.65rem', md: '0.7rem', lg: '0.75rem' },
+                    <Typography
+                      sx={{
+                        ...type.body,
+                        fontSize: '1rem',
+                        color: t.mutedForeground,
+                        lineHeight: 1.5,
                         textAlign: 'left',
-                        width: '100%'
+                        width: '100%',
                       }}
                     >
                       {project.description}
@@ -262,27 +212,16 @@ const PortfolioPage = () => {
               ))}
             </ProjectGrid>
           </Box>
-        </Container>
+        </Box>
       </Box>
 
       {/* Testimonials Section */}
       <TestimonialsSection 
-        title="Testimonials"
-        description="Read what people say after working with me."
+        title="Client Feedback"
+        description="Feedback from collaborators and clients across design and delivery projects."
         testimonials={portfolioTestimonials}
-        backgroundColor="background.paper"
+        backgroundColor="card"
       />
-
-      {/* Image Slideshow */}
-      {selectedProject && (
-        <ImageSlideshow
-          images={selectedProject.images}
-          projectTitle={selectedProject.title}
-          isOpen={slideshowOpen}
-          initialIndex={selectedImageIndex}
-          onClose={handleCloseSlideshow}
-        />
-      )}
     </Box>
   );
 };

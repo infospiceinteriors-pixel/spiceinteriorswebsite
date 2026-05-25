@@ -239,7 +239,7 @@ const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
         requestAnimationFrame(() => {
           window.scrollTo(0, scrollY);
           // Force reflow to ensure scrollbar appears
-          document.body.offsetHeight;
+          void document.body.offsetHeight;
         });
       };
     }
