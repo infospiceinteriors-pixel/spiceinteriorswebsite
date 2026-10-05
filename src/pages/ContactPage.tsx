@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { trackFormStart, trackFormSubmit } from '../utils/analytics';
-import { Box, Link, Typography, TextField, Button } from '@mui/material';
+import { Alert, Box, Link, Typography, TextField, Button } from '@mui/material';
 import SectionLabel from '../components/SectionLabel';
 import { INTRO_SESSION_WHATSAPP_NUMBER } from '../utils/introSessionContent';
 import {
@@ -23,15 +24,21 @@ const contactLinkSx = {
 };
 
 const FORM_NAME = 'contact';
+const EMPTY_FORM = {
+  name: '',
+  email: '',
+  phone: '',
+  message: '',
+};
 
 const ContactPage = () => {
   const formStartedRef = useRef(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{
+    severity: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   const handleFormStart = () => {
     if (formStartedRef.current) return;
@@ -48,10 +55,58 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    trackFormSubmit({ formName: FORM_NAME, success: true });
-    console.log('Form submitted:', formData);
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
+
+    if (!serviceId || !templateId || !publicKey) {
+      trackFormSubmit({ formName: FORM_NAME, success: false });
+      setFeedback({
+        severity: 'error',
+        message: 'The contact form is not configured. Please email info@spice-interiors.com.',
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    setFeedback(null);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: CONTACT_EMAIL,
+          from_name: formData.name,
+          from_email: formData.email,
+          reply_to: formData.email,
+          phone: formData.phone,
+          service: 'Contact form',
+          source: 'contact',
+          page_url: window.location.href,
+          submitted_at: new Date().toISOString(),
+          message: formData.message,
+        },
+        publicKey
+      );
+      trackFormSubmit({ formName: FORM_NAME, success: true });
+      setFormData(EMPTY_FORM);
+      setFeedback({
+        severity: 'success',
+        message: 'Your message has been sent. I will reply within one business day.',
+      });
+    } catch (error) {
+      console.error('Contact form email failed', error);
+      trackFormSubmit({ formName: FORM_NAME, success: false });
+      setFeedback({
+        severity: 'error',
+        message: 'Something went wrong. Please try again, or email info@spice-interiors.com.',
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -163,9 +218,19 @@ const ContactPage = () => {
               InputLabelProps={{ shrink: false }}
             />
           </Box>
+          {feedback && (
+            <Alert severity={feedback.severity} sx={{ mb: 2 }}>
+              {feedback.message}
+            </Alert>
+          )}
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-            <Button type="submit" variant="contained" sx={{ minWidth: 140, px: 4, py: 1.5 }}>
-              Send
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={submitting}
+              sx={{ minWidth: 140, px: 4, py: 1.5 }}
+            >
+              {submitting ? 'Sending...' : 'Send'}
             </Button>
           </Box>
         </Box>

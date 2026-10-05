@@ -2,12 +2,17 @@ import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import CollectedHomePage from './pages/CollectedHomePage';
 import HomePage from './pages/HomePage';
 import PortfolioPage from './pages/PortfolioPage';
 import PortfolioProjectPage from './pages/PortfolioProjectPage';
 import ContactPage from './pages/ContactPage';
 import IntroductorySessionPage from './pages/IntroductorySessionPage';
-import LinktreePage from './pages/LinktreePage';
+import LinkPage from './pages/LinkPage';
+import ComingSoonPage from './pages/ComingSoonPage';
+import ShareYourHomePage from './pages/ShareYourHomePage';
+import NewsletterPage from './pages/NewsletterPage';
+import GoRedirectPage from './pages/GoRedirectPage';
 // import JournalPage from './pages/JournalPage'; // Temporarily removed
 import ImagePreloader from './components/ImagePreloader';
 import GoogleAnalytics from './components/GoogleAnalytics';
@@ -229,13 +234,20 @@ function App() {
           <ImagePreloader />
           <MainLayout>
             <Routes>
-              <Route path="/" element={<IntroductorySessionPage />} />
-              <Route path="/studio" element={<HomePage />} />
-              <Route path="/links" element={<LinktreePage />} />
+              <Route path="/" element={<CollectedHomePage />} />
+              <Route path="/consultation" element={<HomePage />} />
+              <Route path="/consultation/introductory-session" element={<IntroductorySessionPage />} />
+              <Route path="/studio" element={<Navigate to="/consultation" replace />} />
+              <Route path="/links" element={<Navigate to="/link" replace />} />
+              <Route path="/link" element={<LinkPage />} />
+              <Route path="/coming-soon/:topicId" element={<ComingSoonPage />} />
+              <Route path="/share-your-home" element={<ShareYourHomePage />} />
+              <Route path="/newsletter" element={<NewsletterPage />} />
+              <Route path="/go/:slug" element={<GoRedirectPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/portfolio/:slug" element={<PortfolioProjectPage />} />
-              <Route path="/services" element={<Navigate to="/studio" replace />} />
-              <Route path="/introductory-session" element={<Navigate to="/" replace />} />
+              <Route path="/services" element={<Navigate to="/consultation" replace />} />
+              <Route path="/introductory-session" element={<Navigate to="/consultation/introductory-session" replace />} />
               <Route path="/shop" element={<Navigate to="/" replace />} />
               <Route path="/shop/item/:id" element={<Navigate to="/" replace />} />
               {/* <Route path="/journal" element={<JournalPage />} /> */}

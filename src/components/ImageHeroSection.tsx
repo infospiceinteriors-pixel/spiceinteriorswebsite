@@ -42,22 +42,26 @@ const ImageOverlay = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-const OverlayText = styled(Typography)(({ theme }) => ({
+const OverlayText = styled('span')(({ theme }) => ({
   fontFamily: t.fontSerif,
   fontWeight: 400,
-  fontSize: '2.25rem',
-  lineHeight: 1.1,
+  fontSize: '0.875rem',
+  lineHeight: 1.05,
   color: t.onDark,
   textAlign: 'center',
-  letterSpacing: '0.08em',
   textShadow: '0 2px 12px rgba(33, 25, 18, 0.35)',
   userSelect: 'none',
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.up('sm')]: {
+    fontSize: '1.25rem',
+  },
+  [theme.breakpoints.up('md')]: {
     fontSize: '1.75rem',
   },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1.25rem',
-    letterSpacing: '0.04em',
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '2.75rem',
+  },
+  [theme.breakpoints.up('xl')]: {
+    fontSize: '3.25rem',
   },
 }));
 
@@ -67,10 +71,10 @@ interface ImageHeroSectionProps {
 
 const ImageHeroSection = ({ onImageClick }: ImageHeroSectionProps) => {
   const heroData = [
-    { word: 'Luxury', image: '/hero-image-1.jpg' },
-    { word: 'Interior', image: '/hero-image-2.jpg' },
-    { word: 'Design', image: '/hero-image-3.jpg' },
-    { word: 'Studio', image: '/hero-image-4.jpg' }
+    { word: 'Some', image: '/hero-image-1.jpg', alt: 'Interior with warm natural light' },
+    { word: 'Designs', image: '/hero-image-2.jpg', alt: 'Layered textures and vintage furniture' },
+    { word: 'Never', image: '/hero-image-3.jpg', alt: 'Calm residential living space' },
+    { word: 'Date', image: '/hero-image-4.jpg', alt: 'Timeless architectural interior detail' },
   ];
 
   const handleImageClick = (word: string) => {
@@ -81,18 +85,34 @@ const ImageHeroSection = ({ onImageClick }: ImageHeroSectionProps) => {
 
   return (
     <HeroContainer>
+      <Typography
+        component="h1"
+        sx={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          p: 0,
+          m: -1,
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+        }}
+      >
+        Spice Interiors — House tours and inspiration for a collected home beyond beige
+      </Typography>
       {heroData.map((item, index) => (
         <ImageColumn
-          key={index}
+          key={item.word}
           onClick={() => handleImageClick(item.word)}
         >
           <HeroImage
             src={item.image}
-            alt={`Hero image ${index + 1} - ${item.word}`}
+            alt={item.alt}
             loading={index === 0 ? 'eager' : 'lazy'}
           />
           <ImageOverlay className="overlay">
-            <OverlayText className="text" variant="h2">
+            <OverlayText className="text">
               {item.word}
             </OverlayText>
           </ImageOverlay>

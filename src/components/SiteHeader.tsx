@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { FaInstagram, FaTiktok } from 'react-icons/fa';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -21,11 +20,11 @@ import {
   lovableTypography as type,
   maxContent,
 } from '../theme/lovableTokens';
-import { introSessionContent, openIntroSessionWhatsApp } from '../utils/introSessionContent';
 import { trackNavigation, type NavLocation } from '../utils/analytics';
 
 export const mainNavigation = [
-  { label: 'Home', path: '/studio' },
+  { label: 'Home', path: '/' },
+  { label: 'Consultation', path: '/consultation' },
   { label: 'Projects', path: '/portfolio' },
   { label: 'Contact', path: '/contact' },
 ];
@@ -196,38 +195,6 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
     );
   };
 
-  const isIntroSessionPage = location.pathname === '/';
-
-  const requestSessionLabel = introSessionContent.hero.ctaLabel;
-
-  const handleRequestSession = (navLocation: NavLocation = 'header') => {
-    openIntroSessionWhatsApp(navLocation === 'mobile' ? 'header_mobile' : 'header');
-    setDrawerOpen(false);
-  };
-
-  const bookSessionLink = (
-    <Link
-      component="span"
-      role="button"
-      tabIndex={0}
-      underline="none"
-      onClick={() => handleRequestSession('header')}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleRequestSession('header');
-        }
-      }}
-      sx={{
-        ...desktopNavLinkSx(isIntroSessionPage),
-        gap: 0.75,
-      }}
-    >
-      <WhatsAppIcon sx={{ fontSize: '0.875rem', flexShrink: 0 }} />
-      {requestSessionLabel}
-    </Link>
-  );
-
   return (
     <>
       <Box
@@ -280,7 +247,6 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
             }}
           >
             {mainNavigation.map(renderNavLink)}
-            {bookSessionLink}
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 }, flexShrink: 0 }}>
@@ -450,26 +416,6 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
               </ListItemButton>
             )
           )}
-          <ListItemButton
-            onClick={() => handleRequestSession('mobile')}
-            sx={{
-              borderRadius: t.radius,
-              mt: 0.5,
-              gap: 1.5,
-            }}
-          >
-            <WhatsAppIcon sx={{ fontSize: '1rem', color: t.accent, flexShrink: 0 }} />
-            <ListItemText
-              primary={requestSessionLabel}
-              primaryTypographyProps={{
-                sx: {
-                  ...type.button,
-                  fontSize: '0.8rem',
-                  color: t.accent,
-                },
-              }}
-            />
-          </ListItemButton>
         </List>
         <Box sx={{ px: 3, py: 2, borderTop: `1px solid ${t.border}`, mt: 'auto' }}>
           <Box sx={{ display: 'flex', gap: 1.5 }}>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Paper, Avatar, IconButton } from '@mui/material';
+import { Box, Button, Typography, Paper, Avatar, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import StarIcon from '@mui/icons-material/Star';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link as RouterLink } from 'react-router-dom';
 import { Testimonial } from '../utils/testimonials';
 import BookSessionCtaButton from './BookSessionCtaButton';
 import SectionLabel from './SectionLabel';
@@ -20,6 +21,7 @@ interface TestimonialsSectionProps {
   testimonials: Testimonial[];
   backgroundColor?: 'default' | 'card';
   showBookSessionCta?: boolean;
+  showContactCta?: boolean;
   ctaTrackingSection?: string;
 }
 
@@ -174,6 +176,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
   testimonials,
   backgroundColor = 'default',
   showBookSessionCta = false,
+  showContactCta = false,
   ctaTrackingSection = 'testimonials',
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -300,6 +303,26 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
         {showBookSessionCta && (
           <Box sx={{ mt: { xs: 6, md: 8 } }}>
             <BookSessionCtaButton trackingSection={ctaTrackingSection} />
+          </Box>
+        )}
+        {showContactCta && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 6, md: 8 } }}>
+            <Button
+              component={RouterLink}
+              to="/contact"
+              variant="contained"
+              sx={{
+                ...type.button,
+                borderRadius: t.radius,
+                bgcolor: t.primary,
+                color: t.primaryForeground,
+                px: 4,
+                py: 2,
+                '&:hover': { bgcolor: t.accent, color: t.accentForeground },
+              }}
+            >
+              Get in Touch
+            </Button>
           </Box>
         )}
       </Box>

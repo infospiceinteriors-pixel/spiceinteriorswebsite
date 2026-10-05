@@ -14,6 +14,8 @@ const overlayHeaderConfig: Record<
   { variant: 'overlay'; overlayTone: 'dark' | 'light' }
 > = {
   '/': { variant: 'overlay', overlayTone: 'dark' },
+  '/consultation': { variant: 'overlay', overlayTone: 'dark' },
+  '/consultation/introductory-session': { variant: 'overlay', overlayTone: 'dark' },
 };
 
 const MainLayout = ({ children }: MainLayoutProps) => {
@@ -33,6 +35,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const overlayConfig = overlayHeaderConfig[location.pathname];
   const headerVariant = overlayConfig?.variant ?? 'solid';
   const headerOverlayTone = overlayConfig?.overlayTone;
+  const hideChrome =
+    location.pathname === '/link' ||
+    location.pathname === '/share-your-home' ||
+    location.pathname.startsWith('/coming-soon/');
 
   return (
     <Box
@@ -49,7 +55,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         position: 'relative',
       }}
     >
-      <SiteHeader variant={headerVariant} overlayTone={headerOverlayTone} />
+      {!hideChrome && <SiteHeader variant={headerVariant} overlayTone={headerOverlayTone} />}
 
       <Box
         component="main"
@@ -66,7 +72,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         {children}
       </Box>
 
-      <SiteFooter />
+      {!hideChrome && <SiteFooter />}
     </Box>
   );
 };

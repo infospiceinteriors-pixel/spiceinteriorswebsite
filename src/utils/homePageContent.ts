@@ -16,8 +16,8 @@ export const homeHero = {
     'Offices, cafés, restaurants and homes — planned end to end, detailed to build, and grounded in how insulation, energy, acoustics and materials really behave.',
   ctaLabel: 'Request a session',
   stats: ['One studio', 'Concept · Plans · Materials'],
-  image: '/intro-hero.jpg',
-  imageAlt: 'Minimal interior with textured walls and soft natural light',
+  image: '/vault-3.webp',
+  imageAlt: 'Warm interior with layered textures and natural light',
 } as const;
 
 export type HomeServiceItem = {
@@ -73,9 +73,9 @@ export const homeProcess = {
   steps: [
     {
       number: '01',
-      title: 'Intro & brief',
+      title: 'Introductory session',
       description:
-        "A conversation about the space, the people who'll use it, the constraints, the budget and the timeline. No commitment.",
+        "We start with a focused session to understand the space, the people who'll use it, the constraints, the budget and the timeline.",
     },
     {
       number: '02',
@@ -95,5 +95,17 @@ export const homeProcess = {
       description:
         'Staying in the loop with your contractor through construction so the design intent survives the realities of the site.',
     },
+  ],
+} as const;
+
+export const homeRoi = {
+  title: 'Engineering for ROI, before the commitment is made.',
+  image: '/cafe-americano-ams-01.jpg',
+  imageAlt: 'Ankur at Cafe Americano in Amsterdam',
+  paragraphs: [
+    'The typical process goes: find a property, hire a contractor, get a quote, hope for the best. By the time a designer or renovation specialist gets involved, the purchase is signed, the budget is fixed, and the constraints are locked in. That is not strategy. That is damage control.',
+    'My approach inverts this entirely. I work with you before you commit — analysing the structural reality, the regulatory constraints, the realistic cost envelope, and the market ceiling of any renovation investment. So when you move forward, you do so with full technical clarity and a documented plan.',
+    'I call this engineering for ROI. Not building what looks beautiful, but building what maximises value with the minimum necessary capital. Every recommendation is filtered through one question: does this create more value than it costs?',
+    'Over 12 years I have managed complex urban renovation projects, accompanied investors to viewings, stopped bad acquisitions, and unlocked hidden value in properties others considered too risky to touch. That experience is what you buy when you work with Spice Interiors.',
   ],
 } as const;

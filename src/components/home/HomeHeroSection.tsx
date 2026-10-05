@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import BookSessionCtaButton from '../BookSessionCtaButton';
+import { Box, Button, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import SectionLabel from '../SectionLabel';
 import { homeHero } from '../../utils/homePageContent';
 import {
@@ -13,102 +13,101 @@ const HomeHeroSection = () => (
   <Box
     component="section"
     sx={{
-      bgcolor: t.background,
-      pt: { xs: 10, md: 12 },
-      pb: { xs: 8, md: 10 },
+      position: 'relative',
+      overflow: 'hidden',
+      minHeight: { xs: '85vh', md: '80vh' },
     }}
   >
-    <Box sx={{ ...maxContent, px: sp.pagePx }}>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', lg: 'repeat(12, 1fr)' },
-          gap: { xs: 6, lg: 8 },
-          alignItems: 'center',
-        }}
-      >
-        <Box sx={{ gridColumn: { lg: 'span 6' } }}>
-          <SectionLabel sx={{ mb: 3 }}>{homeHero.eyebrow}</SectionLabel>
-
-          <Typography
-            component="h1"
+    <Box
+      component="img"
+      src={homeHero.image}
+      alt={homeHero.imageAlt}
+      loading="eager"
+      sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+    />
+    <Box sx={{ position: 'absolute', inset: 0, bgcolor: 'rgba(33, 25, 18, 0.28)' }} />
+    <Box sx={{ position: 'absolute', inset: 0, background: t.heroGradient }} />
+    <Box
+      sx={{
+        ...maxContent,
+        position: 'relative',
+        zIndex: 1,
+        minHeight: { xs: '85vh', md: '80vh' },
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        px: sp.pagePx,
+        pt: { xs: 12, md: 0 },
+        pb: { xs: 5, md: 12 },
+      }}
+    >
+      <Box sx={{ maxWidth: 720 }}>
+        <SectionLabel tone="onDark" sx={{ mb: { xs: 2, md: 3 } }}>
+          {homeHero.eyebrow}
+        </SectionLabel>
+        <Typography component="h1" sx={{ ...type.h1, color: t.onDark, maxWidth: 640 }}>
+          {homeHero.headline}{' '}
+          <Box component="span" sx={{ fontStyle: 'italic' }}>
+            {homeHero.headlineAccent}
+          </Box>
+        </Typography>
+        <Typography
+          sx={{
+            mt: { xs: 3, md: 4 },
+            ...type.body,
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            color: t.onDarkSoft,
+            maxWidth: 560,
+          }}
+        >
+          {homeHero.description}
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: { xs: 'stretch', sm: 'center' },
+            gap: { xs: 2, sm: 3 },
+            mt: { xs: 3, md: 4 },
+          }}
+        >
+          <Button
+            component={RouterLink}
+            to="/consultation/introductory-session"
+            variant="contained"
             sx={{
-              ...type.h1,
+              ...type.button,
+              bgcolor: t.background,
               color: t.foreground,
-              mb: 3,
-              maxWidth: 640,
+              px: 3,
+              py: 1.5,
+              '&:hover': { bgcolor: t.accent, color: t.accentForeground },
             }}
           >
-            {homeHero.headline}{' '}
-            <Box
-              component="span"
-              sx={{
-                ...type.serif,
-                fontStyle: 'italic',
-                color: t.accent,
-              }}
-            >
-              {homeHero.headlineAccent}
-            </Box>
-          </Typography>
-
-          <Typography
+            Introduction session
+          </Button>
+          <Button
+            component={RouterLink}
+            to="/portfolio"
+            variant="outlined"
             sx={{
-              ...type.body,
-              color: t.mutedForeground,
-              maxWidth: 520,
-              mb: 4,
+              ...type.button,
+              borderColor: t.onDark,
+              color: t.onDark,
+              px: 3,
+              py: 1.5,
+              '&:hover': { borderColor: t.accent, color: t.accentForeground, bgcolor: 'transparent' },
             }}
           >
-            {homeHero.description}
-          </Typography>
-
-          <BookSessionCtaButton trackingSection="home_hero" />
-
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: { xs: 2, sm: 4 },
-              mt: 5,
-            }}
-          >
-            {homeHero.stats.map((stat) => (
-              <Typography
-                key={stat}
-                sx={{
-                  ...type.caption,
-                  color: t.mutedForeground,
-                  letterSpacing: '0.12em',
-                }}
-              >
-                {stat}
-              </Typography>
-            ))}
-          </Box>
+            Projects
+          </Button>
         </Box>
-
-        <Box sx={{ gridColumn: { lg: 'span 6' } }}>
-          <Box
-            sx={{
-              overflow: 'hidden',
-              borderRadius: '2rem',
-              boxShadow: '0 8px 32px rgba(33, 25, 18, 0.08)',
-            }}
-          >
-            <Box
-              component="img"
-              src={homeHero.image}
-              alt={homeHero.imageAlt}
-              loading="eager"
-              sx={{
-                width: '100%',
-                height: { xs: 280, sm: 360, md: 420, lg: 480 },
-                objectFit: 'cover',
-                display: 'block',
-              }}
-            />
-          </Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 2, sm: 4 }, mt: 5 }}>
+          {homeHero.stats.map((stat) => (
+            <Typography key={stat} sx={{ ...type.caption, color: t.onDarkMuted, letterSpacing: '0.12em' }}>
+              {stat}
+            </Typography>
+          ))}
         </Box>
       </Box>
     </Box>

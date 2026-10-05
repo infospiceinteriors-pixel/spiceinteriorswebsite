@@ -52,6 +52,8 @@ const SiteFooter = () => (
           fontSize: '1.125rem',
           fontWeight: 400,
           color: t.foreground,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
         }}
       >
         Spice Interiors
@@ -74,7 +76,7 @@ const SiteFooter = () => (
       </Box>
 
       <Typography sx={{ ...type.caption, letterSpacing: '0.16em', color: t.mutedForeground }}>
-        © {new Date().getFullYear()} — Interior consultation, Netherlands
+        © {new Date().getFullYear()} Spice International
       </Typography>
     </Box>
   </Box>
