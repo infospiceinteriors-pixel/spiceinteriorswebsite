@@ -16,7 +16,6 @@ export const openIntroSessionWhatsApp = (section = 'unknown') => {
 
 export const introSessionContent = {
   heroImage: '/intro-hero.jpg',
-  caseStudyImage: '/concept-plan-oegstgeest.jpg',
   ctaImage: '/amsterdam-apartment-1-1.jpg',
   hero: {
     eyebrow: 'Introductory Session',
@@ -63,6 +62,15 @@ export const introSessionContent = {
       'After one site visit and the floor plan, a layout was shared within a day that supported their current plans and future options.',
     ],
   },
+  caseStudyComparison: {
+    beforeImage: '/Attic floor plan - before.jpg',
+    afterImage: '/Attic floor plan - after.jpg',
+    beforeAlt: 'Original attic floor plan before interior redesign',
+    afterAlt: 'Refined attic floor plan after interior redesign',
+    beforeLabel: 'Before',
+    afterLabel: 'After',
+    ariaLabel: 'Compare the attic floor plan before and after the redesign',
+  },
   testimonial: {
     quote:
       'The drawings helped me explain my wishes to the contractor and request quotations.',
@@ -71,9 +79,11 @@ export const introSessionContent = {
   finePrint: 'Floor plan required for the sketch',
   sessionTime: {
     price: '€240',
+    heroLeadMobile:
+      'Bring your floor plan, questions, and renovation ideas. Leave with requirements, feasibility, and a schematic layout you can hand to contractors.',
     heroLead:
-      '2 hours on-site visit, plus 2 hours sketch preparation — 4 hours in total. Your requirements, an honest feasibility check, and a schematic layout you can hand to contractors the next morning.',
-    priceNote: 'incl. VAT · 4 hrs total',
+      'Bring your floor plan, questions, and renovation ideas. We turn them into clear requirements, an honest feasibility check, and a schematic layout you can hand to contractors.',
+    priceNote: 'incl. VAT',
     sectionLabel: 'What’s included',
     sectionIntro:
       '2 hours on-site visit and 2 hours sketch preparation — 4 hours of consultation in total. Your schematic sketch is shared within one business day.',
@@ -83,6 +93,6 @@ export const introSessionContent = {
   seo: {
     title: 'Introductory Session — Spice Interiors',
     description:
-      'Stop guessing. Start with a plan you can use. 2 hrs on-site visit plus 2 hrs sketch preparation (4 hrs total) — €240 incl. VAT.',
+      'Ready to move from inspiration to a plan? Book an introductory interior design session with Ankur — €240 incl. VAT.',
   },
 };

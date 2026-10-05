@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useScrollDepthTracking } from '../hooks/useScrollDepthTracking';
 import { Box, Typography, type SxProps, type Theme } from '@mui/material';
 import BookSessionCtaButton from '../components/BookSessionCtaButton';
+import BeforeAfterComparison from '../components/BeforeAfterComparison';
 import SectionLabel from '../components/SectionLabel';
 import { introSessionContent } from '../utils/introSessionContent';
 import {
@@ -109,7 +110,12 @@ const IntroductorySessionPage = () => {
                 color: t.onDarkMuted,
               }}
             >
-              {content.sessionTime.heroLead}
+              <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>
+                {content.sessionTime.heroLeadMobile}
+              </Box>
+              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                {content.sessionTime.heroLead}
+              </Box>
             </Typography>
             <Box
               sx={{
@@ -274,16 +280,14 @@ const IntroductorySessionPage = () => {
               minHeight: { lg: 560 },
             }}
           >
-            <Box
-              component="img"
-              src={content.caseStudyImage}
-              alt="Hand-drawn floor plan with annotations"
+            <BeforeAfterComparison
+              {...content.caseStudyComparison}
               sx={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
                 height: '100%',
-                objectFit: 'cover',
+                minHeight: { xs: 420, md: 480, lg: 560 },
+                borderRadius: 0,
+                border: 'none',
+                boxShadow: 'none',
               }}
             />
           </Box>
