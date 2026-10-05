@@ -6,4 +6,4 @@ Allow: /
 Disallow: /journal
 
 # Sitemap location
-Sitemap: https://spiceinteriorstudio.com/sitemap.xml 
+Sitemap: https://spice-interiors.com/sitemap.xml 
