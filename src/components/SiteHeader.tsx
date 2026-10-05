@@ -20,20 +20,20 @@ import {
   lovableTypography as type,
   maxContent,
 } from '../theme/lovableTokens';
-import { trackNavigation, type NavLocation } from '../utils/analytics';
+import { analyticsButtons, trackLinktreeButtonClick, trackNavigation, type NavLocation } from '../utils/analytics';
 
 export const mainNavigation = [
-  { label: 'Home', path: '/' },
-  { label: 'Consultation', path: '/consultation' },
-  { label: 'Projects', path: '/portfolio' },
-  { label: 'Contact', path: '/contact' },
+  { label: analyticsButtons.navHome.name, path: analyticsButtons.navHome.destination, buttonId: analyticsButtons.navHome.id },
+  { label: analyticsButtons.navConsultation.name, path: analyticsButtons.navConsultation.destination, buttonId: analyticsButtons.navConsultation.id },
+  { label: analyticsButtons.navProjects.name, path: analyticsButtons.navProjects.destination, buttonId: analyticsButtons.navProjects.id },
+  { label: analyticsButtons.navContact.name, path: analyticsButtons.navContact.destination, buttonId: analyticsButtons.navContact.id },
 ];
 
 export const portfolioDropdownItems = [
-  { label: 'All Projects', path: '/portfolio' },
-  { label: 'Commercial', path: '/portfolio?filter=commercial' },
-  { label: 'Residential', path: '/portfolio?filter=residential' },
-  { label: 'Public', path: '/portfolio?filter=public' },
+  { label: analyticsButtons.navPortfolioAll.name, path: analyticsButtons.navPortfolioAll.destination, buttonId: analyticsButtons.navPortfolioAll.id },
+  { label: analyticsButtons.navPortfolioCommercial.name, path: analyticsButtons.navPortfolioCommercial.destination, buttonId: analyticsButtons.navPortfolioCommercial.id },
+  { label: analyticsButtons.navPortfolioResidential.name, path: analyticsButtons.navPortfolioResidential.destination, buttonId: analyticsButtons.navPortfolioResidential.id },
+  { label: analyticsButtons.navPortfolioPublic.name, path: analyticsButtons.navPortfolioPublic.destination, buttonId: analyticsButtons.navPortfolioPublic.id },
 ];
 
 interface SiteHeaderProps {
@@ -72,8 +72,8 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
     closeTimerRef.current = setTimeout(() => setPortfolioMenuOpen(false), 120);
   };
 
-  const handleNavClick = (label: string, destination: string, navLocation: NavLocation) => {
-    trackNavigation({ label, destination, location: navLocation });
+  const handleNavClick = (buttonId: string, label: string, destination: string, navLocation: NavLocation) => {
+    trackNavigation({ buttonId, label, destination, location: navLocation });
   };
 
   const navLinkSx = (active: boolean) => ({
@@ -115,7 +115,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
             to="/portfolio"
             underline="none"
             onClick={() => {
-              handleNavClick('Projects', '/portfolio', 'header');
+              handleNavClick(analyticsButtons.navProjects.id, analyticsButtons.navProjects.name, analyticsButtons.navProjects.destination, 'header');
               setPortfolioMenuOpen(false);
             }}
             sx={{
@@ -156,7 +156,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
                 <Box
                   key={dropItem.path}
                   onClick={() => {
-                    handleNavClick(dropItem.label, dropItem.path, 'dropdown');
+                    handleNavClick(dropItem.buttonId, dropItem.label, dropItem.path, 'dropdown');
                     navigate(dropItem.path);
                     setPortfolioMenuOpen(false);
                   }}
@@ -187,7 +187,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
         component={RouterLink}
         to={item.path}
         underline="none"
-        onClick={() => handleNavClick(item.label, item.path, 'header')}
+        onClick={() => handleNavClick(item.buttonId, item.label, item.path, 'header')}
         sx={desktopNavLinkSx(active)}
       >
         {item.label}
@@ -224,7 +224,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
             component={RouterLink}
             to="/"
             underline="none"
-            onClick={() => handleNavClick('Home', '/', 'header')}
+            onClick={() => handleNavClick(analyticsButtons.navHome.id, analyticsButtons.navHome.name, analyticsButtons.navHome.destination, 'header')}
             sx={{
               fontFamily: t.fontBrand,
               fontSize: { xs: '1.125rem', md: '1.5rem' },
@@ -253,11 +253,18 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
             <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
               <IconButton
                 component="a"
-                href="https://www.instagram.com/spice_interior/"
+                href={analyticsButtons.socialInstagram.destination}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on Instagram"
+                aria-label={analyticsButtons.socialInstagram.name}
                 size="small"
+                onClick={() =>
+                  trackLinktreeButtonClick({
+                    buttonId: analyticsButtons.socialInstagram.id,
+                    buttonName: analyticsButtons.socialInstagram.name,
+                    destinationUrl: analyticsButtons.socialInstagram.destination,
+                  })
+                }
                 sx={{
                   color: iconColor,
                   p: 0.5,
@@ -268,11 +275,18 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
               </IconButton>
               <IconButton
                 component="a"
-                href="https://www.tiktok.com/@spice_interiors"
+                href={analyticsButtons.socialTiktok.destination}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow us on TikTok"
+                aria-label={analyticsButtons.socialTiktok.name}
                 size="small"
+                onClick={() =>
+                  trackLinktreeButtonClick({
+                    buttonId: analyticsButtons.socialTiktok.id,
+                    buttonName: analyticsButtons.socialTiktok.name,
+                    destinationUrl: analyticsButtons.socialTiktok.destination,
+                  })
+                }
                 sx={{
                   color: iconColor,
                   p: 0.5,
@@ -316,7 +330,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
             to="/"
             underline="none"
             onClick={() => {
-              handleNavClick('Home', '/', 'mobile');
+              handleNavClick(analyticsButtons.navHome.id, analyticsButtons.navHome.name, analyticsButtons.navHome.destination, 'mobile');
               setDrawerOpen(false);
             }}
             sx={{
@@ -367,7 +381,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
                         key={dropItem.path}
                         sx={{ pl: 4, borderRadius: t.radius }}
                         onClick={() => {
-                          handleNavClick(dropItem.label, dropItem.path, 'mobile');
+                          handleNavClick(dropItem.buttonId, dropItem.label, dropItem.path, 'mobile');
                           navigate(dropItem.path);
                           setDrawerOpen(false);
                           setMobilePortfolioOpen(false);
@@ -394,7 +408,7 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
                 component={RouterLink}
                 to={item.path}
                 onClick={() => {
-                  handleNavClick(item.label, item.path, 'mobile');
+                  handleNavClick(item.buttonId, item.label, item.path, 'mobile');
                   setDrawerOpen(false);
                 }}
                 selected={isActive(item.path)}
@@ -421,22 +435,36 @@ const SiteHeader = ({ variant = 'solid', overlayTone = 'dark' }: SiteHeaderProps
           <Box sx={{ display: 'flex', gap: 1.5 }}>
             <IconButton
               component="a"
-              href="https://www.instagram.com/spice_interior/"
+              href={analyticsButtons.socialInstagram.destination}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Follow us on Instagram"
+              aria-label={analyticsButtons.socialInstagram.name}
               size="small"
+              onClick={() =>
+                trackLinktreeButtonClick({
+                  buttonId: analyticsButtons.socialInstagram.id,
+                  buttonName: analyticsButtons.socialInstagram.name,
+                  destinationUrl: analyticsButtons.socialInstagram.destination,
+                })
+              }
               sx={{ color: t.mutedForeground, p: 0.5, '&:hover': { color: t.accent } }}
             >
               <FaInstagram size={20} />
             </IconButton>
             <IconButton
               component="a"
-              href="https://www.tiktok.com/@spice_interiors"
+              href={analyticsButtons.socialTiktok.destination}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Follow us on TikTok"
+              aria-label={analyticsButtons.socialTiktok.name}
               size="small"
+              onClick={() =>
+                trackLinktreeButtonClick({
+                  buttonId: analyticsButtons.socialTiktok.id,
+                  buttonName: analyticsButtons.socialTiktok.name,
+                  destinationUrl: analyticsButtons.socialTiktok.destination,
+                })
+              }
               sx={{ color: t.mutedForeground, p: 0.5, '&:hover': { color: t.accent } }}
             >
               <FaTiktok size={20} />

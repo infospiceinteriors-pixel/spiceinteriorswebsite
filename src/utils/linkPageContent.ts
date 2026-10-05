@@ -88,10 +88,19 @@ export const linkTopics: LinkTopic[] = [
 export const findLinkTopic = (id: string | undefined) =>
   linkTopics.find((topic) => topic.id === id && topic.comingSoon);
 
-export const goRedirects: Record<string, string> = {
-  '/go/paris-apartment-tour': 'https://www.instagram.com/reel/DaqMozBos-L/',
-  '/go/collectors-home-amsterdam': 'https://www.instagram.com/reel/DcCKwhhxAnq/',
-  '/go/puttenaers': 'https://www.instagram.com/reel/DcY-9PRqaOn/',
+export const goRedirects: Record<string, { destinationUrl: string; defaultCampaign: string }> = {
+  '/go/paris-apartment-tour': {
+    destinationUrl: 'https://www.instagram.com/reel/DaqMozBos-L/',
+    defaultCampaign: 'paris_apartment_tour',
+  },
+  '/go/collectors-home-amsterdam': {
+    destinationUrl: 'https://www.instagram.com/reel/DcCKwhhxAnq/',
+    defaultCampaign: 'collectors_home_amsterdam',
+  },
+  '/go/puttenaers': {
+    destinationUrl: 'https://www.instagram.com/reel/DcY-9PRqaOn/',
+    defaultCampaign: 'puttenaers',
+  },
 };
 
 export const defaultGoDestination = 'https://www.instagram.com/spice_interior/';

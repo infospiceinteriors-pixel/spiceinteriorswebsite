@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material';
-import BookSessionCtaButton from '../BookSessionCtaButton';
+import { Box, Button, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import SectionLabel from '../SectionLabel';
 import { homeProcess } from '../../utils/homePageContent';
+import { analyticsButtons, trackCtaClick } from '../../utils/analytics';
 import {
   lovableSpacing as sp,
   lovableTokens as t,
@@ -88,8 +89,47 @@ const HomeProcessSection = () => (
         ))}
       </Box>
 
-      <Box sx={{ mt: { xs: 6, md: 8 } }}>
-        <BookSessionCtaButton trackingSection="home_process" />
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: { xs: 6, md: 8 } }}>
+        <Button
+          component={RouterLink}
+          to={analyticsButtons.introSession.destination}
+          variant="contained"
+          onClick={() =>
+            trackCtaClick({
+              buttonId: analyticsButtons.introSession.id,
+              name: analyticsButtons.introSession.name,
+              section: 'home_process',
+              destinationUrl: analyticsButtons.introSession.destination,
+            })
+          }
+          sx={{ ...type.button, borderRadius: t.radius, bgcolor: t.primary, color: t.primaryForeground, px: 4, py: 2, '&:hover': { bgcolor: t.accent } }}
+        >
+          Introduction session
+        </Button>
+        <Button
+          component={RouterLink}
+          to={analyticsButtons.contact.destination}
+          variant="outlined"
+          onClick={() =>
+            trackCtaClick({
+              buttonId: analyticsButtons.contact.id,
+              name: analyticsButtons.contact.name,
+              section: 'home_process',
+              destinationUrl: analyticsButtons.contact.destination,
+            })
+          }
+          sx={{
+            ...type.button,
+            borderRadius: t.radius,
+            borderColor: t.foreground,
+            color: t.foreground,
+            px: 4,
+            py: 2,
+            '&:hover': { borderColor: t.accent, color: t.accent, bgcolor: 'transparent' },
+          }}
+        >
+          Get in Touch
+        </Button>
       </Box>
     </Box>
   </Box>

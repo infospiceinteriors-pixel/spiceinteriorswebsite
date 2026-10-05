@@ -91,7 +91,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
     try {
       // Track newsletter signup
-      trackNewsletterSignup(placement);
+      trackNewsletterSignup({ placement });
 
       // Here you can integrate with your preferred email service
       // Options: EmailJS, Google Sheets API, Mailchimp, ConvertKit, etc.

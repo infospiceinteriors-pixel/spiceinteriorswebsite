@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Box, Button, Input, Typography } from '@mui/material';
 import { homeNewsletter } from '../utils/collectedHomeContent';
 import { sendSiteEmail } from '../utils/sendSiteEmail';
+import { analyticsButtons, trackFormStart, trackFormSubmit, trackNewsletterSignup } from '../utils/analytics';
 import {
   lovableSpacing as sp,
   lovableTokens as t,
@@ -14,6 +15,10 @@ interface CollectorNewsletterProps {
   titleComponent?: 'h1' | 'h2';
   emailInputId?: string;
   source?: string;
+  emailSource?: string;
+  formName?: string;
+  placement?: string;
+  destinationUrl?: string;
   embedded?: boolean;
 }
 
@@ -21,7 +26,11 @@ const CollectorNewsletter = ({
   expandMobile = false,
   titleComponent = 'h2',
   emailInputId = 'home-newsletter-email',
-  source = 'home_page',
+  source,
+  emailSource = 'home_page',
+  formName = 'home_newsletter',
+  placement = 'homepage',
+  destinationUrl = '/',
   embedded = false,
 }: CollectorNewsletterProps) => {
   const startedRef = useRef(false);
@@ -47,15 +56,30 @@ const CollectorNewsletter = ({
         topic_id: 'newsletter-signup',
         topic_label: 'Newsletter signup',
         service: 'Spice Interiors newsletter',
-        source,
+        source: source ?? emailSource,
         page_url: window.location.href,
         submitted_at: new Date().toISOString(),
         message: 'New newsletter signup',
       });
+      trackFormSubmit({
+        formName,
+        success: true,
+        buttonId: analyticsButtons.newsletterSignup.id,
+        buttonName: analyticsButtons.newsletterSignup.name,
+        destinationUrl,
+      });
+      trackNewsletterSignup({ placement });
       setStatus('success');
       setEmail('');
     } catch (error) {
       console.error('Newsletter signup failed', error);
+      trackFormSubmit({
+        formName,
+        success: false,
+        buttonId: analyticsButtons.newsletterSignup.id,
+        buttonName: analyticsButtons.newsletterSignup.name,
+        destinationUrl,
+      });
       setStatus('error');
       setErrorMessage('Something went wrong. Please try again.');
     }
@@ -107,7 +131,14 @@ const CollectorNewsletter = ({
                   value={email}
                   disabled={status === 'submitting'}
                   onChange={(event) => {
-                    if (!startedRef.current) startedRef.current = true;
+                    if (!startedRef.current) {
+                      startedRef.current = true;
+                      trackFormStart({
+                        formName,
+                        buttonId: analyticsButtons.newsletterSignup.id,
+                        buttonName: analyticsButtons.newsletterSignup.name,
+                      });
+                    }
                     setEmail(event.target.value);
                     if (status === 'error') setStatus('idle');
                   }}

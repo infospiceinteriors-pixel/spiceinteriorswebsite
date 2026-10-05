@@ -9,8 +9,9 @@ export const getIntroSessionWhatsAppUrl = () =>
 import { trackIntroSessionWhatsAppClick } from './analytics';
 
 export const openIntroSessionWhatsApp = (section = 'unknown') => {
-  trackIntroSessionWhatsAppClick(section);
-  window.open(getIntroSessionWhatsAppUrl(), '_blank', 'noopener,noreferrer');
+  const destinationUrl = getIntroSessionWhatsAppUrl();
+  trackIntroSessionWhatsAppClick(section, destinationUrl);
+  window.open(destinationUrl, '_blank', 'noopener,noreferrer');
 };
 
 export const introSessionContent = {

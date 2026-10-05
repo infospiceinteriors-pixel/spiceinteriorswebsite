@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { trackFormStart, trackFormSubmit } from '../utils/analytics';
+import { analyticsButtons, trackFormStart, trackFormSubmit } from '../utils/analytics';
 import { Alert, Box, Link, Typography, TextField, Button } from '@mui/material';
 import SectionLabel from '../components/SectionLabel';
 import { INTRO_SESSION_WHATSAPP_NUMBER } from '../utils/introSessionContent';
@@ -43,7 +43,11 @@ const ContactPage = () => {
   const handleFormStart = () => {
     if (formStartedRef.current) return;
     formStartedRef.current = true;
-    trackFormStart({ formName: FORM_NAME });
+    trackFormStart({
+      formName: FORM_NAME,
+      buttonId: analyticsButtons.contactForm.id,
+      buttonName: analyticsButtons.contactForm.name,
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -62,7 +66,13 @@ const ContactPage = () => {
     const publicKey = import.meta.env.VITE_EMAILJS_USER_ID;
 
     if (!serviceId || !templateId || !publicKey) {
-      trackFormSubmit({ formName: FORM_NAME, success: false });
+      trackFormSubmit({
+        formName: FORM_NAME,
+        success: false,
+        buttonId: analyticsButtons.contactForm.id,
+        buttonName: analyticsButtons.contactForm.name,
+        destinationUrl: analyticsButtons.contactForm.destination,
+      });
       setFeedback({
         severity: 'error',
         message: 'The contact form is not configured. Please email info@spice-interiors.com.',
@@ -91,7 +101,13 @@ const ContactPage = () => {
         },
         publicKey
       );
-      trackFormSubmit({ formName: FORM_NAME, success: true });
+      trackFormSubmit({
+        formName: FORM_NAME,
+        success: true,
+        buttonId: analyticsButtons.contactForm.id,
+        buttonName: analyticsButtons.contactForm.name,
+        destinationUrl: analyticsButtons.contactForm.destination,
+      });
       setFormData(EMPTY_FORM);
       setFeedback({
         severity: 'success',
@@ -99,7 +115,13 @@ const ContactPage = () => {
       });
     } catch (error) {
       console.error('Contact form email failed', error);
-      trackFormSubmit({ formName: FORM_NAME, success: false });
+      trackFormSubmit({
+        formName: FORM_NAME,
+        success: false,
+        buttonId: analyticsButtons.contactForm.id,
+        buttonName: analyticsButtons.contactForm.name,
+        destinationUrl: analyticsButtons.contactForm.destination,
+      });
       setFeedback({
         severity: 'error',
         message: 'Something went wrong. Please try again, or email info@spice-interiors.com.',
@@ -171,8 +193,8 @@ const ContactPage = () => {
               placeholder="Name"
               name="name"
               value={formData.name}
-              onChange={handleInputChange}
               onFocus={handleFormStart}
+              onChange={handleInputChange}
               required
               variant="outlined"
               InputLabelProps={{ shrink: false }}
@@ -183,8 +205,8 @@ const ContactPage = () => {
               name="email"
               type="email"
               value={formData.email}
-              onChange={handleInputChange}
               onFocus={handleFormStart}
+              onChange={handleInputChange}
               required
               variant="outlined"
               InputLabelProps={{ shrink: false }}
@@ -196,8 +218,8 @@ const ContactPage = () => {
               placeholder="Phone number *"
               name="phone"
               value={formData.phone}
-              onChange={handleInputChange}
               onFocus={handleFormStart}
+              onChange={handleInputChange}
               required
               variant="outlined"
               InputLabelProps={{ shrink: false }}
@@ -211,8 +233,8 @@ const ContactPage = () => {
               multiline
               rows={4}
               value={formData.message}
-              onChange={handleInputChange}
               onFocus={handleFormStart}
+              onChange={handleInputChange}
               required
               variant="outlined"
               InputLabelProps={{ shrink: false }}

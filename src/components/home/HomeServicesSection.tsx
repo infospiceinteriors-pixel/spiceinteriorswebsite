@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import SectionLabel from '../SectionLabel';
 import { homeServices } from '../../utils/homePageContent';
+import { analyticsButtons, trackCtaClick } from '../../utils/analytics';
 import {
   lovableSpacing as sp,
   lovableTokens as t,
@@ -94,16 +95,32 @@ const HomeServicesSection = () => (
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: { xs: 6, md: 8 } }}>
         <Button
           component={RouterLink}
-          to="/consultation/introductory-session"
+          to={analyticsButtons.introSession.destination}
           variant="contained"
+          onClick={() =>
+            trackCtaClick({
+              buttonId: analyticsButtons.introSession.id,
+              name: analyticsButtons.introSession.name,
+              section: 'home_services',
+              destinationUrl: analyticsButtons.introSession.destination,
+            })
+          }
           sx={{ ...type.button, borderRadius: t.radius, bgcolor: t.primary, color: t.primaryForeground, px: 4, py: 2, '&:hover': { bgcolor: t.accent } }}
         >
           Introduction session
         </Button>
         <Button
           component={RouterLink}
-          to="/contact"
+          to={analyticsButtons.contact.destination}
           variant="outlined"
+          onClick={() =>
+            trackCtaClick({
+              buttonId: analyticsButtons.contact.id,
+              name: analyticsButtons.contact.name,
+              section: 'home_services',
+              destinationUrl: analyticsButtons.contact.destination,
+            })
+          }
           sx={{
             ...type.button,
             borderRadius: t.radius,

@@ -1,20 +1,12 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { linkProfile, linkTopics, type LinkTopic } from '../utils/linkPageContent';
+import { trackLinkInterestClick, trackLinktreeButtonClick } from '../utils/analytics';
 import { lovableTokens as t, lovableTypography as type } from '../theme/lovableTokens';
-import { useEffect } from 'react';
 
 const destinationFor = (topic: LinkTopic) => topic.path ?? `/coming-soon/${topic.id}`;
 
 const LinkPage = () => {
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = 'Spice Interiors — Links';
-    return () => {
-      document.title = previousTitle;
-    };
-  }, []);
-
   return (
     <Box
       sx={{
@@ -53,6 +45,20 @@ const LinkPage = () => {
               to={external ? undefined : destination}
               target={external ? '_blank' : undefined}
               rel={external ? 'noopener noreferrer' : undefined}
+              onClick={() => {
+                trackLinktreeButtonClick({
+                  buttonId: topic.id,
+                  buttonName: topic.label,
+                  destinationUrl: destination,
+                });
+                if (!topic.path) {
+                  trackLinkInterestClick({
+                    topicId: topic.id,
+                    topicLabel: topic.label,
+                    destination,
+                  });
+                }
+              }}
               sx={{
                 display: 'flex',
                 alignItems: 'center',

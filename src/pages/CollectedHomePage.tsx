@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
 import { Box, Button, Link, Typography } from '@mui/material';
 import { FaInstagram } from 'react-icons/fa';
 import ImageHeroSection from '../components/ImageHeroSection';
 import CollectorNewsletter from '../components/CollectorNewsletter';
 import { openIntroSessionWhatsApp } from '../utils/introSessionContent';
+import { trackLinktreeButtonClick } from '../utils/analytics';
 import {
   designHelp,
-  HOME_SEO_TITLE,
   instagramHome,
   shopEpisode,
 } from '../utils/collectedHomeContent';
@@ -28,14 +27,6 @@ const sectionTitleSx = {
 } as const;
 
 const CollectedHomePage = () => {
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = HOME_SEO_TITLE;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, []);
-
   return (
     <Box>
       <ImageHeroSection />
@@ -60,6 +51,13 @@ const CollectedHomePage = () => {
                 rel="noopener noreferrer"
                 underline="none"
                 aria-label={tour.overlayTitle}
+                onClick={() =>
+                  trackLinktreeButtonClick({
+                    buttonId: `home-instagram-tour-${tour.id}`,
+                    buttonName: tour.overlayTitle,
+                    destinationUrl: tour.postUrl,
+                  })
+                }
                 sx={{
                   display: 'block',
                   borderRadius: '12px',
@@ -135,6 +133,13 @@ const CollectedHomePage = () => {
               target="_blank"
               rel="noopener noreferrer"
               underline="always"
+              onClick={() =>
+                trackLinktreeButtonClick({
+                  buttonId: 'home-instagram-view',
+                  buttonName: instagramHome.viewLabel,
+                  destinationUrl: instagramHome.profileUrl,
+                })
+              }
               sx={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -180,6 +185,13 @@ const CollectedHomePage = () => {
                 rel="noopener noreferrer"
                 underline="none"
                 aria-label={product.name}
+                onClick={() =>
+                  trackLinktreeButtonClick({
+                    buttonId: `home-shop-episode-${product.id}`,
+                    buttonName: product.name,
+                    destinationUrl: product.href,
+                  })
+                }
                 sx={{
                   flex: { xs: '0 0 42%', sm: '0 0 28%', md: 'auto' },
                   scrollSnapAlign: { xs: 'start', md: 'unset' },
@@ -203,7 +215,13 @@ const CollectedHomePage = () => {
         </Box>
       </Box>
 
-      <CollectorNewsletter />
+      <CollectorNewsletter
+        formName="home_newsletter"
+        emailSource="home_page"
+        placement="homepage"
+        destinationUrl="/"
+        emailInputId="home-newsletter-email"
+      />
 
       <Box component="section" sx={{ bgcolor: '#fff', pt: { xs: 5, md: 6 }, pb: { xs: 6, md: 8 } }}>
         <Box sx={{ ...maxContent, px: sp.pagePx }}>

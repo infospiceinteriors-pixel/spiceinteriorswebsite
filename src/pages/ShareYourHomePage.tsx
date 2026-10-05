@@ -1,23 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { sendSiteEmail } from '../utils/sendSiteEmail';
+import { analyticsButtons, trackFormStart, trackFormSubmit } from '../utils/analytics';
 import { lovableTokens as t, lovableTypography as type } from '../theme/lovableTokens';
 
 const emptyForm = { name: '', email: '', whatsapp: '', country: '' };
+const FORM_NAME = 'share_your_home';
 
 const ShareYourHomePage = () => {
+  const startedRef = useRef(false);
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = 'Share your home — Spice Interiors';
-    return () => {
-      document.title = previousTitle;
-    };
-  }, []);
+  const updateField = (field: keyof typeof emptyForm, value: string) => {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      trackFormStart({
+        formName: FORM_NAME,
+        buttonId: analyticsButtons.shareYourHomeForm.id,
+        buttonName: analyticsButtons.shareYourHomeForm.name,
+      });
+    }
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (status === 'error') {
+      setStatus('idle');
+      setErrorMessage('');
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -31,11 +42,18 @@ const ShareYourHomePage = () => {
         phone: form.whatsapp,
         whatsapp: form.whatsapp,
         country: form.country,
-        source: 'share_your_home',
+        source: 'share_your_home_page',
         service: 'Share your home with Spice Interiors',
         page_url: window.location.href,
         submitted_at: new Date().toISOString(),
         message: `Home submission from ${form.name} (${form.country}). WhatsApp: ${form.whatsapp}`,
+      });
+      trackFormSubmit({
+        formName: FORM_NAME,
+        success: true,
+        buttonId: analyticsButtons.shareYourHomeForm.id,
+        buttonName: analyticsButtons.shareYourHomeForm.name,
+        destinationUrl: analyticsButtons.shareYourHomeForm.destination,
       });
       setStatus('success');
       setForm(emptyForm);
@@ -75,10 +93,10 @@ const ShareYourHomePage = () => {
             </Typography>
           ) : (
             <>
-              <TextField fullWidth required name="name" placeholder="Name" value={form.name} disabled={status === 'submitting'} onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} sx={{ mb: 2 }} />
-              <TextField fullWidth required type="email" name="email" placeholder="Email" value={form.email} disabled={status === 'submitting'} onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))} sx={{ mb: 2 }} />
-              <TextField fullWidth required name="whatsapp" placeholder="WhatsApp number" value={form.whatsapp} disabled={status === 'submitting'} onChange={(event) => setForm((prev) => ({ ...prev, whatsapp: event.target.value }))} sx={{ mb: 2 }} />
-              <TextField fullWidth required name="country" placeholder="Country" value={form.country} disabled={status === 'submitting'} onChange={(event) => setForm((prev) => ({ ...prev, country: event.target.value }))} />
+              <TextField fullWidth required name="name" placeholder="Name" value={form.name} disabled={status === 'submitting'} onChange={(event) => updateField('name', event.target.value)} sx={{ mb: 2 }} />
+              <TextField fullWidth required type="email" name="email" placeholder="Email" value={form.email} disabled={status === 'submitting'} onChange={(event) => updateField('email', event.target.value)} sx={{ mb: 2 }} />
+              <TextField fullWidth required name="whatsapp" placeholder="WhatsApp number" value={form.whatsapp} disabled={status === 'submitting'} onChange={(event) => updateField('whatsapp', event.target.value)} sx={{ mb: 2 }} />
+              <TextField fullWidth required name="country" placeholder="Country" value={form.country} disabled={status === 'submitting'} onChange={(event) => updateField('country', event.target.value)} />
               {status === 'error' && (
                 <Typography sx={{ ...type.sans, fontSize: '0.875rem', color: t.accent, mt: 1 }}>{errorMessage}</Typography>
               )}

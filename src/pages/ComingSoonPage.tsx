@@ -3,6 +3,7 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { Link as RouterLink, Navigate, useParams } from 'react-router-dom';
 import { findLinkTopic } from '../utils/linkPageContent';
 import { sendSiteEmail } from '../utils/sendSiteEmail';
+import { trackComingSoonView, trackFormSubmit, trackLinkEmailSignup } from '../utils/analytics';
 import { lovableTokens as t, lovableTypography as type } from '../theme/lovableTokens';
 
 const ComingSoonPage = () => {
@@ -14,13 +15,9 @@ const ComingSoonPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    if (!comingSoon) return;
-    const previousTitle = document.title;
-    document.title = `${comingSoon.title} — Coming soon · Spice Interiors`;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, [comingSoon]);
+    if (!topic) return;
+    trackComingSoonView({ topicId: topic.id, topicLabel: topic.label });
+  }, [topic]);
 
   if (!topic || !comingSoon) {
     return <Navigate to="/link" replace />;
@@ -42,6 +39,20 @@ const ComingSoonPage = () => {
         page_url: window.location.href,
         submitted_at: new Date().toISOString(),
         message: `New link page signup for ${topic.label}`,
+      });
+      const destination = `/coming-soon/${topic.id}`;
+      trackFormSubmit({
+        formName: `link_${topic.id}_signup`,
+        success: true,
+        buttonId: topic.id,
+        buttonName: topic.label,
+        destinationUrl: destination,
+      });
+      trackLinkEmailSignup({
+        topicId: topic.id,
+        topicLabel: topic.label,
+        source: 'coming_soon_page',
+        destination,
       });
       setStatus('success');
       setEmail('');

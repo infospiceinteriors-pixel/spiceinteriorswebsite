@@ -34,7 +34,7 @@ const FloatingButton = styled(Fab)(({ theme }) => ({
 
 const WhatsAppButton = () => {
   const handleClick = () => {
-    trackCtaClick({ name: 'WhatsApp Floating', section: 'floating_button' });
+    trackCtaClick({ buttonId: 'whatsapp-floating', name: 'WhatsApp Floating', section: 'floating_button' });
     const encodedMessage = encodeURIComponent(WHATSAPP_MESSAGE);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');

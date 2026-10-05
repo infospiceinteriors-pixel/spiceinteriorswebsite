@@ -221,6 +221,8 @@ const PortfolioPage = () => {
         description="Feedback from collaborators and clients across design and delivery projects."
         testimonials={portfolioTestimonials}
         backgroundColor="card"
+        showContactCta
+        ctaTrackingSection="portfolio_testimonials"
       />
     </Box>
   );

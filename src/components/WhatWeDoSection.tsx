@@ -40,7 +40,7 @@ const WhatWeDoSection = () => {
           <Button
             variant="contained"
             onClick={() => {
-              trackCtaClick({ name: 'View Projects', section: 'what_we_do' });
+              trackCtaClick({ buttonId: 'view-projects', name: 'View Projects', section: 'what_we_do' });
               navigate('/portfolio');
             }}
             sx={{ px: 3 }}
@@ -50,7 +50,7 @@ const WhatWeDoSection = () => {
           <Button
             variant="outlined"
             onClick={() => {
-              trackCtaClick({ name: 'Book Consultation', section: 'what_we_do' });
+              trackCtaClick({ buttonId: 'book-consultation', name: 'Book Consultation', section: 'what_we_do' });
               navigate('/#book');
             }}
             sx={{ px: 3 }}

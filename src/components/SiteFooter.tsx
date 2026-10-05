@@ -1,6 +1,6 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { trackNavigation } from '../utils/analytics';
+import { analyticsButtons, trackNavigation } from '../utils/analytics';
 import { INTRO_SESSION_WHATSAPP_NUMBER } from '../utils/introSessionContent';
 import {
   lovableSpacing as sp,
@@ -46,7 +46,14 @@ const SiteFooter = () => (
         component={RouterLink}
         to="/"
         underline="none"
-        onClick={() => trackNavigation({ label: 'Home', destination: '/', location: 'footer' })}
+        onClick={() =>
+          trackNavigation({
+            buttonId: analyticsButtons.navHome.id,
+            label: analyticsButtons.navHome.name,
+            destination: analyticsButtons.navHome.destination,
+            location: 'footer',
+          })
+        }
         sx={{
           fontFamily: t.fontBrand,
           fontSize: '1.125rem',

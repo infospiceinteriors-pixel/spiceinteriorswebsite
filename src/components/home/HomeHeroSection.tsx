@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import SectionLabel from '../SectionLabel';
 import { homeHero } from '../../utils/homePageContent';
+import { analyticsButtons, trackCtaClick } from '../../utils/analytics';
 import {
   lovableSpacing as sp,
   lovableTokens as t,
@@ -73,8 +74,16 @@ const HomeHeroSection = () => (
         >
           <Button
             component={RouterLink}
-            to="/consultation/introductory-session"
+            to={analyticsButtons.introSession.destination}
             variant="contained"
+            onClick={() =>
+              trackCtaClick({
+                buttonId: analyticsButtons.introSession.id,
+                name: analyticsButtons.introSession.name,
+                section: 'home_hero',
+                destinationUrl: analyticsButtons.introSession.destination,
+              })
+            }
             sx={{
               ...type.button,
               bgcolor: t.background,
@@ -88,8 +97,16 @@ const HomeHeroSection = () => (
           </Button>
           <Button
             component={RouterLink}
-            to="/portfolio"
+            to={analyticsButtons.projects.destination}
             variant="outlined"
+            onClick={() =>
+              trackCtaClick({
+                buttonId: analyticsButtons.projects.id,
+                name: analyticsButtons.projects.name,
+                section: 'home_hero',
+                destinationUrl: analyticsButtons.projects.destination,
+              })
+            }
             sx={{
               ...type.button,
               borderColor: t.onDark,

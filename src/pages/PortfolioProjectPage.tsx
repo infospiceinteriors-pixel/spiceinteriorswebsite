@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ImageSlideshow from '../components/ImageSlideshow';
 import SectionLabel from '../components/SectionLabel';
 import { getPortfolioProjectBySlug } from '../utils/portfolioProjects';
-import { trackNavigation } from '../utils/analytics';
+import { analyticsButtons, trackNavigation } from '../utils/analytics';
 import {
   lovableSpacing as sp,
   lovableTokens as t,
@@ -33,8 +33,9 @@ const ProjectDetailPage = () => {
             variant="outlined"
             onClick={() => {
               trackNavigation({
-                label: 'Back to Projects',
-                destination: '/portfolio',
+                buttonId: analyticsButtons.navBackProjects.id,
+                label: analyticsButtons.navBackProjects.name,
+                destination: analyticsButtons.navBackProjects.destination,
                 location: 'header',
               });
               navigate('/portfolio');

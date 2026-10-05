@@ -25,25 +25,7 @@ const IntroductorySessionPage = () => {
   const [showStickyCta, setShowStickyCta] = useState(false);
   const content = introSessionContent;
 
-  useScrollDepthTracking('/');
-
-  useEffect(() => {
-    const previousTitle = document.title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const previousDescription = metaDescription?.getAttribute('content') ?? '';
-
-    document.title = content.seo.title;
-    if (metaDescription) {
-      metaDescription.setAttribute('content', content.seo.description);
-    }
-
-    return () => {
-      document.title = previousTitle;
-      if (metaDescription) {
-        metaDescription.setAttribute('content', previousDescription);
-      }
-    };
-  }, [content.seo.description, content.seo.title]);
+  useScrollDepthTracking('/consultation/introductory-session');
 
   useEffect(() => {
     const handleScroll = () => {

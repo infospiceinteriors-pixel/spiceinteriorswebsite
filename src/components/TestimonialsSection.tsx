@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link as RouterLink } from 'react-router-dom';
 import { Testimonial } from '../utils/testimonials';
 import BookSessionCtaButton from './BookSessionCtaButton';
+import { analyticsButtons, trackCtaClick } from '../utils/analytics';
 import SectionLabel from './SectionLabel';
 import {
   lovableSpacing as sp,
@@ -306,11 +307,19 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           </Box>
         )}
         {showContactCta && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 6, md: 8 } }}>
+          <Box sx={{ mt: { xs: 6, md: 8 }, display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
             <Button
               component={RouterLink}
-              to="/contact"
+              to={analyticsButtons.contact.destination}
               variant="contained"
+              onClick={() =>
+                trackCtaClick({
+                  buttonId: analyticsButtons.contact.id,
+                  name: analyticsButtons.contact.name,
+                  section: ctaTrackingSection,
+                  destinationUrl: analyticsButtons.contact.destination,
+                })
+              }
               sx={{
                 ...type.button,
                 borderRadius: t.radius,
@@ -322,6 +331,30 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
               }}
             >
               Get in Touch
+            </Button>
+            <Button
+              component={RouterLink}
+              to={analyticsButtons.projects.destination}
+              variant="outlined"
+              onClick={() =>
+                trackCtaClick({
+                  buttonId: analyticsButtons.projects.id,
+                  name: analyticsButtons.projects.name,
+                  section: ctaTrackingSection,
+                  destinationUrl: analyticsButtons.projects.destination,
+                })
+              }
+              sx={{
+                borderRadius: t.radius,
+                ...type.button,
+                borderColor: t.primary,
+                color: t.primary,
+                px: 4,
+                py: 2,
+                '&:hover': { borderColor: t.accent, color: t.accent, bgcolor: 'transparent' },
+              }}
+            >
+              Projects
             </Button>
           </Box>
         )}
